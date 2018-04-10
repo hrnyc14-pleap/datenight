@@ -25,7 +25,7 @@ exports.saveMovie = (movieName, genre, moviePhoto) => {
 //gets all favorited movies
 exports.retrieveFavoriteMovies = (username) => {
   return exports.findUser(username)
-  .then((dbResults) {
+  .then((dbResults)=> {
     if (dbResults.length === 0) {
       throw error('user not found ')
     }
@@ -34,7 +34,7 @@ exports.retrieveFavoriteMovies = (username) => {
       {replacements: [index], type: 'SELECT'})
   })
   .then((movieIds)=> {
-    return Promise.all(return movieIds.map((movieId)=> {
+    return Promise.all(movieIds.map((movieId)=> {
       connection.query('SELECT * FROM movie WHERE movie_id= ?',
         {replacements: movie_id, type: 'SELECT'})
       })
