@@ -15,7 +15,17 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      isLoggedIn: false,
+      apiQueries:{
+        cook: false,
+        delivery: false,
+        movieGenre: "",
+        activityLevel: false,
+        location: "",
+        price: ""
+      },
+      results: {},
+      saved: []
     }
   }
 
