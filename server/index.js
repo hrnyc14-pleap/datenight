@@ -84,19 +84,28 @@ app.post('/login', (req, res) => {
   console.log('got login post', req.body)
   // check that username and password are valid
   // look up salt
-  let salt = 'hi';
-  bcrypt.hash(password, salt)
-    .then((hash) => {
-      return true; // return true if username/password combo is correct
+  let hashedPassword;
+  db.findUser(username)
+    .then(dbRes => {
+      if (dbRes.length === 0) {
+        throw('user does not exist')
+      }
+      hashedPassword = dbRes[0].password;
+      return bcrypt.hash(password, dbRes[0].salt)
     })
-    .then((credentialsAreValid) => {
+    .then((hashResult) => {
+      if (hashedPassword !== hashResult) {
+        throw('wrong password')
+      }
       req.session.regenerate(function(){
         req.session.user = username;
         console.log('authenticated user', username)
-        res.redirect('/');
+        res.redirect('/users');
       });
-    }).catch(err => {
+    })
+    .catch(err => {
       console.error('error logging in', err)
+      res.status(400).send('error logging in')
     })
 })
 
