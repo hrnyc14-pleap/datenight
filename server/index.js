@@ -109,6 +109,11 @@ app.post('/login', (req, res) => {
     })
 })
 
+app.get('/date', (req, res) => {
+  let restaurantQuery = 'italian';
+  let movieQuery = 'action';
+  axios.get('https://api.yelp.com/v3/businesses/search', {params: {}});
+})
 
 let port = 8080;
 

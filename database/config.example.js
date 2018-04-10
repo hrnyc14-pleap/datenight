@@ -2,5 +2,6 @@ module.exports = {
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'datenight'
+    database: 'datenight',
+    dialect: 'mysql'
 }
