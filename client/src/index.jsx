@@ -1,23 +1,10 @@
+import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios'
+import App from './components/App.jsx';
 
-class App extends React.Component {
-  constructor(props) {
-  	super(props)
-  	this.state = {
-
-  	}
-  }
-
-  render () {
-  	return (
-      <div className="app">
-        hi
-
-      </div>
-    )
-  }
-}
-
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render((
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+), document.getElementById('app'))
