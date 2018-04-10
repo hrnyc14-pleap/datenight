@@ -1,4 +1,4 @@
 config.js
-./database/config.js
 node_modules
-./client/dist/bundle.js
+package-lock.json
+client/dist/bundle.js
