@@ -27,10 +27,13 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bcrypt": "^2.0.0",
     "body-parser": "^1.17.2",
     "css-loader": "^0.28.11",
     "express": "^4.15.0",
+    "express-session": "^1.15.6",
     "mysql": "^2.15.0",
+    "mysql2": "^1.5.3",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "request": "^2.83.0",

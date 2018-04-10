@@ -35,7 +35,8 @@ CREATE TABLE activity(
   activityName VARCHAR(255),
   location VARCHAR(255),
   price INT,
-  activityPhoto VARCHAR(255)
+  activityPhoto VARCHAR(255),
+  PRIMARY KEY(id)
 );
 
 CREATE TABLE user_movie(
