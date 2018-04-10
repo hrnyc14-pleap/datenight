@@ -109,6 +109,47 @@ app.post('/login', (req, res) => {
     })
 })
 
+app.get('/date', (req, res) => {
+  let restaurantQuery = 'italian';
+  let movieQuery = 'action';
+  let yelpData;
+  axios.get('https://api.yelp.com/v3/businesses/search', {headers: {Authorization: `Bearer ${config.YELP_API_KEY}`},
+    params: {     
+      term: 'pizza',
+      location: 'New York City',
+      radius: 1000,
+      limit: 20,
+      open_now: true,
+      price: "1, 2, 3, 4"
+      
+    }})
+    .then(yelpResponse => {
+      console.log(yelpResponse);
+      yelpData = yelpResponse;
+      res.send(yelpResponse.data);
+      return axios.get(`https://api.themoviedb.org/3/discover/movie`, {
+        params: {
+            api_key: 'ea4f3b12142e2e813e0c38d34fdf0ecb',
+            with_genres: req.query.genre,
+            sort_by: 'popularity.asc'
+        }
+    }).then(genresRes => {
+        console.log('movies ', genresRes.data)
+        var data = genresRes.data.results.map(movie => ({
+            'title': movie.title,
+            'year': movie.release_date.split('-')[0],
+            'rating': movie.vote_average,
+            'img_url': movie.poster_path
+        }))
+        res.send(200, data)
+    })
+    })
+    .then()
+    .catch(err => {
+      console.error(err);
+      res.status(500, 'error getting date')
+    })
+})
 
 let port = 8080;
 
