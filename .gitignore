@@ -1,2 +1,5 @@
 config.js
+./database/config.js
 node_modules
+package-lock.json
+client/dist/bundle.js
