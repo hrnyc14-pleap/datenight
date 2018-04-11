@@ -1,5 +1,5 @@
 import React from 'react';
-import Q1 from './Q1.jsx';
+import QuestionForm from './QuestionForm.jsx';
 import { Route, Link } from 'react-router-dom';
 import axios from 'axios'
 class Login extends React.Component {
@@ -33,7 +33,7 @@ class Login extends React.Component {
   handleClick() {
     this.submit(this.state.username, this.state.password)
     if (this.state.loggedIn === true ) {
-      this.props.history.push('/Where')
+      this.props.history.push('/questions')
     }
   }
 
@@ -59,7 +59,7 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-      <Route path='/Where' component={Q1} />
+      <Route path='/questions' component={QuestionForm} />
       <input value={this.username} onChange={this.onUserChange }/> Enter your Username
       <br></br>
       <input value={this.password} onChange={this.onPasswordChange} onKeyPress={this.handleKeyPress}  /> Enter your Password
