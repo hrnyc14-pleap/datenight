@@ -10,6 +10,7 @@ import Q3 from './Q3.jsx';
 import Q4 from './Q4.jsx';
 import Q5 from './Q5.jsx';
 import Home from './Home.jsx';
+import QuestionForm from './QuestionForm.jsx';
 
 class Main extends React.Component {
   constructor(props) {
@@ -38,6 +39,7 @@ class Main extends React.Component {
         <Route exact path='/' component={Home}/>
         <Route path='/login' component={Login}/>
         <Route path='/welcome' component={Welcome}/>
+        <Route path='/questions' component={QuestionForm}/>
         <Route path='/question1' component={Q1} />
         <Route path='/question2' component={Q2} />
         <Route path='/question3' component={Q3} />
