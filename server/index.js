@@ -31,7 +31,7 @@ var restrict = (req, res, next) => {
   }
 }
 
-app.get('/users', restrict, (req, res) => {
+app.get('/amIloggedIn', restrict, (req, res) => {
   res.send('This is the users list (restricted)')
 })
 
@@ -70,7 +70,7 @@ app.post('/signup', (req, res) => {
         }
         req.session.user = username;
         console.log('successfully signed up', username);
-        res.redirect('/users');
+        res.send();
       });
     })
     .catch((err) => {
