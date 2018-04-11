@@ -29,8 +29,8 @@ exports.saveUserMovie = (username, movieName) => {
   (SELECT movie_id FROM movie WHERE movieName='${movieName}'))`)
 }
 
-//gets all favorited movies
-exports.retrieveFavoriteMovies = (username) => {
+//gets all saved movies
+exports.retrieveSavedMovies = (username) => {
   return exports.findUser(username)
   .then((dbResults) => {
     if (dbResults.length === 0) {
@@ -63,8 +63,8 @@ exports.saveUserRestaurant = (username, restaurantName) => {
   (SELECT restaurant_id FROM restaurant WHERE restaurantName='${restaurantName}'))`)
 }
 
-//gets all favorited restaurants
-exports.retrieveFavoriteRestaurants = (username) => {
+//gets all saved restaurants
+exports.retrieveSavedRestaurants = (username) => {
   return exports.findUser(username)
   .then((dbResults) => {
     if (dbResults.length === 0) {
@@ -97,8 +97,8 @@ exports.saveUserActivity = (username, activityName) => {
   (SELECT activity_id FROM activity WHERE activityName='${activityName}'))`)
 }
 
-//gets all favorite activities
-exports.retrieveFavoriteActivities = (username) => {
+//gets all saved activities
+exports.retrieveSavedActivities = (username) => {
   return exports.findUser(username)
   .then((dbResults) => {
     if (dbResults.length === 0) {
