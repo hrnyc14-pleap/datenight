@@ -29,8 +29,8 @@ exports.saveUserMovie = (username, movieName) => {
   (SELECT movie_id FROM movie WHERE movieName='${movieName}'))`)
 }
 
-//gets all favorited movies
-exports.retrieveFavoriteMovies = (username) => {
+//gets all saved movies
+exports.retrieveSavedMovies = (username) => {
   return exports.findUser(username)
   .then((dbResults) => {
     if (dbResults.length === 0) {
@@ -42,8 +42,8 @@ exports.retrieveFavoriteMovies = (username) => {
   })
   .then((movieIds) => {
     return Promise.all(movieIds.map((movieId)=> {
-      connection.query('SELECT * FROM movie WHERE movie_id= ?',
-        {replacements: movieId, type: 'SELECT'});
+      return connection.query('SELECT * FROM movie WHERE movie_id= ?',
+        {replacements: [movieId.movie_id], type: 'SELECT'});
     }))
   })
   .catch((err)=> {
@@ -63,8 +63,8 @@ exports.saveUserRestaurant = (username, restaurantName) => {
   (SELECT restaurant_id FROM restaurant WHERE restaurantName='${restaurantName}'))`)
 }
 
-//gets all favorited restaurants
-exports.retrieveFavoriteRestaurants = (username) => {
+//gets all saved restaurants
+exports.retrieveSavedRestaurants = (username) => {
   return exports.findUser(username)
   .then((dbResults) => {
     if (dbResults.length === 0) {
@@ -76,8 +76,8 @@ exports.retrieveFavoriteRestaurants = (username) => {
   })
   .then((restaurantIds) => {
     return Promise.all(restaurantIds.map((restaurantId) => {
-      connection.query('SELECT * FROM restaurant WHERE restaurant_id= ?', 
-        {replacements: [restaurantId], type: 'SELECT'});
+      return connection.query('SELECT * FROM restaurant WHERE restaurant_id= ?', 
+        {replacements: [restaurantId.restaurant_id], type: 'SELECT'});
     }))
   })
   .catch((err) => {
@@ -97,8 +97,8 @@ exports.saveUserActivity = (username, activityName) => {
   (SELECT activity_id FROM activity WHERE activityName='${activityName}'))`)
 }
 
-//gets all favorite activities
-exports.retrieveFavoriteActivities = (username) => {
+//gets all saved activities
+exports.retrieveSavedActivities = (username) => {
   return exports.findUser(username)
   .then((dbResults) => {
     if (dbResults.length === 0) {
@@ -110,8 +110,9 @@ exports.retrieveFavoriteActivities = (username) => {
   })
   .then((activityIds) => {
     return Promise.all(activityIds.map((activityId) => {
-      connection.query('SELECT * FROM activity WHERE activity_id=?', 
-      {replacements: [activityId], type: 'SELECT'});
+      console.log(activityId)
+      return connection.query('SELECT * FROM activity WHERE activity_id=?', 
+      {replacements: [activityId.activity_id], type: 'SELECT'});
     }))
   })
   .catch((err) => {
