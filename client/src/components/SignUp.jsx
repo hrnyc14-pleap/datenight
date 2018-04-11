@@ -14,10 +14,10 @@ class SignUp extends React.Component{
     this.register = this.register.bind(this)
   }
 
-  
 
   handleClick() {
-    this.register(this.state.username, this.state.password, this.state.email)
+    // console.log(this.username.value, this.password.value, this.email.value)
+    this.register(this.username.value, this.password.value, this.email.value)
   }
 
   register(username, password, email) {
@@ -33,15 +33,15 @@ class SignUp extends React.Component{
   render() {
     return (
       <div>
-        Username<input value={this.state.username}></input>
+        Username<input ref={username => this.username = username}></input>
         <br></br>
-        Password<input value={this.state.password}></input>
+        Password<input ref={password => this.password = password}></input>
         <br></br>
-        Email <input value={this.state.email}></input>
-        <button onClick={this.handleClick}><Link to='/login'>Login here</Link></button>
+        Email <input ref={email => this.email = email}></input>
+        <button onClick={this.handleClick}><Link to='/login'>Sign Up!</Link></button>
+
       </div>
     )
   }
 }
-
 export default SignUp

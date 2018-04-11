@@ -7,7 +7,8 @@ class Login extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      loggedIn: false
     }
 
     this.onUserChange = this.onUserChange.bind(this)
@@ -31,6 +32,9 @@ class Login extends React.Component {
 
   handleClick() {
     this.submit(this.state.username, this.state.password)
+    if (this.state.loggedIn === true ) {
+      this.props.history.push('/Where')
+    }
   }
 
   handleKeyPress(e) {
@@ -42,7 +46,13 @@ class Login extends React.Component {
   submit(username, password) {
     axios.post('/login', {username: username, password: password})
       .then((logInResponse) => {
-        console.log('submitted')
+        console.log('Login reponse', logInResponse)
+        this.setState({
+          loggedIn : true
+        })
+      })
+      .catch((err)=> {
+        console.log('There was an error signing in')
       })
   }
 
@@ -54,12 +64,12 @@ class Login extends React.Component {
       <br></br>
       <input value={this.password} onChange={this.onPasswordChange} onKeyPress={this.handleKeyPress}  /> Enter your Password
       <br></br>
-      <button onClick={this.handleClick}><Link to='/Where'>Log In</Link></button>
+      <button onClick={this.handleClick}>Log in</button>
       </div>
     )
   }
 }
-
+// <Link to='/Where'>Log In</Link>
 
 
 export default Login;
