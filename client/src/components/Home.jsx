@@ -17,10 +17,10 @@ class Home extends React.Component {
     return (
       <div>
         <Route path='/login' component={Login}></Route>
+        <button><Link to='/login'>Login here</Link></button>
         <h1>This is the beginning of our app</h1>
         <h2>Sign Up Here</h2>
         <SignUp/>
-        <button><Link to='/login'>Login here</Link></button>
       </div>
     )
   }
