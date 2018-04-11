@@ -119,3 +119,34 @@ exports.retrieveSavedActivities = (username) => {
     console.log('Error retrieving activities', err);
   })
 }
+
+exports.deleteSavedMovie = (movieName) => {
+  return connection.query('SELECT movie_id FROM movie WHERE movieName = ?', {replacements: [movieName], type: 'SELECT'})
+  .then((movieId) => {
+    return connection.query('DELETE FROM user_movie WHERE movie_id = ?', {replacements: [movieId[0].movie_id], type: 'DELETE'})
+  })
+  .catch((err) => { 
+    console.log('Error in deleting movie', err);
+  })
+}
+
+exports.deleteSavedRestaurant = (restaurantName) => {
+  return connection.query('SELECT restaurant_id FROM restaurant WHERE restaurantName = ?', {replacements: [restaurantName], type: 'SELECT'})
+  .then((restaurantId) => {
+    return connection.query('DELETE FROM user_restaurant WHERE restaurant_id = ?', {replacements: [restaurantId[0].restaurant_id], type: 'DELETE'})
+  })
+  .catch((err) => {
+    console.log('Error in deleting restaurant', err);
+  })
+}
+
+exports.deleteSavedActivity = (activityName) => {
+  return connection.query('SELECT activity_id FROM activity WHERE activityName = ?', {replacements: [activityName], type: 'SELECT'})
+  .then((activityId) => {
+    console.log(activityId);
+    return connection.query('DELETE FROM user_activity WHERE activity_id = ?', {replacements: [activityId[0].activity_id], type: 'DELETE'})
+  })
+  .catch((err) => {
+    console.log('Error in deleting activity', err)
+  })
+}

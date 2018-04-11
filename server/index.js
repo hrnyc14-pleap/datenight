@@ -157,9 +157,9 @@ app.post('/date', (req, res) => {
 
 //save movies into db
 app.post('/saveMovie', function(req, res) {
-  // req.body.username = 'amy'
-  // req.body.movieName = 'tropic thunder'
-  // req.body.genre = 'horror'
+  // req.body.username = 'hi'
+  // req.body.movieName = 'kill bill'
+  // req.body.genre = 'action'
   // req.body.moviePhoto = 'fakeUrl'
   db.saveMovie(req.body.username, req.body.movieName, req.body.genre, req.body.moviePhoto)
   .then(() => {
@@ -175,9 +175,9 @@ app.post('/saveMovie', function(req, res) {
 })
 
 app.post('/saveActivity', function(req, res) {
-  // req.body.username = 'amy'
-  // req.body.activityName = 'jumping'
-  // req.body.location = 'nyc'
+  // req.body.username = 'hi'
+  // req.body.activityName = 'swim'
+  // req.body.location = 'phuket'
   // req.body.price = 1
   // req.body.activityPhoto = 'fake url'
   db.saveActivity(req.body.activityName, req.body.location, req.body.price, req.body.activityPhoto)
@@ -194,8 +194,8 @@ app.post('/saveActivity', function(req, res) {
 })
 
 app.post('/saveRestaurant', function(req, res) {
-  // req.body.username = 'amy'
-  // req.body.restaurantName = 'Per Se'
+  // req.body.username = 'hi'
+  // req.body.restaurantName = 'chipotle'
   // req.body.price = 1
   // req.body.restaurantPhoto = 'fake url'
   db.saveRestaurant(req.body.restaurantName, req.body.restaurantPhoto, req.body.price)
@@ -210,6 +210,8 @@ app.post('/saveRestaurant', function(req, res) {
     res.status(404);
   })
 })
+
+
 
 app.get('/favorites', (req, res) => {
   db.retrieveSavedActivities(req.session.username)
@@ -231,6 +233,31 @@ app.get('/favorites', (req, res) => {
     })
   })
 })
+
+
+
+app.delete('/deleteMovie', function(req, res){
+  db.deleteSavedMovie(req.body.movieName)
+  .then(() => {
+    res.status(200).send('Deleted successfully');
+  })
+})
+
+app.delete('/deleteRestaurant', function(req, res){
+  db.deleteSavedRestaurant(req.body.restaurant)
+  .then(() => {
+    res.status(200).send('Deleted successfully');
+  })
+})
+
+app.delete('/deleteActivity', function(req, res){
+  db.deleteSavedActivity(req.body.activity)
+  .then(() => {
+    res.status(200).send('Deleted successfully');
+  })
+})
+
+
 
 let port = 8080;
 
