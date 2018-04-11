@@ -14,6 +14,8 @@ class SignUp extends React.Component{
     this.register = this.register.bind(this)
   }
 
+  
+
   handleClick() {
     this.register(this.state.username, this.state.password, this.state.email)
   }

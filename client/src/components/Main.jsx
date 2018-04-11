@@ -28,12 +28,12 @@ class Main extends React.Component {
       results: {},
       saved: []
     }
-  }
+  }  
 
   render() {
     return (
       <main>
-      
+
       <Switch>
         <Route exact path='/' component={Home}/>
         <Route path='/login' component={Login}/>
