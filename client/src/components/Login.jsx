@@ -32,9 +32,6 @@ class Login extends React.Component {
 
   handleClick() {
     this.submit(this.state.username, this.state.password)
-    if (this.state.loggedIn === true ) {
-      this.props.history.push('/Where')
-    }
   }
 
   handleKeyPress(e) {
@@ -50,6 +47,8 @@ class Login extends React.Component {
         this.setState({
           loggedIn : true
         })
+        console.log('login', this.props.history)
+        this.props.history.push('/Where')
       })
       .catch((err)=> {
         console.log('There was an error signing in')

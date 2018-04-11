@@ -101,7 +101,8 @@ app.post('/login', (req, res) => {
       req.session.regenerate(function(){
         req.session.user = username;
         console.log('authenticated user', username)
-        res.redirect('/users');
+        res.status(200).send();
+        // res.redirect('/Where');
       });
     })
     .catch(err => {

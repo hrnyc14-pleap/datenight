@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Route, Switch, Link } from 'react-router-dom';
 import Login from './login.jsx';
 import SignUp from './SignUp.jsx';
-import Welcome from './welcome.jsx';
+import Welcome from './Welcome.jsx';
 import Q1 from './Q1.jsx';
 import Q2 from './Q2.jsx';
 import Q3 from './Q3.jsx';
@@ -37,7 +37,7 @@ class Main extends React.Component {
       <Switch>
         <Route exact path='/' component={Home}/>
         <Route path='/login' component={Login}/>
-        <Route path='/welcome' component={Welcome}/>
+        <Route path='/Welcome' component={Welcome}/>
         <Route path='/Where' component={Q1} />
         <Route path='/Food' component={Q2} />
         <Route path='/Movie' component={Q3} />
