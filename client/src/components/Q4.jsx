@@ -13,10 +13,10 @@ class Q4 extends React.Component {
   render() {
     return(
       <div>
-      <Route path='/question5' component={Q5}/>
+      <Route path='/Location' component={Q5}/>
       <h1>Question 4</h1>
-      <button><Link to='/question5'>Mellow</Link></button>
-      <button><Link to='/question5'>Active</Link></button>
+      <button><Link to='/Location'>Mellow</Link></button>
+      <button><Link to='/Location'>Active</Link></button>
       </div>
     )
   }

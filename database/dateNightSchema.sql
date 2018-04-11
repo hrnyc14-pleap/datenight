@@ -11,7 +11,7 @@ CREATE TABLE user(
   salt VARCHAR(255),
   password VARCHAR(255),
   email VARCHAR(255),
-  PRIMARY KEY(id)
+  PRIMARY KEY(user_id)
 );
 
 CREATE TABLE movie(
@@ -19,7 +19,7 @@ CREATE TABLE movie(
   movieName VARCHAR(255),
   genre VARCHAR(255),
   moviePhoto VARCHAR(255),
-  PRIMARY KEY(id)
+  PRIMARY KEY(movie_id)
 );
 
 CREATE TABLE restaurant(
@@ -27,7 +27,7 @@ CREATE TABLE restaurant(
   restaurantName VARCHAR(255),
   restaurantPhoto VARCHAR(255),
   price INT,
-  PRIMARY KEY(id)
+  PRIMARY KEY(restaurant_id)
 );
 
 CREATE TABLE activity(
@@ -36,20 +36,26 @@ CREATE TABLE activity(
   location VARCHAR(255),
   price INT,
   activityPhoto VARCHAR(255),
-  PRIMARY KEY(id)
+  PRIMARY KEY(activity_id)
 );
 
 CREATE TABLE user_movie(
+  user_id INT NOT NULL,
+  movie_id INT NOT NULL,
   PRIMARY KEY(user_id, movie_id),
   INDEX (movie_id, user_id)
 );
 
 CREATE TABLE user_restaurant(
+  user_id INT NOT NULL,
+  restaurant_id INT NOT NULL,
   PRIMARY KEY(user_id, restaurant_id),
   INDEX (restaurant_id, user_id)
 );
 
 CREATE TABLE user_activity(
+  user_id INT NOT NULL,
+  activity_id INT NOT NULL,
   PRIMARY KEY(user_id, activity_id),
   INDEX (activity_id, user_id)
 );
