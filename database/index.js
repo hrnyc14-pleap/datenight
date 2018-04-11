@@ -118,3 +118,13 @@ exports.retrieveFavoriteActivities = (username) => {
     console.log('Error retrieving activities', err);
   })
 }
+
+exports.deleteSavedMovie = (movieName) => {
+  return connection.query('SELECT movie_id FROM movie WHERE movieName = ?', {replacements: [movieName], type: 'SELECT'})
+  .then((movieId) => {
+    return connection.query('DELETE FROM user_movie WHERE movie_id = ?', {replacements: [movieId], type: 'DELETE'})
+  })
+  .catch((err) => { 
+    console.log('Error in deleting movie', err);
+  })
+}

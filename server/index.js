@@ -210,6 +210,19 @@ app.post('/saveRestaurant', function(req, res) {
   })
 })
 
+
+app.delete('/deleteMovie', function(req, res){
+  db.deleteSavedMovie(req.body.movieName)
+  .then(() => {
+    // res.status(200).send('Deleted successfully');
+  })
+})
+
+
+
+
+
+
 let port = 8080;
 
 app.listen(port, function() {
