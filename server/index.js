@@ -101,7 +101,8 @@ app.post('/login', (req, res) => {
       req.session.regenerate(function(){
         req.session.user = username;
         console.log('authenticated user', username)
-        res.redirect('/users');
+        res.status(200).send();
+        // res.redirect('/Where');
       });
     })
     .catch(err => {
@@ -152,11 +153,63 @@ app.post('/date', (req, res) => {
       res.status(200).send(data);
     })
   }
-
 })
 
+//save movies into db
+app.post('/saveMovie', function(req, res) {
+  // req.body.username = 'amy'
+  // req.body.movieName = 'tropic thunder'
+  // req.body.genre = 'horror'
+  // req.body.moviePhoto = 'fakeUrl'
+  db.saveMovie(req.body.username, req.body.movieName, req.body.genre, req.body.moviePhoto)
+  .then(() => {
+    db.saveUserMovie(req.body.username, req.body.movieName)
+  })
+  .then(() => {
+    res.status(200).send('Saved successfully');
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(404);
+  })
+})
 
+app.post('/saveActivity', function(req, res) {
+  // req.body.username = 'amy'
+  // req.body.activityName = 'skiing'
+  // req.body.location = 'nyc'
+  // req.body.price = 1
+  // req.body.activityPhoto = 'fake url'
+  db.saveActivity(req.body.activityName, req.body.location, req.body.price, req.body.activityPhoto)
+  .then(() => {
+    db.saveUserActivity(req.body.username, req.body.activityName)
+  })
+  .then(() => {
+    res.status(200).send('Saved successfully');
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(404);
+  })
+})
 
+app.post('/saveRestaurant', function(req, res) {
+  // req.body.username = 'amy'
+  // req.body.restaurantName = 'Per Se'
+  // req.body.price = 1
+  // req.body.restaurantPhoto = 'fake url'
+  db.saveRestaurant(req.body.restaurantName, req.body.restaurantPhoto, req.body.price)
+  .then(() => {
+    db.saveUserRestaurant(req.body.username, req.body.restaurantName)
+  })
+  .then(() => {
+    res.status(200).send('Saved successfully');
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(404);
+  })
+})
 
 let port = 8080;
 

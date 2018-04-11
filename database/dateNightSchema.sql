@@ -43,19 +43,23 @@ CREATE TABLE user_movie(
   user_id INT NOT NULL,
   movie_id INT NOT NULL,
   PRIMARY KEY(user_id, movie_id),
-  INDEX (movie_id, user_id)
+  FOREIGN KEY (user_id) REFERENCES user (user_id),
+  FOREIGN KEY (movie_id) REFERENCES movie (movie_id)
 );
 
 CREATE TABLE user_restaurant(
   user_id INT NOT NULL,
   restaurant_id INT NOT NULL,
   PRIMARY KEY(user_id, restaurant_id),
-  INDEX (restaurant_id, user_id)
+  FOREIGN KEY (user_id) REFERENCES user (user_id),
+  FOREIGN KEY (restaurant_id) REFERENCES restaurant (restaurant_id)
 );
 
 CREATE TABLE user_activity(
   user_id INT NOT NULL,
   activity_id INT NOT NULL,
   PRIMARY KEY(user_id, activity_id),
-  INDEX (activity_id, user_id)
+  FOREIGN KEY (user_id) REFERENCES user (user_id),
+  FOREIGN KEY (activity_id) REFERENCES activity (activity_id)
 );
+
