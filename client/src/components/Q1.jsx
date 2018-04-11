@@ -15,11 +15,11 @@ class Q1 extends React.Component {
     return (
       <div>
         <Switch>
-          <Route path='/question2' component={Q2}/>
-          <Route path='/question4' component={Q4} />
+          <Route path='/Food' component={Q2}/>
+          <Route path='/Energy' component={Q4} />
         </Switch>
-        <button><Link to='/question2'>In my Home</Link></button>
-        <button><Link to='/question4'>In my City</Link></button>
+        <button><Link to='/Food'>In my Home</Link></button>
+        <button><Link to='/Energy'>In my City</Link></button>
       </div>
     )
   }
