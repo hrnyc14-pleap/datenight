@@ -7,16 +7,16 @@ DROP TABLES IF EXISTS user;
 
 CREATE TABLE user(
   user_id INT NOT NULL AUTO_INCREMENT,
-  username VARCHAR(255),
-  salt VARCHAR(255),
+  username VARCHAR(255) UNIQUE,
   password VARCHAR(255),
+  salt VARCHAR(255),
   email VARCHAR(255),
   PRIMARY KEY(user_id)
 );
 
 CREATE TABLE movie(
   movie_id INT NOT NULL AUTO_INCREMENT,
-  movieName VARCHAR(255),
+  movieName VARCHAR(255) UNIQUE,
   genre VARCHAR(255),
   moviePhoto VARCHAR(255),
   PRIMARY KEY(movie_id)
@@ -24,7 +24,7 @@ CREATE TABLE movie(
 
 CREATE TABLE restaurant(
   restaurant_id INT NOT NULL AUTO_INCREMENT,
-  restaurantName VARCHAR(255),
+  restaurantName VARCHAR(255) UNIQUE,
   restaurantPhoto VARCHAR(255),
   price INT,
   PRIMARY KEY(restaurant_id)
@@ -32,7 +32,7 @@ CREATE TABLE restaurant(
 
 CREATE TABLE activity(
   activity_id INT NOT NULL AUTO_INCREMENT,
-  activityName VARCHAR(255),
+  activityName VARCHAR(255) UNIQUE,
   location VARCHAR(255),
   price INT,
   activityPhoto VARCHAR(255),

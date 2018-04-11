@@ -19,7 +19,7 @@ exports.findUser = (username) => {
 
 //save move to movie table
 exports.saveMovie = (username, movieName, genre, moviePhoto) => {
-  return connection.query('INSERT INTO movie (movieName, genre, moviePhoto) VALUES (?, ?, ?)',
+  return connection.query('INSERT IGNORE INTO movie (movieName, genre, moviePhoto) VALUES (?, ?, ?)',
   {replacements: [movieName, genre, moviePhoto], type: 'INSERT'})
 }
 
@@ -53,7 +53,7 @@ exports.retrieveSavedMovies = (username) => {
 
 //save restaurant to restaurant table
 exports.saveRestaurant = (restaurantName, restaurantPhoto, price) => {
-  return connection.query('INSERT INTO restaurant (restaurantName, restaurantPhoto, price) VALUES (?, ? ,?)',
+  return connection.query('INSERT IGNORE INTO restaurant (restaurantName, restaurantPhoto, price) VALUES (?, ? ,?)',
     {replacements: [restaurantName, restaurantPhoto, price], type: 'INSERT'});
 }
 
@@ -87,7 +87,7 @@ exports.retrieveSavedRestaurants = (username) => {
 
 //save activity to activity table
 exports.saveActivity = (activityName, location, price, activityPhoto) => {
-  return connection.query('INSERT INTO activity (activityName, location, price, activityPhoto) VALUES (?, ?, ?, ?)',
+  return connection.query('INSERT IGNORE INTO activity (activityName, location, price, activityPhoto) VALUES (?, ?, ?, ?)',
     {replacements: [activityName, location, price, activityPhoto], type: 'INSERT'})
 }
 
