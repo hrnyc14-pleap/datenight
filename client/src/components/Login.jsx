@@ -51,7 +51,7 @@ class Login extends React.Component {
           loggedIn : true
         })
         console.log('login', this.props.history)
-        this.props.history.push('/Where')
+        this.props.history.push('/questions')
       })
       .catch((err)=> {
         console.log('There was an error signing in')
