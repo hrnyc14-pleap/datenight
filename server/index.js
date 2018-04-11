@@ -176,7 +176,7 @@ app.post('/saveMovie', function(req, res) {
 
 app.post('/saveActivity', function(req, res) {
   // req.body.username = 'amy'
-  // req.body.activityName = 'skiing'
+  // req.body.activityName = 'jumping'
   // req.body.location = 'nyc'
   // req.body.price = 1
   // req.body.activityPhoto = 'fake url'
@@ -208,6 +208,27 @@ app.post('/saveRestaurant', function(req, res) {
   .catch((err) => {
     console.log(err);
     res.status(404);
+  })
+})
+
+app.get('/favorites', (req, res) => {
+  db.retrieveSavedActivities(req.session.username)
+  .then((data1) => {
+    db.retrieveSavedRestaurants(req.session.username)
+    .then((data2) => {
+      db.retrieveSavedMovies(req.session.username)
+      .then((data3) => {
+        let output = {
+          activities: data1,
+          restaurants: data2,
+          movies: data3
+        }
+        res.status(200).send(output);
+      })
+      .catch((err) => {
+        console.log('Unable to retrieve favorites', err);
+      })
+    })
   })
 })
 

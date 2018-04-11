@@ -42,8 +42,8 @@ exports.retrieveSavedMovies = (username) => {
   })
   .then((movieIds) => {
     return Promise.all(movieIds.map((movieId)=> {
-      connection.query('SELECT * FROM movie WHERE movie_id= ?',
-        {replacements: movieId, type: 'SELECT'});
+      return connection.query('SELECT * FROM movie WHERE movie_id= ?',
+        {replacements: [movieId.movie_id], type: 'SELECT'});
     }))
   })
   .catch((err)=> {
@@ -76,8 +76,8 @@ exports.retrieveSavedRestaurants = (username) => {
   })
   .then((restaurantIds) => {
     return Promise.all(restaurantIds.map((restaurantId) => {
-      connection.query('SELECT * FROM restaurant WHERE restaurant_id= ?', 
-        {replacements: [restaurantId], type: 'SELECT'});
+      return connection.query('SELECT * FROM restaurant WHERE restaurant_id= ?', 
+        {replacements: [restaurantId.restaurant_id], type: 'SELECT'});
     }))
   })
   .catch((err) => {
@@ -110,8 +110,9 @@ exports.retrieveSavedActivities = (username) => {
   })
   .then((activityIds) => {
     return Promise.all(activityIds.map((activityId) => {
-      connection.query('SELECT * FROM activity WHERE activity_id=?', 
-      {replacements: [activityId], type: 'SELECT'});
+      console.log(activityId)
+      return connection.query('SELECT * FROM activity WHERE activity_id=?', 
+      {replacements: [activityId.activity_id], type: 'SELECT'});
     }))
   })
   .catch((err) => {
