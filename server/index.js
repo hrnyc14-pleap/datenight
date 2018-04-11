@@ -111,17 +111,18 @@ app.post('/login', (req, res) => {
     })
 })
 
-app.get('/date', (req, res) => {
+app.post('/date', (req, res) => {
 
   let cook = req.body.cook;
   let activity = req.body.activityLevel;
   let genreId = req.body.movieGenre;
-  let lat = req.body.latitude;
-  let long = req.body.longitude;
+  let lat = req.body.latitude || 40.7128;
+  let long = req.body.longitude || 74.0060;
   let radius = req.body.radius || 17000;
 
+  console.log(cook, activity, genreId, lat, long, radius)
   if (!cook) {
-    if (activity === "") {
+    if (activity === '') {
       let price = "1,2,3,4";
       let category = "food, restaurants";
 
@@ -156,9 +157,9 @@ app.get('/date', (req, res) => {
 
 //save movies into db
 app.post('/saveMovie', function(req, res) {
-  // req.body.username = 'amy'
-  // req.body.movieName = 'tropic thunder'
-  // req.body.genre = 'horror'
+  // req.body.username = 'hi'
+  // req.body.movieName = 'kill bill'
+  // req.body.genre = 'action'
   // req.body.moviePhoto = 'fakeUrl'
   db.saveMovie(req.body.username, req.body.movieName, req.body.genre, req.body.moviePhoto)
   .then(() => {
@@ -174,9 +175,9 @@ app.post('/saveMovie', function(req, res) {
 })
 
 app.post('/saveActivity', function(req, res) {
-  // req.body.username = 'amy'
-  // req.body.activityName = 'skiing'
-  // req.body.location = 'nyc'
+  // req.body.username = 'hi'
+  // req.body.activityName = 'swim'
+  // req.body.location = 'phuket'
   // req.body.price = 1
   // req.body.activityPhoto = 'fake url'
   db.saveActivity(req.body.activityName, req.body.location, req.body.price, req.body.activityPhoto)
@@ -193,8 +194,8 @@ app.post('/saveActivity', function(req, res) {
 })
 
 app.post('/saveRestaurant', function(req, res) {
-  // req.body.username = 'amy'
-  // req.body.restaurantName = 'Per Se'
+  // req.body.username = 'hi'
+  // req.body.restaurantName = 'chipotle'
   // req.body.price = 1
   // req.body.restaurantPhoto = 'fake url'
   db.saveRestaurant(req.body.restaurantName, req.body.restaurantPhoto, req.body.price)
@@ -211,15 +212,50 @@ app.post('/saveRestaurant', function(req, res) {
 })
 
 
-app.delete('/deleteMovie', function(req, res){
-  db.deleteSavedMovie(req.body.movieName)
-  .then(() => {
-    // res.status(200).send('Deleted successfully');
+
+app.get('/favorites', (req, res) => {
+  db.retrieveSavedActivities(req.session.username)
+  .then((data1) => {
+    db.retrieveSavedRestaurants(req.session.username)
+    .then((data2) => {
+      db.retrieveSavedMovies(req.session.username)
+      .then((data3) => {
+        let output = {
+          activities: data1,
+          restaurants: data2,
+          movies: data3
+        }
+        res.status(200).send(output);
+      })
+      .catch((err) => {
+        console.log('Unable to retrieve favorites', err);
+      })
+    })
   })
 })
 
 
 
+app.delete('/deleteMovie', function(req, res){
+  db.deleteSavedMovie(req.body.movieName)
+  .then(() => {
+    res.status(200).send('Deleted successfully');
+  })
+})
+
+app.delete('/deleteRestaurant', function(req, res){
+  db.deleteSavedRestaurant(req.body.restaurant)
+  .then(() => {
+    res.status(200).send('Deleted successfully');
+  })
+})
+
+app.delete('/deleteActivity', function(req, res){
+  db.deleteSavedActivity(req.body.activity)
+  .then(() => {
+    res.status(200).send('Deleted successfully');
+  })
+})
 
 
 
