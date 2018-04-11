@@ -14,16 +14,34 @@ class Results extends React.Component {
     this.handleSaveActivity = this.handleSaveActivity.bind(this)
   }
 
-  handleSaveRestaurant(){
-
+  handleSaveRestaurant() {
+    axios.post('/saveRestaurant')
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((err) => {
+        console.log('Error saving favorite restaurant')
+      })
   }
 
-  handleSaveMovie(){
-
+  handleSaveMovie() {
+    axios.post('/saveMovie')
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((err) => {
+        console.log('Error saving favorite movie')
+      })
   }
 
-  handleSaveActivity(){
-
+  handleSaveActivity() {
+    axios.post('/saveActivity')
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((err) => {
+        console.log('Error saving favorite activity')
+      })
   }
 
   handleTryAgain(){
