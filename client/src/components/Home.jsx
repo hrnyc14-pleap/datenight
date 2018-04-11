@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Login from './login.jsx';
 import Welcome from './welcome.jsx';
+import SignUp from './SignUp.jsx'
 import { Route, Link, Switch } from 'react-router-dom';
 
 class Home extends React.Component {

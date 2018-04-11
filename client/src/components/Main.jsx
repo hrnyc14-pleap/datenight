@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { Route, Switch, Link } from 'react-router-dom';
 import Login from './login.jsx';
+import SignUp from './SignUp.jsx';
 import Welcome from './welcome.jsx';
 import Q1 from './Q1.jsx';
 import Q2 from './Q2.jsx';
@@ -28,13 +29,12 @@ class Main extends React.Component {
       results: {},
       saved: []
     }
-  }
-
-  
+  }  
 
   render() {
     return (
       <main>
+
       <Switch>
         <Route exact path='/' component={Home}/>
         <Route path='/login' component={Login}/>
