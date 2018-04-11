@@ -24,7 +24,7 @@ var Questions = {
       'Action': null,
       'Comedy': null,
       'Romance': null,
-      'Genre': null,
+      'Horror': null,
     },
     type: 'fourChoice'
   },
@@ -55,7 +55,26 @@ class QuestionForm extends React.Component {
 
   handleSubmitForm() {
     console.log('SUBMITTING FORM', this.state.responseData);
-    axios.get('/date', {params: this.state.responseData})
+    var responses = this.state.responseData;
+    var genreIds = {
+      'Action': 28,
+      'Comedy': 35,
+      'Romance': 10749,
+      'Horror': 27
+    }
+    var data = {
+      cook: responses['cookOrDelivery'] === 'cook',
+      activityLevel: responses['activityLevel'].toLowerCase() || '',
+      movieGenre: genreIds[responses['movieGenre']],
+      //lat: req.body.latitude,
+      //long: req.body.longitude,
+    }
+    if (responses.details) {
+      data.radius = responses.details.distance,
+      data.minPrice = responses.details.minPrice,
+      data.maxPrice = responses.details.maxPrice
+    }
+    axios.post('/date', data)
       .then(res => {
         console.log('GOT RESPONSE', res)
       })

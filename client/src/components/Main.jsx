@@ -40,11 +40,6 @@ class Main extends React.Component {
         <Route path='/login' component={Login}/>
         <Route path='/welcome' component={Welcome}/>
         <Route path='/questions' component={QuestionForm}/>
-        <Route path='/question1' component={Q1} />
-        <Route path='/question2' component={Q2} />
-        <Route path='/question3' component={Q3} />
-        <Route path='/question4' component={Q4} />
-        <Route path='/question5' component={Q5} />
       </Switch>
       </main>
     )
