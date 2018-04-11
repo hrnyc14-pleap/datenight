@@ -111,17 +111,18 @@ app.post('/login', (req, res) => {
     })
 })
 
-app.get('/date', (req, res) => {
+app.post('/date', (req, res) => {
 
   let cook = req.body.cook;
   let activity = req.body.activityLevel;
   let genreId = req.body.movieGenre;
-  let lat = req.body.latitude;
-  let long = req.body.longitude;
+  let lat = req.body.latitude || 40.7128;
+  let long = req.body.longitude || 74.0060;
   let radius = req.body.radius || 17000;
 
+  console.log(cook, activity, genreId, lat, long, radius)
   if (!cook) {
-    if (activity === "") {
+    if (activity === '') {
       let price = "1,2,3,4";
       let category = "food, restaurants";
 

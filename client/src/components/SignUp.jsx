@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios'
 import { Route, Link } from 'react-router-dom';
 import Welcome from './Welcome.jsx';
+import QuestionForm from './QuestionForm.jsx';
 
 class SignUp extends React.Component{
   constructor(props) {
@@ -23,11 +24,10 @@ class SignUp extends React.Component{
   }
 
   register(username, password, email) {
-
     axios.post('/signup', {username: username, password: password, email: email})
       .then((registrationResponse) => {
         // console.log("Registering user was a success", registrationResponse)
-        this.props.history.push('/Welcome');
+        this.props.history.push('/questions');
       })
       .catch((err)=> {
         console.log(err);
@@ -41,7 +41,7 @@ class SignUp extends React.Component{
   render() {
     return (
       <div>
-        <Route path="/Welcome" component={Welcome} />
+        <Route path="/questions" component={QuestionForm} />
 
         Username<input ref={username => this.username = username}></input>
         <br></br>

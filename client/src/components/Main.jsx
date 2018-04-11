@@ -11,6 +11,7 @@ import Q3 from './Q3.jsx';
 import Q4 from './Q4.jsx';
 import Q5 from './Q5.jsx';
 import Home from './Home.jsx';
+import QuestionForm from './QuestionForm.jsx';
 
 class Main extends React.Component {
   constructor(props) {
@@ -37,12 +38,8 @@ class Main extends React.Component {
       <Switch>
         <Route exact path='/' component={Home}/>
         <Route path='/login' component={Login}/>
-        <Route path='/Welcome' component={Welcome}/>
-        <Route path='/Where' component={Q1} />
-        <Route path='/Food' component={Q2} />
-        <Route path='/Movie' component={Q3} />
-        <Route path='/Energy' component={Q4} />
-        <Route path='/Location' component={Q5} />
+        <Route path='/welcome' component={Welcome}/>
+        <Route path='/questions' component={QuestionForm}/>
       </Switch>
       </main>
     )
