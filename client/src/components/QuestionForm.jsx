@@ -50,9 +50,9 @@ class QuestionForm extends React.Component {
       questions: Questions,
       currentQuestion: 'homeOrCity',
       responseData: {},
-      restaurantResult: null,
-      movieResult: null,
-      activityResult: null
+      restaurantResults: null,
+      movieResults: null,
+      activityResults: null
     }
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.handleSubmitElement = this.handleSubmitElement.bind(this);
@@ -96,9 +96,9 @@ class QuestionForm extends React.Component {
         console.log('GOT RESPONSE', res.data)
         // display results
         this.setState({
-          movieResult: res.data.movies? res.data.movies[0]: null,
-          activityResult: res.data.activities? res.data.activities[0]: null,
-          restaurantResult: res.data.restaurants? res.data.restaurants[0]: null,
+          movieResults: res.data.movies? JSON.parse(res.data.movies): null,
+          activityResults: res.data.activities? JSON.parse(res.data.activities): null,
+          restaurantResults: res.data.restaurants? JSON.parse(res.data.restaurants): null,
           showingResults: true
         })
       })
@@ -134,9 +134,9 @@ class QuestionForm extends React.Component {
           this.state.showingResults? 
             <Results
               {...this.props}
-              movie={this.state.movieResult}
-              activity={this.state.activityResult}
-              restaurant={this.state.restaurantResult}
+              movie={this.state.movieResults? this.state.movieResults[0]: null}
+              activity={this.state.activityResults? this.state.activityResults[0]: null}
+              restaurant={this.state.restaurantResult? this.state.restaurantResults[0]: null}
             />:
             (
               this.state.questions[this.state.currentQuestion].type === 'details'?
