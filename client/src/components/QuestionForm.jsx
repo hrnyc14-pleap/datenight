@@ -49,15 +49,25 @@ class QuestionForm extends React.Component {
       showingResults: false,
       questions: Questions,
       currentQuestion: 'homeOrCity',
-      responseData: {}
+      responseData: {},
+      restaurantResult: null,
+      movieResult: null,
+      activityResult: null
     }
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.handleSubmitElement = this.handleSubmitElement.bind(this);
     this.handleRestart = this.handleRestart.bind(this);
   }
-
+  
   handleRestart() {
-    this.setState({currentQuestion: 'homeOrCity', responseData: {}, showingResults: false});
+    this.setState({
+      currentQuestion: 'homeOrCity',
+      responseData: {},
+      showingResults: false,
+      movieResult: null,
+      activityResult: null,
+      restaurantResult: null
+    });
   }
 
   handleSubmitForm() {
@@ -70,7 +80,7 @@ class QuestionForm extends React.Component {
       'Horror': 27
     }
     var data = {
-      cook: responses['cookOrDelivery'] === 'cook',
+      cook: responses['cookOrDelivery'] === 'Cook',
       activityLevel: (responses['activityLevel'] || '').toLowerCase(),
       movieGenre: genreIds[responses['movieGenre']]
       //lat: req.body.latitude,
@@ -83,10 +93,25 @@ class QuestionForm extends React.Component {
     }
     axios.post('/date', data)
       .then(res => {
-        console.log('GOT RESPONSE', res)
+        console.log('GOT RESPONSE', res.data)
         // display results
-        this.setState({showingResults: true});
+        this.setState({
+          movieResult: {
+            name: 'de wae',
+            picture: 'www.fakeurl.com'
+          },
+          activityResult: {
+            name: 'jogging',
+            picture: 'www.fakeurl.com'
+          },
+          restaurantResult: null,
+          showingResults: true
+        });
       })
+  }
+
+  // movie, activity, or restaurant may be null depending on what the user's answers were
+  showResults(movie, activity, restaurant) {
 
   }
 
@@ -113,7 +138,12 @@ class QuestionForm extends React.Component {
       <div>
         {
           this.state.showingResults? 
-            <Results/>:
+            <Results
+              {...this.props}
+              movie={this.state.movieResult}
+              activity={this.state.activityResult}
+              restaurant={this.state.restaurantResult}
+            />:
             (
               this.state.questions[this.state.currentQuestion].type === 'details'?
               <DetailsForm handleSubmitForm={this.handleSubmitElement}/>:
