@@ -186,7 +186,6 @@ class App extends React.Component {
     })
     .then((res) => {
       console.log('Movie has been deleted')
-      this.getFavorites();
     })
     .catch((err) => {
       console.log('Failed to delete movie', err)
@@ -201,7 +200,6 @@ class App extends React.Component {
     })
     .then((res) => {
       console.log('Restaurant has been deleted')
-      this.getFavorites();
     })
     .catch((err) => {
       console.log('Failed to delete restaurant', err)
@@ -216,7 +214,6 @@ class App extends React.Component {
     })
     .then((res) => {
       console.log('Activity has been deleted')
-      this.getFavorites();
     })
     .catch((err) => {
       console.log('Failed to delete activiy', err)
