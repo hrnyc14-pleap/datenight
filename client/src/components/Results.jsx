@@ -1,48 +1,50 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import axios from 'axios';
+import MovieView from './MovieView.jsx';
+import ActivityView from './ActivityView.jsx';
+import RestaurantView from './RestaurantView.jsx';
 
-class Results extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state= {
 
-    }
-    this.handleTryAgain = this.handleTryAgain.bind(this)
-  }
-
-  handleTryAgain(){
-    this.props.history.push('/Where')
-  }
-
-  render() {
-    return(
-      <div>
+const Results = ({movie, restaurant, activity, movieIsSaved, restaurantIsSaved, activityIsSaved,
+   handleMovieButton, handleActivityButton, handleRestaurantButton}) => (<div>
+  <div>
         <h1>Your Results:</h1>
         <p> Your date night will be this .... placeholder </p>
 
         <br/>
-        <p>Restaurant: Mcdonalds </p>
-        <button onClick={this.handleSaveRestaurant}>Save this</button>
-
+        Movie
+        {
+          movie === undefined?
+            (''):
+            (<div>
+              <MovieView data={movie}/>
+              <button onClick={()=>handleMovieButton(movie)}>{movieIsSaved? 'save': 'unsave'}</button>
+            </div>
+            )
+        }
+        Restaurant
+        {
+          restaurant === undefined?
+            (''):
+            (<div>
+              <RestaurantView data={restaurant}/>
+              <button onClick={()=>handleRestaurantButton(restaurant)}>{restaurantIsSaved? 'save': 'unsave'}</button>
+            </div>
+            )
+        }
         <br/>
-        <p>Movie: Fight Club </p>
-        <button onClick={this.handleSaveMovie}>Save this</button>
-
-
-        <br/>
-        <p>Activity: Go to a concert </p>
-        <button onClick={this.handleSaveActivity}>Save this</button>
-
-
-        <br/>
-        <br/>
-        <button onClick={this.handleTryAgain}>Try Again</button>
-
-
+        Activity
+        {
+          activity === undefined?
+            (''):
+            (<div>
+              <ActivityView data={activity}/>
+              <button onClick={()=>handleActivityButton(activity)}>{activityIsSaved? 'save': 'unsave'}</button>
+            </div>
+            )
+        }
       </div>
-    )
-  }
-}
+</div>)
 
 export default Results;

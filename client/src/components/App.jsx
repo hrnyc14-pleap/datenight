@@ -21,10 +21,12 @@ class App extends React.Component {
     this.handleSaveMovie = this.handleSaveMovie.bind(this);
     this.handleSaveActivity = this.handleSaveActivity.bind(this);
     this.getFavorites = this.getFavorites.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   } 
 
   getFavorites() {
-    
+    // TODO
   }
 
   handleSaveRestaurant(restaurant){
@@ -72,20 +74,42 @@ class App extends React.Component {
     })
   }
 
+  handleLogin(username, password, cb) {
+    console.log('attempting to login with credentails', username, password);
+    axios.post('/login', {username: username, password: password})
+      .then((logInResponse) => {
+        console.log('Login reponse', logInResponse)
+        this.setState({
+          loggedIn : true
+        });
+        cb();
+      })
+      .catch((err)=> {
+        console.log('There was an error signing in')
+      })
+  }
+
+  handleLogout() {
+    //TODO
+  }
+
   render() {
     return (
       <div>
       <Router>
         <div>
-          <Route exact="true" path='/' component={()=><NavBar path='/' handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>}/>
+          <Route exact="true" path='/' component={()=><NavBar path='/' handleLogout={this.handleLogout}/>}/>
         {['/signup', '/login', '/welcome', '/questions', '/home'].map(path => 
           <Route path={path} component={()=><NavBar path={path} handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>}/>
         )}
         <Route exact='true' path='/' component={Home}/>
         <Route path='/signup' component={Home}/>
-        <Route path='/login' component={Login}/>
+        <Route path='/login' component={(props) => <Login {...props} handleLogin={this.handleLogin}/>}/>
         <Route path='/welcome' component={Welcome}/>
-        <Route path='/questions' component={QuestionForm}/>
+        <Route path='/questions' component={(props) => <QuestionForm
+          handleSaveMovie={this.handleSaveMovie}
+          handleSaveActivity={this.handleSaveActivity}
+          handleSaveRestaurant={this.handleSaveRestaurant}/>}/>
         <Route path='/results' component={Results}/>
         <Route path='/favorites' component={() => <Favorites movies={[]} activities ={[]} restaurants={[]}/>}/>
         </div>
