@@ -55,7 +55,7 @@ class QuestionForm extends React.Component {
     this.handleSubmitElement = this.handleSubmitElement.bind(this);
     this.handleRestart = this.handleRestart.bind(this);
   }
-
+  
   handleRestart() {
     this.setState({currentQuestion: 'homeOrCity', responseData: {}, showingResults: false});
   }
@@ -70,7 +70,7 @@ class QuestionForm extends React.Component {
       'Horror': 27
     }
     var data = {
-      cook: responses['cookOrDelivery'] === 'cook',
+      cook: responses['cookOrDelivery'] === 'Cook',
       activityLevel: (responses['activityLevel'] || '').toLowerCase(),
       movieGenre: genreIds[responses['movieGenre']]
       //lat: req.body.latitude,
@@ -83,7 +83,7 @@ class QuestionForm extends React.Component {
     }
     axios.post('/date', data)
       .then(res => {
-        console.log('GOT RESPONSE', res)
+        console.log('GOT RESPONSE', res.data)
         // display results
         this.setState({showingResults: true});
       })

@@ -113,19 +113,18 @@ app.post('/login', (req, res) => {
 })
 
 app.post('/date', (req, res) => {
-
+  console.log(req.body)
   let cook = req.body.cook;
   let activity = req.body.activityLevel;
   let genreId = req.body.movieGenre;
-  let lat = req.body.latitude || 40.7128;
-  let long = req.body.longitude || 74.0060;
+  let lat = req.body.latitude || 40.751985;
+  let long = req.body.longitude || -73.969780;
   let radius = req.body.radius || 17000;
 
-  console.log(cook, activity, genreId, lat, long, radius)
   if (!cook) {
     if (activity === '') {
       let price = "1,2,3,4";
-      let category = "food, restaurants";
+      let category = "food";
 
       helpers.searchYelp(lat, long, radius, price, category, function(data1){
         helpers.searchMovies(genreId, function(data2){
@@ -138,13 +137,13 @@ app.post('/date', (req, res) => {
       })
     } else if (activity === "mellow") {
       let price = req.body.price;
-      let category = "food, restaurants";
+      let category = "restaurants";
       helpers.searchYelp(lat, long, radius, price, category, function(data){
         res.status(200).send(data);
       })
     } else if (activity === "active") {
       let price = req.body.price;
-      let category = "arts, active";
+      let category = "arts";
       helpers.searchYelp(lat, long, radius, price, category, function(data){
         res.status(200).send(data);
       })
