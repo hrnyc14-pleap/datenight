@@ -9,40 +9,6 @@ class Results extends React.Component {
 
     }
     this.handleTryAgain = this.handleTryAgain.bind(this)
-<<<<<<< HEAD
-    this.handleSaveActivity = this.handleSaveActivity.bind(this)
-  }
-
-  handleSaveRestaurant() {
-    axios.post('/saveRestaurant')
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((err) => {
-        console.log('Error saving favorite restaurant')
-      })
-  }
-
-  handleSaveMovie() {
-    axios.post('/saveMovie')
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((err) => {
-        console.log('Error saving favorite movie')
-      })
-  }
-
-  handleSaveActivity() {
-    axios.post('/saveActivity')
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((err) => {
-        console.log('Error saving favorite activity')
-      })
-=======
->>>>>>> 36e21dbf50d5576a94de20d2d784702c1aef316a
   }
 
   handleTryAgain(){
