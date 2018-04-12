@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'
-import { Route, Link } from 'react-router-dom';
+import { Redirect,Route, Link } from 'react-router-dom';
 import Welcome from './Welcome.jsx';
 import QuestionForm from './QuestionForm.jsx';
 
@@ -12,7 +12,6 @@ class SignUp extends React.Component{
       password: '',
       email: ''
     }
-
     this.handleClick = this.handleClick.bind(this)
     this.register = this.register.bind(this)
   }
@@ -24,18 +23,9 @@ class SignUp extends React.Component{
   }
 
   register(username, password, email) {
-    axios.post('/signup', {username: username, password: password, email: email})
-      .then((registrationResponse) => {
-        // console.log("Registering user was a success", registrationResponse)
-        this.props.history.push('/welcome');
-      })
-      .catch((err)=> {
-        console.log(err);
-        console.log("There was an error registering user")
-      })
-      .then(() => {
-        console.log("HIII CAUGHT")
-      })
+    this.props.handleRegister(username, password, email, () => {
+      this.props.history.push('/welcome');
+    })
   }
 
   render() {
