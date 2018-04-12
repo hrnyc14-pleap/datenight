@@ -194,10 +194,8 @@ app.post('/saveMovie', restrict, function(req, res) {
 app.post('/saveActivity', restrict, function(req, res) {
   // req.body.username = 'hi'
   // req.body.activityName = 'swim'
-  // req.body.location = 'phuket'
-  // req.body.price = 1
   // req.body.activityPhoto = 'fake url'
-  db.saveActivity(req.body.activityName, req.body.location, req.body.price, req.body.activityPhoto)
+  db.saveActivity(req.body.activityName, req.body.activityPhoto)
   .then(() => {
     db.saveUserActivity(req.session.user, req.body.activityName)
   })

@@ -4,8 +4,8 @@ const TwoChoiceQuestion = ({choices, handleSubmit}) => {
     return (
       <div>
         {
-          choices.map(choice => (
-          <button onClick={handleSubmit.bind(null, choice)}>{choice}</button>
+          choices.map((choice, i) => (
+          <button key={i} onClick={handleSubmit.bind(null, choice)}>{choice}</button>
         ))}        
       </div>
     )
