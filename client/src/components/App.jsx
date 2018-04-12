@@ -24,18 +24,30 @@ class App extends React.Component {
     this.handleSaveMovie = this.handleSaveMovie.bind(this);
     this.handleSaveActivity = this.handleSaveActivity.bind(this);
     this.getFavorites = this.getFavorites.bind(this);
-<<<<<<< HEAD
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
-  } 
-
-  getFavorites() {
-    // TODO
-=======
     this.handleDeleteMovie = this.handleDeleteMovie.bind(this);
     this.handleDeleteRestaurant = this.handleDeleteRestaurant.bind(this);
     this.handleDeleteActivity = this.handleDeleteActivity.bind(this);
-  } 
+    this.isSaved = this.isSaved.bind(this);
+  }
+
+  isSaved(type, data) {
+    if (type === 'movie') {
+      for (var movie of this.state.favoriteMovies) {
+        if (movie.name === data.name) return true;
+      }
+    } else if (type === 'activity') {
+      for (var activity of this.state.favoriteActivities) {
+        if (activity.name === data.name) return true;
+      }
+    } else if (type === 'restaurant') {
+      for (var restaurant of this.state.favoriteRestaurants) {
+        if (restaurant.name === data.name) return true;
+      }
+    }
+    return false;
+  }
 
   getFavorites() {
     axios.get('/getFavorites')
@@ -49,10 +61,10 @@ class App extends React.Component {
     .catch((err) => {
       console.log(err);
     })
->>>>>>> 9b62965244f740a9960b1dd0cfd454ab0632a160
   }
 
   handleSaveRestaurant(restaurant){
+    console.log('saving restaurant', restaurant)
     axios.post('/saveRestaurant', {
       restaurantName: restaurant.name,
       restaurantPhoto: restaurant.image_url,
@@ -68,9 +80,10 @@ class App extends React.Component {
   }
 
   handleSaveMovie(movie){
+    console.log('saving movie', movie)
     axios.post('/saveMovie', {
-      movieName: movie.title,
-      moviePhoto: movie.poster_path
+      movieName: movie.name,
+      moviePhoto: movie.picture
     })
     .then((res) => {
       console.log('Movie saved to favorites', res);
@@ -78,10 +91,12 @@ class App extends React.Component {
     })
     .catch((err) => {
       console.log('Unable to save movie to favorites', err);
+      res.send(400, 'error saving to database');
     })
   }
 
   handleSaveActivity(activity){
+    console.log('saving activity', activity)
     axios.post('/saveActivity', {
       activityName: activity.name,
       location: activity.location,
@@ -178,7 +193,12 @@ class App extends React.Component {
         <Route path='/questions' component={(props) => <QuestionForm
           handleSaveMovie={this.handleSaveMovie}
           handleSaveActivity={this.handleSaveActivity}
-          handleSaveRestaurant={this.handleSaveRestaurant}/>}/>
+          handleSaveRestaurant={this.handleSaveRestaurant}
+          handleDeleteActivity={this.handleDeleteActivity}
+          handleDeleteMovie={this.handleDeleteMovie}
+          handleDeleteRestaurant={this.handleDeleteRestaurant}
+          isSaved={this.isSaved}/>}
+        />
         <Route path='/results' component={Results}/>
         <Route path='/favorites' component={() => <Favorites movies={[]} activities ={[]} restaurants={[]}/>}/>
         </div>
