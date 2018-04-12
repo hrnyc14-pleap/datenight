@@ -77,7 +77,9 @@ class QuestionForm extends React.Component {
     axios.post('/date', data)
       .then(res => {
         console.log('GOT RESPONSE', res)
+        //redirect? 
       })
+
   }
 
   // saves the response to the current element and shows the next question or submits the form

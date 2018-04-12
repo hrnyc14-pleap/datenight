@@ -10,22 +10,13 @@ import QuestionForm from './QuestionForm.jsx';
 import Favorites from './Favorites.jsx';
 import UserHome from './UserHome.jsx';
 import NavBar from './NavBar.jsx';
+import Results from './Results.jsx'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false,
-      apiQueries:{
-        cook: false,
-        delivery: false,
-        movieGenre: "",
-        activityLevel: false,
-        location: "",
-        price: ""
-      },
-      results: {},
-      saved: []
+      isLoggedIn: false
     }
     this.handleSaveRestaurant = this.handleSaveRestaurant.bind(this);
     this.handleSaveMovie = this.handleSaveMovie.bind(this);
@@ -87,18 +78,18 @@ class App extends React.Component {
       <div>
       <Router>
         <div>
-          <Route exact="true" path='/' component={()=><h1>NAVBAR</h1>}/>
+          <Route exact="true" path='/' component={()=><NavBar path='/' handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>}/>
         {['/signup', '/login', '/welcome', '/questions', '/home'].map(path => 
-          <Route path={path} component={()=>
-            <NavBar path={path} handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>
-          }/>
-        )
-        }
-        <Route exact="true" path='/' component={Home}/>
+          <Route path={path} component={()=><NavBar path={path} handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>}/>
+        )}
+        <Route exact='true' path='/' component={Home}/>
+        <Route path='/signup' component={Home}/>
         <Route path='/login' component={Login}/>
         <Route path='/welcome' component={Welcome}/>
         <Route path='/questions' component={QuestionForm}/>
         <Route path='/home' component={UserHome}/>
+        <Route path='/results' component={Results}/>
+        <Route path='/favorites' component={() => <Favorites movies={[]}/>}/>
         </div>
       </Router>
       Application by Amy San Felipe, Heidi Poon, Ian Pradhan, and Kevin Wang 2018 
@@ -106,7 +97,5 @@ class App extends React.Component {
     )
   }
 }
-
-
 
 export default App;
