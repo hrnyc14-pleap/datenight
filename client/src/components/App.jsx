@@ -8,8 +8,8 @@ import Welcome from './Welcome.jsx';
 import Home from './Home.jsx';
 import QuestionForm from './QuestionForm.jsx';
 import Favorites from './Favorites.jsx';
-import NavBar from './NavBar.jsx';
 import Results from './Results.jsx'
+import NavBar from './NavBar.jsx'
 
 class App extends React.Component {
   constructor(props) {
