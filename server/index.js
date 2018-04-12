@@ -3,6 +3,7 @@ const parser = require('body-parser');
 const axios = require('axios');
 const bcrypt = require('bcrypt');
 const helpers = require('./helpers.js');
+const path = require('path');
 
 const config = require ('../config.js');
 const db = require('../database/index.js')
@@ -260,6 +261,10 @@ app.delete('/deleteActivity', function(req, res){
 
 
 let port = 8080;
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname + '/../client/dist/index.html'));
+})
 
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
