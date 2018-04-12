@@ -18,6 +18,59 @@ class App extends React.Component {
     this.state = {
       isLoggedIn: false
     }
+    this.handleSaveRestaurant = this.handleSaveRestaurant.bind(this);
+    this.handleSaveMovie = this.handleSaveMovie.bind(this);
+    this.handleSaveActivity = this.handleSaveActivity.bind(this);
+    this.getFavorites = this.getFavorites.bind(this);
+  } 
+
+  getFavorites() {
+    
+  }
+
+  handleSaveRestaurant(restaurant){
+    axios.post('/saveRestaurant', {
+      restaurantName: restaurant.name,
+      restaurantPhoto: restaurant.image_url,
+      price: restaurant.price.length
+    })
+    .then((res) => {
+      console.log('Restaurant saved to favorites', res)
+      this.getFavorites();
+    })
+    .catch((err) => {
+      console.log('Unable to save restaurant to favorites', err);
+    })
+  }
+
+  handleSaveMovie(movie){
+    axios.post('/saveMovie', {
+      movieName: movie.title,
+      moviePhoto: movie.poster_path
+    })
+    .then((res) => {
+      console.log('Movie saved to favorites', res)
+      this.getFavorites();
+    })
+    .catch((err) => {
+      console.log('Unable to save movie to favorites', err);
+    })
+  }
+
+  handleSaveActivity(activity){
+    axios.post('/saveActivity', {
+      activityName: activity.name,
+      location: activity.location,
+      price: activity.price.length,
+      acitivityPhoto: activity.image_url
+    })
+    .then((res) => {
+      console.log('Activity saved to favorites', res)
+      this.getFavorites();
+    })
+    .catch((err) => {
+      console.log('Unable to save activity to favorites', err);
+    })
   }
 
   render() {
