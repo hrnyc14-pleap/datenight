@@ -9,6 +9,7 @@ const Favorites = ({movies, activities, restaurants, handleDeleteMovie, handleDe
   return(
     <div>
       <h1> Restaurants </h1>
+      {console.log(restaurants)}
         {
           restaurants.map((item, i) => (
               <div key={i}>

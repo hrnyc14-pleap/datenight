@@ -27,9 +27,10 @@ const Results = ({movie, restaurant, activity, isSaved,
         }
         Restaurant
         {
-          restaurant === null?
+          restaurant === null ?
             (''):
             (<div>
+              {console.log('this is the results page')}
               <RestaurantView data={restaurant}/>
               <button onClick={()=>{isSaved('restaurant', restaurant)? handleDeleteRestaurant(restaurant): handleSaveRestaurant(restaurant)}}>
                 {isSaved('restaurant', restaurant)? 'unsave': 'save'}</button>
