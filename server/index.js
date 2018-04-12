@@ -157,10 +157,8 @@ app.post('/date', (req, res) => {
 
 //save movies into db
 app.post('/saveMovie', function(req, res) {
-  // req.body.username = 'hi'
-  // req.body.movieName = 'kill bill'
-  // req.body.genre = 'action'
-  // req.body.moviePhoto = 'fakeUrl'
+  console.log('req.session.user ', req.session.user)
+  console.log('saving movie', req.body.movieName, req.body.moviePhoto)
   db.saveMovie(req.body.movieName, req.body.moviePhoto)
   .then(() => {
     db.saveUserMovie(req.session.user, req.body.movieName)
@@ -237,21 +235,21 @@ app.get('/getFavorites', (req, res) => {
 
 
 app.delete('/deleteMovie', function(req, res){
-  db.deleteSavedMovie(req.body.movieName)
+  db.deleteSavedMovie(req.query.movie)
   .then(() => {
     res.status(200).send('Deleted successfully');
   })
 })
 
 app.delete('/deleteRestaurant', function(req, res){
-  db.deleteSavedRestaurant(req.body.restaurant)
+  db.deleteSavedRestaurant(req.query.restaurant)
   .then(() => {
     res.status(200).send('Deleted successfully');
   })
 })
 
 app.delete('/deleteActivity', function(req, res){
-  db.deleteSavedActivity(req.body.activity)
+  db.deleteSavedActivity(req.query.activity)
   .then(() => {
     res.status(200).send('Deleted successfully');
   })
