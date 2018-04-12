@@ -33,7 +33,7 @@ var Questions = {
     choices: {
       'Mellow': 'details',
       'Active': 'details',
-    }, 
+    },
     type: 'twoChoice'
   },
   details: {
@@ -58,7 +58,7 @@ class QuestionForm extends React.Component {
     this.handleSubmitElement = this.handleSubmitElement.bind(this);
     this.handleRestart = this.handleRestart.bind(this);
   }
-  
+
   handleRestart() {
     this.setState({
       currentQuestion: 'homeOrCity',
@@ -91,6 +91,7 @@ class QuestionForm extends React.Component {
       data.minPrice = responses.details.minPrice,
       data.maxPrice = responses.details.maxPrice
     }
+
     axios.post('/date', data)
       .then(res => {
         console.log('GOT RESPONSE', res.data)
@@ -131,7 +132,7 @@ class QuestionForm extends React.Component {
     return (
       <div>
         {
-          this.state.showingResults? 
+          this.state.showingResults?
             <Results
               {...this.props}
               movie={this.state.movieResults? this.state.movieResults[0]: null}
@@ -148,7 +149,7 @@ class QuestionForm extends React.Component {
                   choices={Object.keys(this.state.questions[this.state.currentQuestion].choices)}/>
               )
             )
-          
+
         }
         <button onClick={this.handleRestart}>Restart</button>
       </div>

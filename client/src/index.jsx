@@ -7,7 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 ReactDOM.render((
   <BrowserRouter>
-    <MuiThemeProvider>  
+    <MuiThemeProvider>
       <App />
     </MuiThemeProvider>
   </BrowserRouter>

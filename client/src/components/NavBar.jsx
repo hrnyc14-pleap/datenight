@@ -8,6 +8,7 @@ const NavBar = ({path, handleLogout}) => (
     <div>
         <AppBar
           title="Date Night Generator"
+          showMenuIconButton={false}
           iconElementRight={
                 <div>
                     {console.log('THIS IS THE PATH', path)}
@@ -18,10 +19,9 @@ const NavBar = ({path, handleLogout}) => (
                     {(path !== '/login' && path !== '/signup' && path !== '/' ) && <FlatButton onClick={handleLogout} label="Log Out" style={{"color":"white"}}/>}
 
                 </div>
-        
             }
         />
-       
+
     </div>
 )
 
