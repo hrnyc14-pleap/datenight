@@ -32,8 +32,6 @@ CREATE TABLE restaurant(
 CREATE TABLE activity(
   activity_id INT NOT NULL AUTO_INCREMENT,
   activityName VARCHAR(255) UNIQUE,
-  location VARCHAR(255),
-  price INT,
   activityPhoto VARCHAR(255),
   PRIMARY KEY(activity_id)
 );

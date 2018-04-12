@@ -137,7 +137,7 @@ class QuestionForm extends React.Component {
               {...this.props}
               movie={this.state.movieResults? this.state.movieResults[0]: null}
               activity={this.state.activityResults? this.state.activityResults[0]: null}
-              restaurant={this.state.restaurantResult? this.state.restaurantResults[0]: null}
+              restaurant={this.state.restaurantResults? this.state.restaurantResults[0]: null}
             />:
             (
               this.state.questions[this.state.currentQuestion].type === 'details'?
