@@ -129,7 +129,7 @@ app.post('/date', (req, res) => {
       helpers.searchYelp(lat, long, radius, price, category, function(data1){
         helpers.searchMovies(genreId, function(data2){
           let output = {
-            yelp: data1,
+            restaurants: data1,
             movies: data2
           }
           res.status(200).send(output);
@@ -139,18 +139,27 @@ app.post('/date', (req, res) => {
       let price = req.body.price;
       let category = "restaurants";
       helpers.searchYelp(lat, long, radius, price, category, function(data){
-        res.status(200).send(data);
+        let output = {
+          restaurants: data
+        }
+        res.status(200).send(output);
       })
     } else if (activity === "active") {
       let price = req.body.price;
       let category = "arts";
       helpers.searchYelp(lat, long, radius, price, category, function(data){
-        res.status(200).send(data);
+        let output = {
+          activities: data
+        }
+        res.status(200).send(output);
       })
     }
   } else {
     helpers.searchMovies(genreId, function(data){
-      res.status(200).send(data);
+      let output = {
+        movies: data
+      }
+      res.status(200).send(output);
     })
   }
 })
