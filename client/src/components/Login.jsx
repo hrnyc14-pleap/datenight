@@ -1,6 +1,6 @@
 import React from 'react';
 import QuestionForm from './QuestionForm.jsx';
-import { Route, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios'
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -47,6 +47,9 @@ class Login extends React.Component {
   }
 
   render() {
+    if (this.props.isLoggedIn) {
+      return <Redirect to='/questions'/>
+    }
     return (
       <div className="general-background">
         <div className="login-container">

@@ -6,7 +6,7 @@ import ActivityView from './ActivityView.jsx';
 import RestaurantView from './RestaurantView.jsx';
 
 
-const Results = ({movie, restaurant, activity, isSaved,
+const Results = ({movie, restaurant, activity,
     handleSaveMovie, handleSaveActivity, handleSaveRestaurant,
     handleDeleteMovie, handleDeleteActivity, handleDeleteRestaurant}) => (<div>
   <div className="general-background">
@@ -20,19 +20,17 @@ const Results = ({movie, restaurant, activity, isSaved,
             (''):
             (<div>
               <MovieView data={movie}/>
-              <button onClick={()=>{isSaved('movie', movie)? handleDeleteMovie(movie): handleSaveMovie(movie)}}>
-                {isSaved('movie', movie)? 'unsave': 'save'}</button>
+              <button onClick={()=>{handleSaveMovie(movie)}}>save</button>
             </div>
             )
         }
         Restaurant
         {
-          restaurant === null?
+          restaurant === null ?
             (''):
             (<div>
               <RestaurantView data={restaurant}/>
-              <button onClick={()=>{isSaved('restaurant', restaurant)? handleDeleteRestaurant(restaurant): handleSaveRestaurant(restaurant)}}>
-                {isSaved('restaurant', restaurant)? 'unsave': 'save'}</button>
+              <button onClick={()=>{handleSaveRestaurant(restaurant)}}>save</button>
             </div>
             )
         }
@@ -43,8 +41,7 @@ const Results = ({movie, restaurant, activity, isSaved,
             (''):
             (<div>
               <ActivityView data={activity}/>
-              <button onClick={()=>{isSaved('activity', activity)? handleDeleteActivity(activity): handleSaveActivity(activity)}}>
-                {isSaved('activity', activity)? 'unsave': 'save'}</button>
+              <button onClick={()=>{handleSaveActivity(activity)}}>save</button>
             </div>
             )
         }

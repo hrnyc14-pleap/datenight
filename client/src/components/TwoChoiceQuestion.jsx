@@ -5,8 +5,8 @@ const TwoChoiceQuestion = ({choices, handleSubmit}) => {
       <div className="general-background">
         <div className="general-container">
           {
-            choices.map(choice => (
-            <button onClick={handleSubmit.bind(null, choice)}>{choice}</button>
+            choices.map((choice,i) => (
+            <button key={i} onClick={handleSubmit.bind(null, choice)}>{choice}</button>
           ))}      
         </div>  
       </div>
