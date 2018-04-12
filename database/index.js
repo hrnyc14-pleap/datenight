@@ -19,7 +19,7 @@ exports.findUser = (username) => {
 
 //save move to movie table
 exports.saveMovie = (movieName, moviePhoto) => {
-  return connection.query('INSERT IGNORE INTO movie (movieName, moviePhoto) VALUES (?, ?, ?)',
+  return connection.query('INSERT IGNORE INTO movie (movieName, moviePhoto) VALUES (?, ?)',
   {replacements: [movieName, moviePhoto], type: 'INSERT'})
 }
 

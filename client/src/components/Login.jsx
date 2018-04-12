@@ -7,15 +7,14 @@ class Login extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: '',
-      loggedIn: false
+      password: ''
     }
 
-    this.onUserChange = this.onUserChange.bind(this)
-    this.onPasswordChange = this.onPasswordChange.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-    this.handleKeyPress = this.handleKeyPress.bind(this)
-    this.submit = this.submit.bind(this)
+    this.onUserChange = this.onUserChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleLogin = props.handleLogin;
+    this.submit = this.submit.bind(this);
   }
 
   onUserChange(e) {
@@ -30,32 +29,18 @@ class Login extends React.Component {
     })
   }
 
-  handleClick() {
-    this.submit(this.state.username, this.state.password)
-    if (this.state.loggedIn === true ) {
-      this.props.history.push('/questions')
-    }
-  }
-
   handleKeyPress(e) {
     if (e.charCode === 13) {
-      this.submit(this.state.username, this.state.password)
+      this.submit(this.state.username, this.state.password);
     }
   }
 
-  submit(username, password) {
-    axios.post('/login', {username: username, password: password})
-      .then((logInResponse) => {
-        console.log('Login reponse', logInResponse)
-        this.setState({
-          loggedIn : true
-        })
-        console.log('login', this.props.history)
-        this.props.history.push('/questions')
-      })
-      .catch((err)=> {
-        console.log('There was an error signing in')
-      })
+  submit() {
+    console.log('handle login', this.state.username, this.state.password)
+    this.handleLogin(this.state.username, this.state.password, ()=> {
+      console.log('submit props', this.props)
+      this.props.history.push('/questions');
+    });
   }
 
   render() {
@@ -65,7 +50,7 @@ class Login extends React.Component {
       <br></br>
       <input value={this.password} onChange={this.onPasswordChange} onKeyPress={this.handleKeyPress}  /> Enter your Password
       <br></br>
-      <button onClick={this.handleClick}>Log in</button>
+      <button onClick={this.submit}>Log in</button>
       </div>
     )
   }

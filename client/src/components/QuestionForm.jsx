@@ -49,7 +49,10 @@ class QuestionForm extends React.Component {
       showingResults: false,
       questions: Questions,
       currentQuestion: 'homeOrCity',
-      responseData: {}
+      responseData: {},
+      restaurantResult: null,
+      movieResult: null,
+      activityResult: null
     }
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.handleSubmitElement = this.handleSubmitElement.bind(this);
@@ -57,7 +60,14 @@ class QuestionForm extends React.Component {
   }
 
   handleRestart() {
-    this.setState({currentQuestion: 'homeOrCity', responseData: {}, showingResults: false});
+    this.setState({
+      currentQuestion: 'homeOrCity',
+      responseData: {},
+      showingResults: false,
+      movieResult: null,
+      activityResult: null,
+      restaurantResult: null
+    });
   }
 
   handleSubmitForm() {
@@ -85,8 +95,23 @@ class QuestionForm extends React.Component {
       .then(res => {
         console.log('GOT RESPONSE', res)
         // display results
-        this.setState({showingResults: true});
+        this.setState({
+          movieResult: {
+            name: 'de wae',
+            picture: 'www.fakeurl.com'
+          },
+          activityResult: {
+            name: 'jogging',
+            picture: 'www.fakeurl.com'
+          },
+          restaurantResult: null,
+          showingResults: true
+        });
       })
+  }
+
+  // movie, activity, or restaurant may be null depending on what the user's answers were
+  showResults(movie, activity, restaurant) {
 
   }
 
@@ -113,7 +138,12 @@ class QuestionForm extends React.Component {
       <div>
         {
           this.state.showingResults? 
-            <Results/>:
+            <Results
+              {...this.props}
+              movie={this.state.movieResult}
+              activity={this.state.activityResult}
+              restaurant={this.state.restaurantResult}
+            />:
             (
               this.state.questions[this.state.currentQuestion].type === 'details'?
               <DetailsForm handleSubmitForm={this.handleSubmitElement}/>:

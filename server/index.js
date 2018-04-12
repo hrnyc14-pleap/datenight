@@ -158,10 +158,8 @@ app.post('/date', (req, res) => {
 
 //save movies into db
 app.post('/saveMovie', function(req, res) {
-  // req.body.username = 'hi'
-  // req.body.movieName = 'kill bill'
-  // req.body.genre = 'action'
-  // req.body.moviePhoto = 'fakeUrl'
+  console.log('req.session.user ', req.session.user)
+  console.log('saving movie', req.body.movieName, req.body.moviePhoto)
   db.saveMovie(req.body.movieName, req.body.moviePhoto)
   .then(() => {
     db.saveUserMovie(req.session.user, req.body.movieName)
