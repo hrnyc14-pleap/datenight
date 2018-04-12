@@ -7,7 +7,8 @@ import RestaurantView from './RestaurantView.jsx';
 
 const Favorites = ({movies, activities, restaurants, handleDeleteMovie, handleDeleteRestaurant, handleDeleteActivity}) => {
   return(
-    <div>
+    <div className="general-background">
+      <div className="general-container">
       <h1> Restaurants </h1>
         {
           restaurants.map((item, i) => (
@@ -36,6 +37,7 @@ const Favorites = ({movies, activities, restaurants, handleDeleteMovie, handleDe
 
           ))
         }
+      </div>
     </div>
   )
 }

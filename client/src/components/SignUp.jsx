@@ -3,6 +3,9 @@ import axios from 'axios'
 import { Route, Link } from 'react-router-dom';
 import Welcome from './Welcome.jsx';
 import QuestionForm from './QuestionForm.jsx';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+
 
 class SignUp extends React.Component{
   constructor(props) {
@@ -42,11 +45,13 @@ class SignUp extends React.Component{
     return (
       <div>
         Username<input ref={username => this.username = username}></input>
-        <br></br>
+        <br/>
         Password<input ref={password => this.password = password}></input>
-        <br></br>
+        <br/>
         Email <input ref={email => this.email = email}></input>
-        <button onClick={this.handleClick}>Sign Up!</button>
+        <br/>
+        <br/>
+        <RaisedButton label="Sign Up!" onClick={this.handleClick}/>
 
       </div>
     )

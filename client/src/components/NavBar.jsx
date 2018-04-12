@@ -7,15 +7,17 @@ import FlatButton from 'material-ui/FlatButton';
 const NavBar = ({path, handleLogout}) => (
     <div>
         <AppBar
-          title="Date Night Generator"
+          zDepth={0}
+          style={{"backgroundColor":"rgba(0,0,0,0.4)"}}
+          showMenuIconButton={false}
           iconElementRight={
                 <div>
                     {console.log('THIS IS THE PATH', path)}
-                    {(path === '/signup' || path === '/') && <Link to='/login'><FlatButton label="Login" style={{"color":"white"}}/></Link>}
-                    {(path === '/login') && <Link to='/signup'><FlatButton label="Sign Up" style={{"color":"white"}}/></Link>}
-                    {(path !== '/login' && path !== '/signup' && path !== '/') && <Link to='/questions'><FlatButton label="Questions" style={{"color":"white"}}/></Link>}
-                    {(path !== '/login' && path !== '/signup' && path !== '/' ) && <Link to='/favorites'><FlatButton label="Favorites" style={{"color":"white"}}/></Link>}
-                    {(path !== '/login' && path !== '/signup' && path !== '/' ) && <FlatButton onClick={handleLogout} label="Log Out" style={{"color":"white"}}/>}
+                    {(path === '/signup' || path === '/') && <Link to='/login'><FlatButton label="Login" style={{"color":"#fff", "zIndex":"2"}}/></Link>}
+                    {(path === '/login') && <Link to='/signup'><FlatButton label="Sign Up" style={{"color":"#fff"}}/></Link>}
+                    {(path !== '/login' && path !== '/signup' && path !== '/') && <Link to='/questions'><FlatButton label="Questions" style={{"color":"#fff"}}/></Link>}
+                    {(path !== '/login' && path !== '/signup' && path !== '/' ) && <Link to='/favorites'><FlatButton label="Favorites" style={{"color":"#fff"}}/></Link>}
+                    {(path !== '/login' && path !== '/signup' && path !== '/' ) && <FlatButton onClick={handleLogout} label="Log Out" style={{"color":"#fff"}}/>}
 
                 </div>
         
