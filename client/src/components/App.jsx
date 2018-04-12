@@ -15,7 +15,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false
+      isLoggedIn: false,
+      favoriteMovies: [],
+      favoriteRestaurants: [],
+      favoriteActivities: []
     }
     this.handleSaveRestaurant = this.handleSaveRestaurant.bind(this);
     this.handleSaveMovie = this.handleSaveMovie.bind(this);
@@ -27,7 +30,17 @@ class App extends React.Component {
   } 
 
   getFavorites() {
-    
+    axios.get('/getFavorites')
+    .then((data) => {
+      this.setState({
+        favoriteMovies: data.movies,
+        favoriteRestaurants: data.restaurants,
+        favoriteActivities: data.activities
+      })
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   handleSaveRestaurant(restaurant){
@@ -37,7 +50,7 @@ class App extends React.Component {
       price: restaurant.price.length
     })
     .then((res) => {
-      console.log('Restaurant saved to favorites', res)
+      console.log('Restaurant saved to favorites', res);
       this.getFavorites();
     })
     .catch((err) => {
@@ -51,7 +64,7 @@ class App extends React.Component {
       moviePhoto: movie.poster_path
     })
     .then((res) => {
-      console.log('Movie saved to favorites', res)
+      console.log('Movie saved to favorites', res);
       this.getFavorites();
     })
     .catch((err) => {
@@ -67,7 +80,7 @@ class App extends React.Component {
       acitivityPhoto: activity.image_url
     })
     .then((res) => {
-      console.log('Activity saved to favorites', res)
+      console.log('Activity saved to favorites', res);
       this.getFavorites();
     })
     .catch((err) => {
