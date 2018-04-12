@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
+import axios from 'axios';
 
 class Results extends React.Component {
   constructor(props) {
@@ -7,22 +8,7 @@ class Results extends React.Component {
     this.state= {
 
     }
-    this.handleSaveRestaurant = this.handleSaveRestaurant.bind(this)
-    this.handleSaveMovie = this.handleSaveMovie.bind(this)
     this.handleTryAgain = this.handleTryAgain.bind(this)
-    this.handleSaveActivity = this.handleSaveActivity.bind(this)
-  }
-
-  handleSaveRestaurant(){
-
-  }
-
-  handleSaveMovie(){
-
-  }
-
-  handleSaveActivity(){
-
   }
 
   handleTryAgain(){
