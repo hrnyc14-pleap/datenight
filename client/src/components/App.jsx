@@ -88,7 +88,6 @@ class App extends React.Component {
     })
     .then((res) => {
       console.log('Restaurant saved to favorites', res);
-      // this.getFavorites();
     })
     .catch((err) => {
       console.log('Unable to save restaurant to favorites', err);
@@ -107,7 +106,6 @@ class App extends React.Component {
     })
     .then((res) => {
       console.log('Movie saved to favorites', res);
-      // this.getFavorites();
     })
     .catch((err) => {
       console.log('Unable to save movie to favorites', err);
@@ -127,7 +125,6 @@ class App extends React.Component {
     })
     .then((res) => {
       console.log('Activity saved to favorites', res);
-      // this.getFavorites();
     })
     .catch((err) => {
       console.log('Unable to save activity to favorites', err);
