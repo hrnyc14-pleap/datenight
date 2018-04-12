@@ -225,9 +225,18 @@ class App extends React.Component {
           isSaved={this.isSaved}/>}
         />
         <Route path='/results' component={Results}/>
-        <Route path='/favorites' isLoggedIn={this.state.isLoggedIn} component={() => 
-          <Favorites {...this.props} isLoggedIn={this.state.isLoggedIn}
-            movies={this.state.favoriteMovies} activities ={this.state.favoriteActivities} restaurants={this.state.favoriteRestaurants}/>}/>
+        <Route path='/favorites' component={() => 
+          <Favorites
+            {...this.props}
+            isLoggedIn={this.state.isLoggedIn}
+            movies={this.state.favoriteMovies}
+            activities ={this.state.favoriteActivities} 
+            restaurants={this.state.favoriteRestaurants} 
+            handleDeleteMovie={this.handleDeleteMovie} 
+            handleDeleteRestaurant = {this.handleDeleteRestaurant}
+            handleDeleteActivity = {this.handleDeleteActivity}
+          />}
+        />
         </div>
       </Router>
       Application by Amy San Felipe, Heidi Poon, Ian Pradhan, and Kevin Wang 2018 

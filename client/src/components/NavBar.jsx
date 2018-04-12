@@ -1,16 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
+
 
 const NavBar = ({path, handleLogout, isLoggedIn}) => (
     <div>
-        {console.log('ISLOGGEDIN', isLoggedIn)}
-        Navigation bar
-        {console.log('THIS IS THE PATH', path)}
-        {(path !== '/login' && !isLoggedIn) && <Link to='/login'>Login</Link>}
-        {(path !== '/signup' && !isLoggedIn) && <Link to='/signup'>Sign up</Link>}
-        {(path !== '/questions') && <Link to='/questions'>Questions</Link>}
-        {((path !== '/favorites') && (isLoggedIn)) && <Link to='/favorites'>Favorites</Link>}
-        {(isLoggedIn) && <button onClick={handleLogout}> logout </button>}
+        <AppBar
+          title="Date Night Generator"
+          iconElementRight={
+                <div>
+                    {(path !== '/login' && !isLoggedIn) && <Link to='/login'><FlatButton label="Login" style={{"color":"white"}}/></Link>}
+                    {(path !== '/signup' && !isLoggedIn) && <Link to='/signup'><FlatButton label="Sign Up" style={{"color":"white"}}/></Link>}
+                    {(path !== '/questions') && <Link to='/questions'><FlatButton label="Questions" style={{"color":"white"}}/></Link>}
+                    {((path !== '/favorites') && (isLoggedIn)) && <Link to='/favorites'><FlatButton label="Favorites" style={{"color":"white"}}/></Link>}
+                    {(isLoggedIn) && <FlatButton onClick={handleLogout} label="Log Out" style={{"color":"white"}}/>}
+
+                </div>
+        
+            }
+        />
+       
     </div>
 )
 

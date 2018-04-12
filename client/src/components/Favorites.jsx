@@ -6,31 +6,41 @@ import ActivityView from './ActivityView.jsx';
 import RestaurantView from './RestaurantView.jsx';
 import {Redirect} from 'react-router-dom';
 
-const Favorites = ({movies, activities, restaurants, isLoggedIn, location}) => {
+const Favorites = ({movies, activities, restaurants, isLoggedIn, location, handleDeleteMovie, handleDeleteRestaurant, handleDeleteActivity}) => {
   if (!isLoggedIn) {
     return <div><Redirect to='/login'/></div>;
   }
-  return ( <div>
-    <h1> Restaurants </h1>
-      {
-        restaurants.map(item => {
-          <RestaurantView data={item}/>;
-        })
-      }
-    <h1> Activities </h1>
-      {
-        activities.map(item => {
-          <ActivityView data={item}/>;
-        })
-      }
-    <h1> Movies </h1>
-      {
-        movies.map(item => {
-          <MovieView data={item}/>;
-        })
-      }
-  </div>
-)
-}
+  return(
+    <div>
+      <h1> Restaurants </h1>
+        {
+          restaurants.map((item, i) => (
+              <div key={i}>
+                <RestaurantView data={item}/>
+                <button onClick={() => { handleDeleteRestaurant(item.name)} }>Delete</button>
+              </div>  
+          ))
+        }
+      <h1> Activities </h1>
+        {
+          activities.map((item, i) => (
+            <div key={i}>
+              <ActivityView data={item} />
+              <button onClick={() => { handleDeleteActivity(item.name)} }>Delete</button>
+            </div>
+          ))
+        }
+      <h1> Movies </h1>
+        {
+          movies.map((item, i) => (
+            <div key={i}>
+              <MovieView data={item} />
+              <button onClick={() => { handleDeleteMovie(item.name)} }>Delete</button>
+            </div>
+
+          ))
+        }
+    </div>
+  )}
 
 export default Favorites;

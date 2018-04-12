@@ -254,6 +254,10 @@ app.delete('/deleteMovie', restrict, function(req, res){
   .then(() => {
     res.status(200).send('Deleted successfully');
   })
+  .catch((err)=> {
+    console.log('Unable to delete')
+    res.status(404);
+  })
 })
 
 app.delete('/deleteRestaurant', restrict, function(req, res){
@@ -261,12 +265,20 @@ app.delete('/deleteRestaurant', restrict, function(req, res){
   .then(() => {
     res.status(200).send('Deleted successfully');
   })
+  .catch((err)=> {
+    console.log('Unable to delete')
+    res.status(404);
+  })
 })
 
 app.delete('/deleteActivity', restrict, function(req, res){
   db.deleteSavedActivity(req.query.activity)
   .then(() => {
     res.status(200).send('Deleted successfully');
+  })
+  .catch((err)=> {
+    console.log('Unable to delete')
+    res.status(404);
   })
 })
 
