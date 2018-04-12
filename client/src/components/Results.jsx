@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
-import Q1 from './Q1.jsx';
 
 class Results extends React.Component {
   constructor(props) {
@@ -33,8 +32,6 @@ class Results extends React.Component {
   render() {
     return(
       <div>
-        <Route path='/Where' component={Q1} />
-
         <h1>Your Results:</h1>
         <p> Your date night will be this .... placeholder </p>
 
