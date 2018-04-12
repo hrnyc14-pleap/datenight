@@ -24,6 +24,9 @@ class App extends React.Component {
     this.handleSaveMovie = this.handleSaveMovie.bind(this);
     this.handleSaveActivity = this.handleSaveActivity.bind(this);
     this.getFavorites = this.getFavorites.bind(this);
+    this.handleDeleteMovie = this.handleDeleteMovie.bind(this);
+    this.handleDeleteRestaurant = this.handleDeleteRestaurant.bind(this);
+    this.handleDeleteActivity = this.handleDeleteActivity.bind(this);
   } 
 
   getFavorites() {
@@ -85,13 +88,59 @@ class App extends React.Component {
     })
   }
 
+  handleDeleteMovie(movieName){
+    axios.delete('/deleteMovie', {
+      params: {
+        movie: movieName
+      }   
+    })
+    .then((res) => {
+      console.log('Movie has been deleted')
+      this.getFavorites();
+    })
+    .catch((err) => {
+      console.log('Failed to delete movie', err)
+    })
+  }
+
+  handleDeleteRestaurant(restaurantName){
+    axios.delete('/deleteRestaurant', {
+      params: {
+        restaurant: restaurantName
+      }   
+    })
+    .then((res) => {
+      console.log('Restaurant has been deleted')
+      this.getFavorites();
+    })
+    .catch((err) => {
+      console.log('Failed to delete restaurant', err)
+    })
+  }
+
+  handleDeleteActivity(activityName){
+    axios.delete('/deleteActivity', {
+      params: {
+        activity: activityName
+      }   
+    })
+    .then((res) => {
+      console.log('Activity has been deleted')
+      this.getFavorites();
+    })
+    .catch((err) => {
+      console.log('Failed to delete activiy', err)
+    })
+  }
+
+
   render() {
     return (
       <div>
       <Router>
         <div>
           <Route exact="true" path='/' component={()=><NavBar path='/' handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>}/>
-        {['/signup', '/login', '/welcome', '/questions', '/home'].map(path => 
+        {['/signup', '/login', '/welcome', '/questions', '/home', '/favorites'].map(path => 
           <Route path={path} component={()=><NavBar path={path} handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>}/>
         )}
         <Route exact='true' path='/' component={Home}/>
