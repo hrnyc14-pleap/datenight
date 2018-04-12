@@ -8,7 +8,6 @@ import Welcome from './Welcome.jsx';
 import Home from './Home.jsx';
 import QuestionForm from './QuestionForm.jsx';
 import Favorites from './Favorites.jsx';
-import UserHome from './UserHome.jsx';
 import NavBar from './NavBar.jsx';
 import Results from './Results.jsx'
 
@@ -34,9 +33,8 @@ class App extends React.Component {
         <Route path='/login' component={Login}/>
         <Route path='/welcome' component={Welcome}/>
         <Route path='/questions' component={QuestionForm}/>
-        <Route path='/home' component={UserHome}/>
         <Route path='/results' component={Results}/>
-        <Route path='/favorites' component={() => <Favorites movies={[]}/>}/>
+        <Route path='/favorites' component={() => <Favorites movies={[]} activities ={[]} restaurants={[]}/>}/>
         </div>
       </Router>
       Application by Amy San Felipe, Heidi Poon, Ian Pradhan, and Kevin Wang 2018 
