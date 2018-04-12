@@ -21,10 +21,10 @@ class App extends React.Component {
     this.handleSaveMovie = this.handleSaveMovie.bind(this);
     this.handleSaveActivity = this.handleSaveActivity.bind(this);
     this.getFavorites = this.getFavorites.bind(this);
-  } 
+  }
 
   getFavorites() {
-    
+
   }
 
   handleSaveRestaurant(restaurant){
@@ -78,7 +78,7 @@ class App extends React.Component {
       <Router>
         <div>
           <Route exact="true" path='/' component={()=><NavBar path='/' handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>}/>
-        {['/signup', '/login', '/welcome', '/questions', '/home'].map(path => 
+        {['/signup', '/login', '/welcome', '/questions', '/home'].map(path =>
           <Route path={path} component={()=><NavBar path={path} handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>}/>
         )}
         <Route exact='true' path='/' component={Home}/>
@@ -90,7 +90,7 @@ class App extends React.Component {
         <Route path='/favorites' component={() => <Favorites movies={[]} activities ={[]} restaurants={[]}/>}/>
         </div>
       </Router>
-      Application by Amy San Felipe, Heidi Poon, Ian Pradhan, and Kevin Wang 2018 
+      Application by Amy San Felipe, Heidi Poon, Ian Pradhan, and Kevin Wang 2018
       </div>
     )
   }
