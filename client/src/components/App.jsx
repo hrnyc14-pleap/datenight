@@ -32,6 +32,12 @@ class App extends React.Component {
     this.isSaved = this.isSaved.bind(this);
     // TODO: Make this.getFavorites work
     // this.getFavorites()
+    console.log('checking if user is logged in')
+    axios.get('/isloggedin')
+    .then(res => {
+      console.log('user is logged in: ', res.data);
+      this.setState({isLoggedIn: res.data});
+    })
   }
 
   isSaved(type, data) {
