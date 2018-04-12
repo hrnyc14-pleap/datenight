@@ -61,7 +61,6 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-      <Route path='/questions' component={QuestionForm} />
       <input value={this.username} onChange={this.onUserChange }/> Enter your Username
       <br></br>
       <input value={this.password} onChange={this.onPasswordChange} onKeyPress={this.handleKeyPress}  /> Enter your Password

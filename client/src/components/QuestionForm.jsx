@@ -64,7 +64,7 @@ class QuestionForm extends React.Component {
     }
     var data = {
       cook: responses['cookOrDelivery'] === 'cook',
-      activityLevel: responses['activityLevel'].toLowerCase() || '',
+      activityLevel: (responses['activityLevel'] || '').toLowerCase(),
       movieGenre: genreIds[responses['movieGenre']],
       //lat: req.body.latitude,
       //long: req.body.longitude,
