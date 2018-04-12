@@ -18,9 +18,9 @@ exports.findUser = (username) => {
 }
 
 //save move to movie table
-exports.saveMovie = (username, movieName, genre, moviePhoto) => {
-  return connection.query('INSERT INTO movie (movieName, genre, moviePhoto) VALUES (?, ?, ?)',
-  {replacements: [movieName, genre, moviePhoto], type: 'INSERT'})
+exports.saveMovie = (movieName, moviePhoto) => {
+  return connection.query('INSERT IGNORE INTO movie (movieName, moviePhoto) VALUES (?, ?, ?)',
+  {replacements: [movieName, moviePhoto], type: 'INSERT'})
 }
 
 //save user/movie relationship
@@ -29,8 +29,8 @@ exports.saveUserMovie = (username, movieName) => {
   (SELECT movie_id FROM movie WHERE movieName='${movieName}'))`)
 }
 
-//gets all favorited movies
-exports.retrieveFavoriteMovies = (username) => {
+//gets all saved movies
+exports.retrieveSavedMovies = (username) => {
   return exports.findUser(username)
   .then((dbResults) => {
     if (dbResults.length === 0) {
@@ -42,8 +42,8 @@ exports.retrieveFavoriteMovies = (username) => {
   })
   .then((movieIds) => {
     return Promise.all(movieIds.map((movieId)=> {
-      connection.query('SELECT * FROM movie WHERE movie_id= ?',
-        {replacements: movieId, type: 'SELECT'});
+      return connection.query('SELECT * FROM movie WHERE movie_id= ?',
+        {replacements: [movieId.movie_id], type: 'SELECT'});
     }))
   })
   .catch((err)=> {
@@ -53,7 +53,7 @@ exports.retrieveFavoriteMovies = (username) => {
 
 //save restaurant to restaurant table
 exports.saveRestaurant = (restaurantName, restaurantPhoto, price) => {
-  return connection.query('INSERT INTO restaurant (restaurantName, restaurantPhoto, price) VALUES (?, ? ,?)',
+  return connection.query('INSERT IGNORE INTO restaurant (restaurantName, restaurantPhoto, price) VALUES (?, ? ,?)',
     {replacements: [restaurantName, restaurantPhoto, price], type: 'INSERT'});
 }
 
@@ -63,8 +63,8 @@ exports.saveUserRestaurant = (username, restaurantName) => {
   (SELECT restaurant_id FROM restaurant WHERE restaurantName='${restaurantName}'))`)
 }
 
-//gets all favorited restaurants
-exports.retrieveFavoriteRestaurants = (username) => {
+//gets all saved restaurants
+exports.retrieveSavedRestaurants = (username) => {
   return exports.findUser(username)
   .then((dbResults) => {
     if (dbResults.length === 0) {
@@ -76,8 +76,8 @@ exports.retrieveFavoriteRestaurants = (username) => {
   })
   .then((restaurantIds) => {
     return Promise.all(restaurantIds.map((restaurantId) => {
-      connection.query('SELECT * FROM restaurant WHERE restaurant_id= ?', 
-        {replacements: [restaurantId], type: 'SELECT'});
+      return connection.query('SELECT * FROM restaurant WHERE restaurant_id= ?', 
+        {replacements: [restaurantId.restaurant_id], type: 'SELECT'});
     }))
   })
   .catch((err) => {
@@ -87,7 +87,7 @@ exports.retrieveFavoriteRestaurants = (username) => {
 
 //save activity to activity table
 exports.saveActivity = (activityName, location, price, activityPhoto) => {
-  return connection.query('INSERT INTO activity (activityName, location, price, activityPhoto) VALUES (?, ?, ?, ?)',
+  return connection.query('INSERT IGNORE INTO activity (activityName, location, price, activityPhoto) VALUES (?, ?, ?, ?)',
     {replacements: [activityName, location, price, activityPhoto], type: 'INSERT'})
 }
 
@@ -97,8 +97,8 @@ exports.saveUserActivity = (username, activityName) => {
   (SELECT activity_id FROM activity WHERE activityName='${activityName}'))`)
 }
 
-//gets all favorite activities
-exports.retrieveFavoriteActivities = (username) => {
+//gets all saved activities
+exports.retrieveSavedActivities = (username) => {
   return exports.findUser(username)
   .then((dbResults) => {
     if (dbResults.length === 0) {
@@ -110,11 +110,43 @@ exports.retrieveFavoriteActivities = (username) => {
   })
   .then((activityIds) => {
     return Promise.all(activityIds.map((activityId) => {
-      connection.query('SELECT * FROM activity WHERE activity_id=?', 
-      {replacements: [activityId], type: 'SELECT'});
+      console.log(activityId)
+      return connection.query('SELECT * FROM activity WHERE activity_id=?', 
+      {replacements: [activityId.activity_id], type: 'SELECT'});
     }))
   })
   .catch((err) => {
     console.log('Error retrieving activities', err);
+  })
+}
+
+exports.deleteSavedMovie = (movieName) => {
+  return connection.query('SELECT movie_id FROM movie WHERE movieName = ?', {replacements: [movieName], type: 'SELECT'})
+  .then((movieId) => {
+    return connection.query('DELETE FROM user_movie WHERE movie_id = ?', {replacements: [movieId[0].movie_id], type: 'DELETE'})
+  })
+  .catch((err) => { 
+    console.log('Error in deleting movie', err);
+  })
+}
+
+exports.deleteSavedRestaurant = (restaurantName) => {
+  return connection.query('SELECT restaurant_id FROM restaurant WHERE restaurantName = ?', {replacements: [restaurantName], type: 'SELECT'})
+  .then((restaurantId) => {
+    return connection.query('DELETE FROM user_restaurant WHERE restaurant_id = ?', {replacements: [restaurantId[0].restaurant_id], type: 'DELETE'})
+  })
+  .catch((err) => {
+    console.log('Error in deleting restaurant', err);
+  })
+}
+
+exports.deleteSavedActivity = (activityName) => {
+  return connection.query('SELECT activity_id FROM activity WHERE activityName = ?', {replacements: [activityName], type: 'SELECT'})
+  .then((activityId) => {
+    console.log(activityId);
+    return connection.query('DELETE FROM user_activity WHERE activity_id = ?', {replacements: [activityId[0].activity_id], type: 'DELETE'})
+  })
+  .catch((err) => {
+    console.log('Error in deleting activity', err)
   })
 }

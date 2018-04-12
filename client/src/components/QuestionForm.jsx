@@ -51,6 +51,11 @@ class QuestionForm extends React.Component {
     }
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.handleSubmitElement = this.handleSubmitElement.bind(this);
+    this.handleRestart = this.handleRestart.bind(this);
+  }
+
+  handleRestart() {
+    this.setState({currentQuestion: 'homeOrCity', responseData: {}});
   }
 
   handleSubmitForm() {
@@ -64,8 +69,8 @@ class QuestionForm extends React.Component {
     }
     var data = {
       cook: responses['cookOrDelivery'] === 'cook',
-      activityLevel: responses['activityLevel'].toLowerCase() || '',
-      movieGenre: genreIds[responses['movieGenre']],
+      activityLevel: (responses['activityLevel'] || '').toLowerCase(),
+      movieGenre: genreIds[responses['movieGenre']]
       //lat: req.body.latitude,
       //long: req.body.longitude,
     }
@@ -77,7 +82,9 @@ class QuestionForm extends React.Component {
     axios.post('/date', data)
       .then(res => {
         console.log('GOT RESPONSE', res)
+        //redirect? 
       })
+
   }
 
   // saves the response to the current element and shows the next question or submits the form
@@ -111,6 +118,7 @@ class QuestionForm extends React.Component {
                 choices={Object.keys(this.state.questions[this.state.currentQuestion].choices)}/>
             )
         }
+        <button onClick={this.handleRestart}>Restart</button>
       </div>
     )
   }

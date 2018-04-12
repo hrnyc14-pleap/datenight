@@ -27,7 +27,7 @@ class SignUp extends React.Component{
     axios.post('/signup', {username: username, password: password, email: email})
       .then((registrationResponse) => {
         // console.log("Registering user was a success", registrationResponse)
-        this.props.history.push('/questions');
+        this.props.history.push('/welcome');
       })
       .catch((err)=> {
         console.log(err);
@@ -41,8 +41,6 @@ class SignUp extends React.Component{
   render() {
     return (
       <div>
-        <Route path="/questions" component={QuestionForm} />
-
         Username<input ref={username => this.username = username}></input>
         <br></br>
         Password<input ref={password => this.password = password}></input>

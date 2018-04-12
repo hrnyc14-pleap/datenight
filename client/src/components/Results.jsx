@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
-import Q1 from './Q1.jsx';
+import axios from 'axios';
 
 class Results extends React.Component {
   constructor(props) {
@@ -8,9 +8,8 @@ class Results extends React.Component {
     this.state= {
 
     }
-    this.handleSaveRestaurant = this.handleSaveRestaurant.bind(this)
-    this.handleSaveMovie = this.handleSaveMovie.bind(this)
     this.handleTryAgain = this.handleTryAgain.bind(this)
+<<<<<<< HEAD
     this.handleSaveActivity = this.handleSaveActivity.bind(this)
   }
 
@@ -42,6 +41,8 @@ class Results extends React.Component {
       .catch((err) => {
         console.log('Error saving favorite activity')
       })
+=======
+>>>>>>> 36e21dbf50d5576a94de20d2d784702c1aef316a
   }
 
   handleTryAgain(){
@@ -51,8 +52,6 @@ class Results extends React.Component {
   render() {
     return(
       <div>
-        <Route path='/Where' component={Q1} />
-
         <h1>Your Results:</h1>
         <p> Your date night will be this .... placeholder </p>
 

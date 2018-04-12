@@ -3,6 +3,7 @@ const parser = require('body-parser');
 const axios = require('axios');
 const bcrypt = require('bcrypt');
 const helpers = require('./helpers.js');
+const path = require('path');
 
 const config = require ('../config.js');
 const db = require('../database/index.js')
@@ -157,13 +158,13 @@ app.post('/date', (req, res) => {
 
 //save movies into db
 app.post('/saveMovie', function(req, res) {
-  // req.body.username = 'amy'
-  // req.body.movieName = 'tropic thunder'
-  // req.body.genre = 'horror'
+  // req.body.username = 'hi'
+  // req.body.movieName = 'kill bill'
+  // req.body.genre = 'action'
   // req.body.moviePhoto = 'fakeUrl'
-  db.saveMovie(req.body.username, req.body.movieName, req.body.genre, req.body.moviePhoto)
+  db.saveMovie(req.body.movieName, req.body.moviePhoto)
   .then(() => {
-    db.saveUserMovie(req.body.username, req.body.movieName)
+    db.saveUserMovie(req.session.user, req.body.movieName)
   })
   .then(() => {
     res.status(200).send('Saved successfully');
@@ -175,14 +176,14 @@ app.post('/saveMovie', function(req, res) {
 })
 
 app.post('/saveActivity', function(req, res) {
-  // req.body.username = 'amy'
-  // req.body.activityName = 'skiing'
-  // req.body.location = 'nyc'
+  // req.body.username = 'hi'
+  // req.body.activityName = 'swim'
+  // req.body.location = 'phuket'
   // req.body.price = 1
   // req.body.activityPhoto = 'fake url'
   db.saveActivity(req.body.activityName, req.body.location, req.body.price, req.body.activityPhoto)
   .then(() => {
-    db.saveUserActivity(req.body.username, req.body.activityName)
+    db.saveUserActivity(req.session.user, req.body.activityName)
   })
   .then(() => {
     res.status(200).send('Saved successfully');
@@ -194,13 +195,13 @@ app.post('/saveActivity', function(req, res) {
 })
 
 app.post('/saveRestaurant', function(req, res) {
-  // req.body.username = 'amy'
-  // req.body.restaurantName = 'Per Se'
+  // req.body.username = 'hi'
+  // req.body.restaurantName = 'chipotle'
   // req.body.price = 1
   // req.body.restaurantPhoto = 'fake url'
   db.saveRestaurant(req.body.restaurantName, req.body.restaurantPhoto, req.body.price)
   .then(() => {
-    db.saveUserRestaurant(req.body.username, req.body.restaurantName)
+    db.saveUserRestaurant(req.session.user, req.body.restaurantName)
   })
   .then(() => {
     res.status(200).send('Saved successfully');
@@ -211,7 +212,59 @@ app.post('/saveRestaurant', function(req, res) {
   })
 })
 
+
+
+app.get('/getFavorites', (req, res) => {
+  db.retrieveSavedActivities(req.session.user)
+  .then((data1) => {
+    db.retrieveSavedRestaurants(req.session.user)
+    .then((data2) => {
+      db.retrieveSavedMovies(req.session.user)
+      .then((data3) => {
+        let output = {
+          activities: data1,
+          restaurants: data2,
+          movies: data3
+        }
+        res.status(200).send(output);
+      })
+      .catch((err) => {
+        console.log('Unable to retrieve favorites', err);
+      })
+    })
+  })
+})
+
+
+
+app.delete('/deleteMovie', function(req, res){
+  db.deleteSavedMovie(req.body.movieName)
+  .then(() => {
+    res.status(200).send('Deleted successfully');
+  })
+})
+
+app.delete('/deleteRestaurant', function(req, res){
+  db.deleteSavedRestaurant(req.body.restaurant)
+  .then(() => {
+    res.status(200).send('Deleted successfully');
+  })
+})
+
+app.delete('/deleteActivity', function(req, res){
+  db.deleteSavedActivity(req.body.activity)
+  .then(() => {
+    res.status(200).send('Deleted successfully');
+  })
+})
+
+
+
 let port = 8080;
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname + '/../client/dist/index.html'));
+})
 
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
