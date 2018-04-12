@@ -34,7 +34,7 @@ class App extends React.Component {
       <div>
       <Router>
         <div>
-          <Route exact="true" path='/' component={()=><h1>NAVBAR</h1>}/>
+          <Route exact="true" path='/' component={()=><NavBar path='/' handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>}/>
         {['/signup', '/login', '/welcome', '/questions', '/home'].map(path => 
           <Route path={path} component={()=>
             <NavBar path={path} handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>
@@ -42,6 +42,7 @@ class App extends React.Component {
         )
         }
         <Route exact="true" path='/' component={Home}/>
+        <Route path='/signup' component={Home}/>
         <Route path='/login' component={Login}/>
         <Route path='/welcome' component={Welcome}/>
         <Route path='/questions' component={QuestionForm}/>
