@@ -214,7 +214,7 @@ app.post('/saveRestaurant', function(req, res) {
 
 
 
-app.get('/favorites', (req, res) => {
+app.get('/getfavorites', (req, res) => {
   db.retrieveSavedActivities(req.session.username)
   .then((data1) => {
     db.retrieveSavedRestaurants(req.session.username)

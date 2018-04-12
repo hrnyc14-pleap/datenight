@@ -10,24 +10,15 @@ import QuestionForm from './QuestionForm.jsx';
 import Favorites from './Favorites.jsx';
 import UserHome from './UserHome.jsx';
 import NavBar from './NavBar.jsx';
+import Results from './Results.jsx'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false,
-      apiQueries:{
-        cook: false,
-        delivery: false,
-        movieGenre: "",
-        activityLevel: false,
-        location: "",
-        price: ""
-      },
-      results: {},
-      saved: []
+      isLoggedIn: false
     }
-  }  
+  }
 
   render() {
     return (
@@ -44,6 +35,8 @@ class App extends React.Component {
         <Route path='/welcome' component={Welcome}/>
         <Route path='/questions' component={QuestionForm}/>
         <Route path='/home' component={UserHome}/>
+        <Route path='/results' component={Results}/>
+        <Route path='/favorites' component={() => <Favorites movies={[]}/>}/>
         </div>
       </Router>
       Application by Amy San Felipe, Heidi Poon, Ian Pradhan, and Kevin Wang 2018 
@@ -51,7 +44,5 @@ class App extends React.Component {
     )
   }
 }
-
-
 
 export default App;
