@@ -116,6 +116,7 @@ app.post('/logout', (req, res) => {
   if (req.session === undefined || req.session.user === undefined) {
     console.log('ERROR: got logout request missing session');
     res.status(400).send('ERROR: cannot log out because no user is logged in');
+    return;
   }
   console.log('Got logout request from', req.session.user);
   req.session.destroy();
@@ -234,9 +235,9 @@ app.get('/getFavorites', restrict, (req, res) => {
       db.retrieveSavedMovies(req.session.user)
       .then((data3) => {
         let output = {
-          activities: data1,
-          restaurants: data2,
-          movies: data3
+          activities: data1.map(item => item[0]),
+          restaurants: data2.map(item => item[0]),
+          movies: data3.map(item => item[0])
         }
         res.status(200).send(output);
       })
