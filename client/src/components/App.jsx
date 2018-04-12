@@ -15,70 +15,22 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false,
-      favoriteMovies: [],
-      favoriteRestaurants: [],
-      favoriteActivities: []
+      isLoggedIn: false
     }
     this.handleSaveRestaurant = this.handleSaveRestaurant.bind(this);
     this.handleSaveMovie = this.handleSaveMovie.bind(this);
     this.handleSaveActivity = this.handleSaveActivity.bind(this);
-    this.getFavorites = this.getFavorites.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleDeleteMovie = this.handleDeleteMovie.bind(this);
     this.handleDeleteRestaurant = this.handleDeleteRestaurant.bind(this);
     this.handleDeleteActivity = this.handleDeleteActivity.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
-    this.isSaved = this.isSaved.bind(this);
-    // TODO: Make this.getFavorites work
-    // this.getFavorites()
     console.log('checking if user is logged in')
     axios.get('/isloggedin')
     .then(res => {
       console.log('user is logged in: ', res.data);
       this.setState({isLoggedIn: res.data});
-    })
-  }
-
-  // componentDidMount() {
-  //   this.getFavorites()
-  // }
-
-  isSaved(type, data) {
-    if (type === 'movie') {
-      for (var movie of this.state.favoriteMovies) {
-        if (movie.name === data.name) return true;
-      }
-    } else if (type === 'activity') {
-      for (var activity of this.state.favoriteActivities) {
-        if (activity.name === data.name) return true;
-      }
-    } else if (type === 'restaurant') {
-      for (var restaurant of this.state.favoriteRestaurants) {
-        if (restaurant.name === data.name) return true;
-      }
-    }
-    return false;
-  }
-
-  getFavorites() {
-    console.log('GETTING FAVORITES');
-    if (!this.state.isLoggedIn) {
-      console.log('ERROR, NOT LOGGED IN');
-      return;
-    }
-    axios.get('/getFavorites')
-    .then((data) => {
-      console.log('GOT FAVORITES', data)
-      this.setState({
-        favoriteMovies: data.movies,
-        favoriteRestaurants: data.restaurants,
-        favoriteActivities: data.activities
-      })
-    })
-    .catch((err) => {
-      console.log(err);
     })
   }
 
@@ -95,7 +47,6 @@ class App extends React.Component {
     })
     .then((res) => {
       console.log('Restaurant saved to favorites', res);
-      // this.getFavorites();
     })
     .catch((err) => {
       console.log('Unable to save restaurant to favorites', err);
@@ -114,7 +65,6 @@ class App extends React.Component {
     })
     .then((res) => {
       console.log('Movie saved to favorites', res);
-      // this.getFavorites();
     })
     .catch((err) => {
       console.log('Unable to save movie to favorites', err);
@@ -134,7 +84,6 @@ class App extends React.Component {
     })
     .then((res) => {
       console.log('Activity saved to favorites', res);
-      // this.getFavorites();
     })
     .catch((err) => {
       console.log('Unable to save activity to favorites', err);
@@ -189,7 +138,6 @@ class App extends React.Component {
     })
     .then((res) => {
       console.log('Movie has been deleted')
-      this.getFavorites();
     })
     .catch((err) => {
       console.log('Failed to delete movie', err)
@@ -204,7 +152,6 @@ class App extends React.Component {
     })
     .then((res) => {
       console.log('Restaurant has been deleted')
-      this.getFavorites();
     })
     .catch((err) => {
       console.log('Failed to delete restaurant', err)
@@ -219,7 +166,6 @@ class App extends React.Component {
     })
     .then((res) => {
       console.log('Activity has been deleted')
-      this.getFavorites();
     })
     .catch((err) => {
       console.log('Failed to delete activiy', err)
@@ -248,21 +194,17 @@ class App extends React.Component {
           handleSaveRestaurant={this.handleSaveRestaurant}
           handleDeleteActivity={this.handleDeleteActivity}
           handleDeleteMovie={this.handleDeleteMovie}
-          handleDeleteRestaurant={this.handleDeleteRestaurant}
-          isSaved={this.isSaved}/>}
+          handleDeleteRestaurant={this.handleDeleteRestaurant}/>}
         />
         <Route path='/results' component={Results}/>
-        <Route path='/favorites' component={() => 
-          <Favorites
+        <Route path='/favorites' component={() => <Favorites
             {...this.props}
-            isLoggedIn={this.state.isLoggedIn}
-            movies={this.state.favoriteMovies}
-            activities ={this.state.favoriteActivities} 
-            restaurants={this.state.favoriteRestaurants} 
+            isLoggedIn={this.state.isLoggedIn} 
             handleDeleteMovie={this.handleDeleteMovie} 
             handleDeleteRestaurant = {this.handleDeleteRestaurant}
             handleDeleteActivity = {this.handleDeleteActivity}
-          />}
+          />
+          }
         />
         </div>
       </Router>
