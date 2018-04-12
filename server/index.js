@@ -32,8 +32,8 @@ var restrict = (req, res, next) => {
   }
 }
 
-app.get('/amIloggedIn', restrict, (req, res) => {
-  res.send('This is the users list (restricted)')
+app.get('/isloggedin', (req, res) => {
+  res.send(!!req.session && !!req.session.user);
 })
 
 app.post('/signup', (req, res) => {

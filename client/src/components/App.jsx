@@ -29,9 +29,16 @@ class App extends React.Component {
     this.handleDeleteMovie = this.handleDeleteMovie.bind(this);
     this.handleDeleteRestaurant = this.handleDeleteRestaurant.bind(this);
     this.handleDeleteActivity = this.handleDeleteActivity.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
     this.isSaved = this.isSaved.bind(this);
     // TODO: Make this.getFavorites work
     // this.getFavorites()
+    console.log('checking if user is logged in')
+    axios.get('/isloggedin')
+    .then(res => {
+      console.log('user is logged in: ', res.data);
+      this.setState({isLoggedIn: res.data});
+    })
   }
 
   // componentDidMount() {
@@ -149,6 +156,24 @@ class App extends React.Component {
       })
   }
 
+  handleRegister(username, password, email, cb) {
+    axios.post('/signup', {username: username, password: password, email: email})
+      .then((registrationResponse) => {
+        // console.log("Registering user was a success", registrationResponse)
+        this.setState({
+          isLoggedIn: true
+        })
+        cb();
+      })
+      .catch((err)=> {
+        console.log(err);
+        console.log("There was an error registering user")
+      })
+      .then(() => {
+        console.log("HIII CAUGHT")
+      })
+  }
+
   handleLogout() {
     axios.post('/logout')
     .then(res => {
@@ -214,7 +239,7 @@ class App extends React.Component {
           />}/>
         )}
         <Route exact={true} path='/' component={(props)=><Redirect {...props} to='questions'/>}/>
-        <Route path='/signup' component={(props) => <SignUp {...props} isLoggedIn={this.state.isLoggedIn}/>}/>
+        <Route path='/signup' component={(props) => <SignUp {...props} isLoggedIn={this.state.isLoggedIn} handleRegister={this.handleRegister}/>}/>
         <Route path='/login' component={(props) => <Login {...props} handleLogin={this.handleLogin} isLoggedIn={this.state.isLoggedIn}/>}/>
         <Route path='/welcome' component={Welcome}/>
         <Route path='/questions' component={(props) => <QuestionForm
