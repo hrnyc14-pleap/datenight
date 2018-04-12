@@ -15,6 +15,7 @@ let searchYelp = (lat, long, radius, price, category, callback) => {
     }
   })
   .then((res) => {
+    console.log(res.data)
     callback(JSON.stringify(res.data.businesses));
   })
   .catch((err) => {

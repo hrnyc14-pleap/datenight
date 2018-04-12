@@ -113,24 +113,23 @@ app.post('/login', (req, res) => {
 })
 
 app.post('/date', (req, res) => {
-
+  console.log(req.body)
   let cook = req.body.cook;
   let activity = req.body.activityLevel;
   let genreId = req.body.movieGenre;
-  let lat = req.body.latitude || 40.7128;
-  let long = req.body.longitude || 74.0060;
+  let lat = req.body.latitude || 40.751985;
+  let long = req.body.longitude || -73.969780;
   let radius = req.body.radius || 17000;
 
-  console.log(cook, activity, genreId, lat, long, radius)
   if (!cook) {
     if (activity === '') {
       let price = "1,2,3,4";
-      let category = "food, restaurants";
+      let category = "food";
 
       helpers.searchYelp(lat, long, radius, price, category, function(data1){
         helpers.searchMovies(genreId, function(data2){
           let output = {
-            yelp: data1,
+            restaurants: data1,
             movies: data2
           }
           res.status(200).send(output);
@@ -138,30 +137,37 @@ app.post('/date', (req, res) => {
       })
     } else if (activity === "mellow") {
       let price = req.body.price;
-      let category = "food, restaurants";
+      let category = "restaurants";
       helpers.searchYelp(lat, long, radius, price, category, function(data){
-        res.status(200).send(data);
+        let output = {
+          restaurants: data
+        }
+        res.status(200).send(output);
       })
     } else if (activity === "active") {
       let price = req.body.price;
-      let category = "arts, active";
+      let category = "arts";
       helpers.searchYelp(lat, long, radius, price, category, function(data){
-        res.status(200).send(data);
+        let output = {
+          activities: data
+        }
+        res.status(200).send(output);
       })
     }
   } else {
     helpers.searchMovies(genreId, function(data){
-      res.status(200).send(data);
+      let output = {
+        movies: data
+      }
+      res.status(200).send(output);
     })
   }
 })
 
 //save movies into db
 app.post('/saveMovie', function(req, res) {
-  // req.body.username = 'hi'
-  // req.body.movieName = 'kill bill'
-  // req.body.genre = 'action'
-  // req.body.moviePhoto = 'fakeUrl'
+  console.log('req.session.user ', req.session.user)
+  console.log('saving movie', req.body.movieName, req.body.moviePhoto)
   db.saveMovie(req.body.movieName, req.body.moviePhoto)
   .then(() => {
     db.saveUserMovie(req.session.user, req.body.movieName)
