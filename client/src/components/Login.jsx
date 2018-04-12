@@ -1,6 +1,6 @@
 import React from 'react';
 import QuestionForm from './QuestionForm.jsx';
-import { Route, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios'
 class Login extends React.Component {
   constructor(props) {
@@ -44,6 +44,9 @@ class Login extends React.Component {
   }
 
   render() {
+    if (this.props.isLoggedIn) {
+      return <Redirect to='/questions'/>
+    }
     return (
       <div>
       <input value={this.username} onChange={this.onUserChange }/> Enter your Username

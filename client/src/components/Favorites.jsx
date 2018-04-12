@@ -4,9 +4,13 @@ import axios from 'axios';
 import MovieView from './MovieView.jsx';
 import ActivityView from './ActivityView.jsx';
 import RestaurantView from './RestaurantView.jsx';
+import {Redirect} from 'react-router-dom';
 
-const Favorites = ({movies, activities, restaurants}) => (
-  <div>
+const Favorites = ({movies, activities, restaurants, isLoggedIn, location}) => {
+  if (!isLoggedIn) {
+    return <div><Redirect to='/login'/></div>;
+  }
+  return ( <div>
     <h1> Restaurants </h1>
       {
         restaurants.map(item => {
@@ -27,5 +31,6 @@ const Favorites = ({movies, activities, restaurants}) => (
       }
   </div>
 )
+}
 
 export default Favorites;
