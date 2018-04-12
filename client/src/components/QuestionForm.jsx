@@ -3,6 +3,7 @@ import TwoChoiceQuestion from './TwoChoiceQuestion.jsx';
 import FourChoiceQuestion from './FourChoiceQuestion.jsx';
 import DetailsForm from './DetailsForm.jsx';
 import axios from 'axios';
+import Results from './Results.jsx';
 
 var Questions = {
   homeOrCity: {
@@ -45,6 +46,7 @@ class QuestionForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showingResults: false,
       questions: Questions,
       currentQuestion: 'homeOrCity',
       responseData: {}
@@ -55,7 +57,7 @@ class QuestionForm extends React.Component {
   }
 
   handleRestart() {
-    this.setState({currentQuestion: 'homeOrCity', responseData: {}});
+    this.setState({currentQuestion: 'homeOrCity', responseData: {}, showingResults: false});
   }
 
   handleSubmitForm() {
@@ -82,7 +84,8 @@ class QuestionForm extends React.Component {
     axios.post('/date', data)
       .then(res => {
         console.log('GOT RESPONSE', res)
-        //redirect? 
+        // display results
+        this.setState({showingResults: true});
       })
 
   }
@@ -109,14 +112,19 @@ class QuestionForm extends React.Component {
     return (
       <div>
         {
-          this.state.questions[this.state.currentQuestion].type === 'details'?
-            <DetailsForm handleSubmitForm={this.handleSubmitElement}/>:
-            (this.state.questions[this.state.currentQuestion].type === 'twoChoice'?
-              <TwoChoiceQuestion handleSubmit={this.handleSubmitElement}
-                choices={Object.keys(this.state.questions[this.state.currentQuestion].choices)}/> :
-              <FourChoiceQuestion handleSubmit={this.handleSubmitElement}
-                choices={Object.keys(this.state.questions[this.state.currentQuestion].choices)}/>
+          this.state.showingResults? 
+            <Results/>:
+            (
+              this.state.questions[this.state.currentQuestion].type === 'details'?
+              <DetailsForm handleSubmitForm={this.handleSubmitElement}/>:
+              (this.state.questions[this.state.currentQuestion].type === 'twoChoice'?
+                <TwoChoiceQuestion handleSubmit={this.handleSubmitElement}
+                  choices={Object.keys(this.state.questions[this.state.currentQuestion].choices)}/> :
+                <FourChoiceQuestion handleSubmit={this.handleSubmitElement}
+                  choices={Object.keys(this.state.questions[this.state.currentQuestion].choices)}/>
+              )
             )
+          
         }
         <button onClick={this.handleRestart}>Restart</button>
       </div>
