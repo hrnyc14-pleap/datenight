@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import {BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import Login from './login.jsx';
 import SignUp from './SignUp.jsx';
 import Welcome from './Welcome.jsx';
@@ -30,6 +30,8 @@ class App extends React.Component {
     this.handleDeleteRestaurant = this.handleDeleteRestaurant.bind(this);
     this.handleDeleteActivity = this.handleDeleteActivity.bind(this);
     this.isSaved = this.isSaved.bind(this);
+    // TODO: Make this.getFavorites work
+    // this.getFavorites()
   }
 
   // componentDidMount() {
@@ -54,9 +56,14 @@ class App extends React.Component {
   }
 
   getFavorites() {
+    console.log('GETTING FAVORITES');
+    if (!this.state.isLoggedIn) {
+      console.log('ERROR, NOT LOGGED IN');
+      return;
+    }
     axios.get('/getFavorites')
     .then((data) => {
-      console.log('this is getfavorites()', data)
+      console.log('GOT FAVORITES', data)
       this.setState({
         favoriteMovies: data.movies,
         favoriteRestaurants: data.restaurants,
@@ -70,6 +77,10 @@ class App extends React.Component {
 
   handleSaveRestaurant(restaurant){
     console.log('saving restaurant', restaurant)
+    if (!this.state.isLoggedIn) {
+      console.log('ERROR, NOT LOGGED IN');
+      return;
+    }
     axios.post('/saveRestaurant', {
       restaurantName: restaurant.name,
       restaurantPhoto: restaurant.image_url,
@@ -86,6 +97,10 @@ class App extends React.Component {
 
   handleSaveMovie(movie){
     console.log('saving movie', movie)
+    if (!this.state.isLoggedIn) {
+      console.log('ERROR, NOT LOGGED IN');
+      return;
+    }
     axios.post('/saveMovie', {
       movieName: movie.title,
       moviePhoto: movie.poster_path
@@ -102,6 +117,10 @@ class App extends React.Component {
 
   handleSaveActivity(activity){
     console.log('saving activity', activity)
+    if (!this.state.isLoggedIn) {
+      console.log('ERROR, NOT LOGGED IN');
+      return;
+    }
     axios.post('/saveActivity', {
       activityName: activity.name,
       activityPhoto: activity.image_url
@@ -121,7 +140,7 @@ class App extends React.Component {
       .then((logInResponse) => {
         console.log('Login reponse', logInResponse)
         this.setState({
-          loggedIn : true
+          isLoggedIn : true
         });
         cb();
       })
@@ -131,7 +150,10 @@ class App extends React.Component {
   }
 
   handleLogout() {
-    //TODO
+    axios.post('/logout')
+    .then(res => {
+      this.setState({isLoggedIn: false});
+    })
   }
 
   handleDeleteMovie(movieName){
@@ -179,19 +201,21 @@ class App extends React.Component {
     })
   }
 
-
   render() {
     return (
       <div>
       <Router>
         <div>
-          <Route exact="true" path='/' component={()=><NavBar path='/' handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>}/>
+          <Route exact={true} path='/' component={()=><NavBar path='/' isLoggedIn={this.state.isLoggedIn}
+            handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>}/>
         {['/signup', '/login', '/welcome', '/questions', '/home', '/favorites'].map(path => 
-          <Route path={path} component={()=><NavBar path={path} handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>}/>
+          <Route path={path} component={()=><NavBar path={path} handleLogout={this.handleLogout}
+            isLoggedIn={this.state.isLoggedIn}
+          />}/>
         )}
-        <Route exact='true' path='/' component={Home}/>
-        <Route path='/signup' component={Home}/>
-        <Route path='/login' component={(props) => <Login {...props} handleLogin={this.handleLogin}/>}/>
+        <Route exact={true} path='/' component={(props)=><Redirect {...props} to='questions'/>}/>
+        <Route path='/signup' component={(props) => <SignUp {...props} isLoggedIn={this.state.isLoggedIn}/>}/>
+        <Route path='/login' component={(props) => <Login {...props} handleLogin={this.handleLogin} isLoggedIn={this.state.isLoggedIn}/>}/>
         <Route path='/welcome' component={Welcome}/>
         <Route path='/questions' component={(props) => <QuestionForm
           handleSaveMovie={this.handleSaveMovie}
@@ -204,7 +228,10 @@ class App extends React.Component {
         />
         <Route path='/results' component={Results}/>
         <Route path='/favorites' component={() => 
-          <Favorites movies={this.state.favoriteMovies} 
+          <Favorites
+            {...this.props}
+            isLoggedIn={this.state.isLoggedIn}
+            movies={this.state.favoriteMovies}
             activities ={this.state.favoriteActivities} 
             restaurants={this.state.favoriteRestaurants} 
             handleDeleteMovie={this.handleDeleteMovie} 

@@ -4,8 +4,12 @@ import axios from 'axios';
 import MovieView from './MovieView.jsx';
 import ActivityView from './ActivityView.jsx';
 import RestaurantView from './RestaurantView.jsx';
+import {Redirect} from 'react-router-dom';
 
-const Favorites = ({movies, activities, restaurants, handleDeleteMovie, handleDeleteRestaurant, handleDeleteActivity}) => {
+const Favorites = ({movies, activities, restaurants, isLoggedIn, location, handleDeleteMovie, handleDeleteRestaurant, handleDeleteActivity}) => {
+  if (!isLoggedIn) {
+    return <div><Redirect to='/login'/></div>;
+  }
   return(
     <div>
       <h1> Restaurants </h1>
@@ -22,7 +26,7 @@ const Favorites = ({movies, activities, restaurants, handleDeleteMovie, handleDe
         {
           activities.map((item, i) => (
             <div key={i}>
-              <ActivityViewdata data={item} />
+              <ActivityView data={item} />
               <button onClick={() => { handleDeleteActivity(item.name)} }>Delete</button>
             </div>
           ))
@@ -38,9 +42,6 @@ const Favorites = ({movies, activities, restaurants, handleDeleteMovie, handleDe
           ))
         }
     </div>
-  )
-}
-
-
+  )}
 
 export default Favorites;

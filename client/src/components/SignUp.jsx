@@ -39,6 +39,9 @@ class SignUp extends React.Component{
   }
 
   render() {
+    if (this.props.isLoggedIn) {
+      return <Redirect to='/questions'/>
+    }
     return (
       <div>
         Username<input ref={username => this.username = username}></input>

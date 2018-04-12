@@ -112,6 +112,16 @@ app.post('/login', (req, res) => {
     })
 })
 
+app.post('/logout', (req, res) => {
+  if (req.session === undefined || req.session.user === undefined) {
+    console.log('ERROR: got logout request missing session');
+    res.status(400).send('ERROR: cannot log out because no user is logged in');
+  }
+  console.log('Got logout request from', req.session.user);
+  req.session.destroy();
+  res.send('Successfully logged out');
+})
+
 app.post('/date', (req, res) => {
   console.log(req.body)
   let cook = req.body.cook;
@@ -165,7 +175,7 @@ app.post('/date', (req, res) => {
 })
 
 //save movies into db
-app.post('/saveMovie', function(req, res) {
+app.post('/saveMovie', restrict, function(req, res) {
   console.log('req.session.user ', req.session.user)
   console.log('saving movie', req.body.movieName, req.body.moviePhoto)
   db.saveMovie(req.body.movieName, req.body.moviePhoto)
@@ -181,7 +191,7 @@ app.post('/saveMovie', function(req, res) {
   })
 })
 
-app.post('/saveActivity', function(req, res) {
+app.post('/saveActivity', restrict, function(req, res) {
   // req.body.username = 'hi'
   // req.body.activityName = 'swim'
   // req.body.activityPhoto = 'fake url'
@@ -198,7 +208,7 @@ app.post('/saveActivity', function(req, res) {
   })
 })
 
-app.post('/saveRestaurant', function(req, res) {
+app.post('/saveRestaurant', restrict, function(req, res) {
   // req.body.username = 'hi'
   // req.body.restaurantName = 'chipotle'
   // req.body.price = 1
@@ -216,9 +226,7 @@ app.post('/saveRestaurant', function(req, res) {
   })
 })
 
-
-
-app.get('/getFavorites', (req, res) => {
+app.get('/getFavorites', restrict, (req, res) => {
   db.retrieveSavedActivities(req.session.user)
   .then((data1) => {
     db.retrieveSavedRestaurants(req.session.user)
@@ -239,9 +247,7 @@ app.get('/getFavorites', (req, res) => {
   })
 })
 
-
-
-app.delete('/deleteMovie', function(req, res){
+app.delete('/deleteMovie', restrict, function(req, res){
   db.deleteSavedMovie(req.query.movie)
   .then(() => {
     res.status(200).send('Deleted successfully');
@@ -252,7 +258,7 @@ app.delete('/deleteMovie', function(req, res){
   })
 })
 
-app.delete('/deleteRestaurant', function(req, res){
+app.delete('/deleteRestaurant', restrict, function(req, res){
   db.deleteSavedRestaurant(req.query.restaurant)
   .then(() => {
     res.status(200).send('Deleted successfully');
@@ -263,7 +269,7 @@ app.delete('/deleteRestaurant', function(req, res){
   })
 })
 
-app.delete('/deleteActivity', function(req, res){
+app.delete('/deleteActivity', restrict, function(req, res){
   db.deleteSavedActivity(req.query.activity)
   .then(() => {
     res.status(200).send('Deleted successfully');
@@ -273,8 +279,6 @@ app.delete('/deleteActivity', function(req, res){
     res.status(404);
   })
 })
-
-
 
 let port = 8080;
 
