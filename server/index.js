@@ -161,9 +161,9 @@ app.post('/saveMovie', function(req, res) {
   // req.body.movieName = 'kill bill'
   // req.body.genre = 'action'
   // req.body.moviePhoto = 'fakeUrl'
-  db.saveMovie(req.body.username, req.body.movieName, req.body.genre, req.body.moviePhoto)
+  db.saveMovie(req.body.movieName, req.body.moviePhoto)
   .then(() => {
-    db.saveUserMovie(req.body.username, req.body.movieName)
+    db.saveUserMovie(req.session.user, req.body.movieName)
   })
   .then(() => {
     res.status(200).send('Saved successfully');
@@ -182,7 +182,7 @@ app.post('/saveActivity', function(req, res) {
   // req.body.activityPhoto = 'fake url'
   db.saveActivity(req.body.activityName, req.body.location, req.body.price, req.body.activityPhoto)
   .then(() => {
-    db.saveUserActivity(req.body.username, req.body.activityName)
+    db.saveUserActivity(req.session.user, req.body.activityName)
   })
   .then(() => {
     res.status(200).send('Saved successfully');
@@ -200,7 +200,7 @@ app.post('/saveRestaurant', function(req, res) {
   // req.body.restaurantPhoto = 'fake url'
   db.saveRestaurant(req.body.restaurantName, req.body.restaurantPhoto, req.body.price)
   .then(() => {
-    db.saveUserRestaurant(req.body.username, req.body.restaurantName)
+    db.saveUserRestaurant(req.session.user, req.body.restaurantName)
   })
   .then(() => {
     res.status(200).send('Saved successfully');
@@ -213,12 +213,12 @@ app.post('/saveRestaurant', function(req, res) {
 
 
 
-app.get('/favorites', (req, res) => {
-  db.retrieveSavedActivities(req.session.username)
+app.get('/getFavorites', (req, res) => {
+  db.retrieveSavedActivities(req.session.user)
   .then((data1) => {
-    db.retrieveSavedRestaurants(req.session.username)
+    db.retrieveSavedRestaurants(req.session.user)
     .then((data2) => {
-      db.retrieveSavedMovies(req.session.username)
+      db.retrieveSavedMovies(req.session.user)
       .then((data3) => {
         let output = {
           activities: data1,

@@ -17,7 +17,6 @@ CREATE TABLE user(
 CREATE TABLE movie(
   movie_id INT NOT NULL AUTO_INCREMENT,
   movieName VARCHAR(255) UNIQUE,
-  genre VARCHAR(255),
   moviePhoto VARCHAR(255),
   PRIMARY KEY(movie_id)
 );
