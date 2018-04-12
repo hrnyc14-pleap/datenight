@@ -16,23 +16,23 @@ CREATE TABLE user(
 
 CREATE TABLE movie(
   movie_id INT NOT NULL AUTO_INCREMENT,
-  movieName VARCHAR(255) UNIQUE,
-  moviePhoto VARCHAR(255),
+  title VARCHAR(255) UNIQUE,
+  poster_path VARCHAR(255),
   PRIMARY KEY(movie_id)
 );
 
 CREATE TABLE restaurant(
   restaurant_id INT NOT NULL AUTO_INCREMENT,
-  restaurantName VARCHAR(255) UNIQUE,
-  restaurantPhoto VARCHAR(255),
+  name VARCHAR(255) UNIQUE,
+  image_url VARCHAR(255),
   price INT,
   PRIMARY KEY(restaurant_id)
 );
 
 CREATE TABLE activity(
   activity_id INT NOT NULL AUTO_INCREMENT,
-  activityName VARCHAR(255) UNIQUE,
-  activityPhoto VARCHAR(255),
+  name VARCHAR(255) UNIQUE,
+  image_url VARCHAR(255),
   PRIMARY KEY(activity_id)
 );
 
