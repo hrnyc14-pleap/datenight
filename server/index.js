@@ -238,21 +238,21 @@ app.get('/getFavorites', (req, res) => {
 
 
 app.delete('/deleteMovie', function(req, res){
-  db.deleteSavedMovie(req.body.movieName)
+  db.deleteSavedMovie(req.query.movie)
   .then(() => {
     res.status(200).send('Deleted successfully');
   })
 })
 
 app.delete('/deleteRestaurant', function(req, res){
-  db.deleteSavedRestaurant(req.body.restaurant)
+  db.deleteSavedRestaurant(req.query.restaurant)
   .then(() => {
     res.status(200).send('Deleted successfully');
   })
 })
 
 app.delete('/deleteActivity', function(req, res){
-  db.deleteSavedActivity(req.body.activity)
+  db.deleteSavedActivity(req.query.activity)
   .then(() => {
     res.status(200).send('Deleted successfully');
   })
