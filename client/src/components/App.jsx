@@ -149,7 +149,15 @@ class App extends React.Component {
         <Route path='/welcome' component={Welcome}/>
         <Route path='/questions' component={QuestionForm}/>
         <Route path='/results' component={Results}/>
-        <Route path='/favorites' component={() => <Favorites movies={[]} activities ={[]} restaurants={[]}/>}/>
+        <Route path='/favorites' component={() => 
+          <Favorites movies={this.state.favoriteMovies} 
+            activities ={this.state.favoriteActivities} 
+            restaurants={this.state.favoriteRestaurants} 
+            handleDeleteMovie={this.handleDeleteMovie} 
+            handleDeleteRestaurant = {this.handleDeleteRestaurant}
+            handleDeleteActivity = {this.handleDeleteActivity}
+          />}
+        />
         </div>
       </Router>
       Application by Amy San Felipe, Heidi Poon, Ian Pradhan, and Kevin Wang 2018 
