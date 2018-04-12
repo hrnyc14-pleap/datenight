@@ -86,9 +86,9 @@ exports.retrieveSavedRestaurants = (username) => {
 }
 
 //save activity to activity table
-exports.saveActivity = (activityName, location, price, activityPhoto) => {
-  return connection.query('INSERT IGNORE INTO activity (activityName, location, price, activityPhoto) VALUES (?, ?, ?, ?)',
-    {replacements: [activityName, location, price, activityPhoto], type: 'INSERT'})
+exports.saveActivity = (activityName, activityPhoto) => {
+  return connection.query('INSERT IGNORE INTO activity (activityName, activityPhoto) VALUES (?, ?)',
+    {replacements: [activityName, activityPhoto], type: 'INSERT'})
 }
 
 //save activity/user relationship

@@ -34,6 +34,10 @@ class App extends React.Component {
     // this.getFavorites()
   }
 
+  // componentDidMount() {
+  //   this.getFavorites()
+  // }
+
   isSaved(type, data) {
     if (type === 'movie') {
       for (var movie of this.state.favoriteMovies) {
@@ -84,7 +88,7 @@ class App extends React.Component {
     })
     .then((res) => {
       console.log('Restaurant saved to favorites', res);
-      this.getFavorites();
+      // this.getFavorites();
     })
     .catch((err) => {
       console.log('Unable to save restaurant to favorites', err);
@@ -103,7 +107,7 @@ class App extends React.Component {
     })
     .then((res) => {
       console.log('Movie saved to favorites', res);
-      this.getFavorites();
+      // this.getFavorites();
     })
     .catch((err) => {
       console.log('Unable to save movie to favorites', err);
@@ -119,13 +123,11 @@ class App extends React.Component {
     }
     axios.post('/saveActivity', {
       activityName: activity.name,
-      location: activity.location,
-      price: activity.price.length,
-      acitivityPhoto: activity.image_url
+      activityPhoto: activity.image_url
     })
     .then((res) => {
       console.log('Activity saved to favorites', res);
-      this.getFavorites();
+      // this.getFavorites();
     })
     .catch((err) => {
       console.log('Unable to save activity to favorites', err);
