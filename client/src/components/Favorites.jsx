@@ -66,7 +66,7 @@ class Favorites extends React.Component {
             this.state.favoriteMovies.map((item, i) => (
               <div key={i}>
                 <MovieView data={item} />
-                <button onClick={() => { this.props.handleDeleteMovie(item.name)} }>Delete</button>
+                <button onClick={() => { this.props.handleDeleteMovie(item.title)} }>Delete</button>
               </div>
             ))
           }
