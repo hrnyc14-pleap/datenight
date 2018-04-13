@@ -10,11 +10,12 @@ const Results = ({movie, restaurant, activity,
     handleSaveMovie, handleSaveActivity, handleSaveRestaurant,
     handleDeleteMovie, handleDeleteActivity, handleDeleteRestaurant}) => (<div>
   <div className="general-background">
-        <h1>Your Results:</h1>
-        <p> Your date night will be this .... placeholder </p>
 
-        <br/>
-        Movie
+        <h1>We've got an awesome night planned for you guys!</h1>
+        { movie === null ? ('') : <h2>The movie you guys will be watching is {movie.title} </h2>}
+        { movie && restaurant ? <h2>and you guys will be eating {restaurant.name} </h2> : restaurant === null ? ('') : <h2>You guys will be eating from {restaurant.name}</h2> }
+        { activity === null ? ('') : <h2> You guys will be enjoying your time at {activity.name}</h2>}
+
         {
           movie === null?
             (''):
@@ -24,7 +25,7 @@ const Results = ({movie, restaurant, activity,
             </div>
             )
         }
-        Restaurant
+
         {
           restaurant === null ?
             (''):
@@ -34,12 +35,12 @@ const Results = ({movie, restaurant, activity,
             </div>
             )
         }
-        <br/>
-        Activity
+
         {
           activity === null?
             (''):
             (<div>
+
               <ActivityView data={activity}/>
               <button onClick={()=>{handleSaveActivity(activity)}}>save</button>
             </div>
