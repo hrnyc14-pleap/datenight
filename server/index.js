@@ -124,41 +124,55 @@ app.post('/logout', (req, res) => {
 })
 
 app.post('/date', (req, res) => {
-  console.log(req.body)
   let cook = req.body.cook;
   let activity = req.body.activityLevel;
   let genreId = req.body.movieGenre;
-  let lat = req.body.latitude || 40.751985;
-  let long = req.body.longitude || -73.969780;
+  let zipCode = req.body.zipCode || 94108;
   let radius = req.body.radius || 17000;
+  let minPrice = req.body.minPrice || 1
+  let maxPrice = req.body.maxPrice || 4
+
+  //convert dollar signs to string price for yelp api request
+  function convertPrice(minPrice, maxPrice) {
+    let price = [];
+     for (let i = minPrice; i <= maxPrice; i++) {
+      price.push(i)
+    }
+    return price.join(',')
+  }  
+
+  let price = convertPrice(minPrice, maxPrice)
 
   if (!cook) {
     if (activity === '') {
-      let price = "1,2,3,4";
-      let category = "food";
-
-      helpers.searchYelp(lat, long, radius, price, category, function(data1){
+      let category = "restaurants";
+      helpers.searchYelp(zipCode, radius, price, category, function(data1){
         helpers.searchMovies(genreId, function(data2){
+          //return only restaurants that have delivery
+          let data = [];
+          JSON.parse(data1).forEach((item) => {
+            if (item.transactions.indexOf('delivery') > -1) {
+              data.push(item)
+            }
+          })
           let output = {
-            restaurants: data1,
+            restaurants: JSON.stringify(data),
             movies: data2
           }
           res.status(200).send(output);
         })
       })
     } else if (activity === "mellow") {
-      let price = req.body.price;
       let category = "restaurants";
-      helpers.searchYelp(lat, long, radius, price, category, function(data){
+      helpers.searchYelp(zipCode, radius, price, category, function(data){
         let output = {
           restaurants: data
         }
         res.status(200).send(output);
       })
     } else if (activity === "active") {
-      let price = req.body.price;
       let category = "arts";
-      helpers.searchYelp(lat, long, radius, price, category, function(data){
+      helpers.searchYelp(zipCode, radius, price, category, function(data){
         let output = {
           activities: data
         }

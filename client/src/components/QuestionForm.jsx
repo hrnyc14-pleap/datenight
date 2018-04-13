@@ -8,24 +8,24 @@ import Results from './Results.jsx';
 var Questions = {
   homeOrCity: {
     choices: {
-      'In my home': 'cookOrDelivery',
+      'In my home': 'movieGenre',
       'In my city': 'activityLevel'
     },
     type: 'twoChoice'
   },
   cookOrDelivery: {
     choices: {
-      'Cook': 'movieGenre',
-      'Get delivery': 'movieGenre'
+      'Cook': null,
+      'Get delivery': 'details'
     },
     type: 'twoChoice'
   },
   movieGenre: {
     choices: {
-      'Action': null,
-      'Comedy': null,
-      'Romance': null,
-      'Horror': null,
+      'Action': 'cookOrDelivery',
+      'Comedy': 'cookOrDelivery',
+      'Romance': 'cookOrDelivery',
+      'Horror': 'cookOrDelivery',
     },
     type: 'fourChoice'
   },
@@ -41,6 +41,7 @@ var Questions = {
     next: null
   }
 }
+
 
 class QuestionForm extends React.Component {
   constructor(props) {
@@ -82,14 +83,15 @@ class QuestionForm extends React.Component {
     var data = {
       cook: responses['cookOrDelivery'] === 'Cook',
       activityLevel: (responses['activityLevel'] || '').toLowerCase(),
-      movieGenre: genreIds[responses['movieGenre']]
+      movieGenre: genreIds[responses['movieGenre']],
       //lat: req.body.latitude,
       //long: req.body.longitude,
     }
     if (responses.details) {
       data.radius = responses.details.distance,
-      data.minPrice = responses.details.minPrice,
-      data.maxPrice = responses.details.maxPrice
+      data.minPrice = responses.details.minPrice.length,
+      data.maxPrice = responses.details.maxPrice.length,
+      data.zipCode = responses.details.zipCode
     }
 
     axios.post('/date', data)
@@ -135,9 +137,9 @@ class QuestionForm extends React.Component {
           this.state.showingResults?
             <Results
               {...this.props}
-              movie={this.state.movieResults? this.state.movieResults[0]: null}
-              activity={this.state.activityResults? this.state.activityResults[5]: null}
-              restaurant={this.state.restaurantResults? this.state.restaurantResults[0]: null}
+              movie={this.state.movieResults? this.state.movieResults[Math.floor(this.state.movieResults.length * Math.random())]: null}
+              activity={this.state.activityResults? this.state.activityResults[Math.floor(this.state.activityResults.length * Math.random())]: null}
+              restaurant={this.state.restaurantResults? this.state.restaurantResults[Math.floor(this.state.restaurantResults.length * Math.random())]: null}
             />:
             (
               this.state.questions[this.state.currentQuestion].type === 'details'?

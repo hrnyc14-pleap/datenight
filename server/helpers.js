@@ -1,12 +1,11 @@
 let axios = require('axios');
 let config = require('../config');
 
-let searchYelp = (lat, long, radius, price, category, callback) => {
+let searchYelp = (zipCode, radius, price, category, callback) => {
   axios.get('https://api.yelp.com/v3/businesses/search', {
     headers: {Authorization: `Bearer ${config.API_TOKEN}`}, 
     params: {
-      latitude: lat,
-      longitude: long,
+      location: zipCode,
       radius: radius || 17000,
       limit: 50,
       open_now: true,
