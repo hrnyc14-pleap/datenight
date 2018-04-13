@@ -49,7 +49,7 @@ body {
 }
 
 .general-background{
-  position: fixed;
+  /* position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -59,7 +59,7 @@ body {
   background-size: 100%;
   filter: grayscale(100%);
   -webkit-filter: grayscale(100%);
-}
+} */
 
 .general-container{
   margin-top: 15%;
