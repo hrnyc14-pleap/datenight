@@ -136,7 +136,7 @@ class QuestionForm extends React.Component {
             <Results
               {...this.props}
               movie={this.state.movieResults? this.state.movieResults[0]: null}
-              activity={this.state.activityResults? this.state.activityResults[0]: null}
+              activity={this.state.activityResults? this.state.activityResults[5]: null}
               restaurant={this.state.restaurantResults? this.state.restaurantResults[0]: null}
             />:
             (
