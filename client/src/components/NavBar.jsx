@@ -19,10 +19,9 @@ const NavBar = ({path, handleLogout, isLoggedIn}) => (
                     {(isLoggedIn) && <FlatButton onClick={handleLogout} label="Log Out" style={{"color":"white"}}/>}
 
                 </div>
-        
             }
         />
-       
+
     </div>
 )
 
