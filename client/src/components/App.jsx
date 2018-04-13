@@ -5,7 +5,6 @@ import {BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
 import Login from './login.jsx';
 import SignUp from './SignUp.jsx';
 import Welcome from './Welcome.jsx';
-import Home from './Home.jsx';
 import QuestionForm from './QuestionForm.jsx';
 import Favorites from './Favorites.jsx';
 import NavBar from './NavBar.jsx';
@@ -185,7 +184,7 @@ class App extends React.Component {
         <div>
           <Route exact={true} path='/' component={()=><NavBar path='/' isLoggedIn={this.state.isLoggedIn}
             handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>}/>
-        {['/signup', '/login', '/welcome', '/questions', '/home', '/favorites'].map(path => 
+        {['/signup', '/login', '/welcome', '/questions', '/favorites'].map(path => 
           <Route path={path} component={()=><NavBar path={path} handleLogout={this.handleLogout}
             isLoggedIn={this.state.isLoggedIn}
           />}/>
@@ -214,7 +213,6 @@ class App extends React.Component {
         />
         </div>
       </Router>
-      Application by Amy San Felipe, Heidi Poon, Ian Pradhan, and Kevin Wang 2018 
       </div>
     )
   }

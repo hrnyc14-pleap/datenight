@@ -7,7 +7,6 @@ import RestaurantView from './RestaurantView.jsx';
 import {Redirect} from 'react-router-dom';
 
 
-
 class Favorites extends React.Component {
   constructor(props) {
     super(props);
@@ -42,10 +41,29 @@ class Favorites extends React.Component {
       return <div><Redirect to='/login'/></div>;
     }
     return(
-      <div>
-        <h1> Restaurants </h1>
-          {
-            this.state.favoriteRestaurants.map((item, i) => (
+      <div className="general-background">
+        <div className="general-container">
+          <h1> Restaurants </h1>
+            {
+              this.state.favoriteRestaurants.map((item, i) => (
+                  <div key={i}>
+                    <RestaurantView data={item}/>
+                    <button onClick={() => { this.props.handleDeleteRestaurant(item.name)} }>Delete</button>
+                  </div>  
+              ))
+            }
+          <h1> Activities </h1>
+            {
+              this.state.favoriteActivities.map((item, i) => (
+                <div key={i}>
+                  <ActivityView data={item} />
+                  <button onClick={() => { this.props.handleDeleteActivity(item.name)} }>Delete</button>
+                </div>
+              ))
+            }
+          <h1> Movies </h1>
+            {
+              this.state.favoriteMovies.map((item, i) => (
                 <div key={i}>
                   <RestaurantView data={item}/>
                   <button onClick={() => {
@@ -72,6 +90,8 @@ class Favorites extends React.Component {
               </div>
             ))
           }
+        }
+        </div>
       </div>
     )}
 }

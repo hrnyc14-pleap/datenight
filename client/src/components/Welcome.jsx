@@ -17,7 +17,7 @@ class Welcome extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="general-background">
         <h1>Welcome Page</h1>
         <button onClick={this.handleClick}>Continue to questions..</button>
       </div>
