@@ -25,7 +25,7 @@ exports.saveMovie = (movieName, moviePhoto) => {
 
 //save user/movie relationship
 exports.saveUserMovie = (username, movieName) => {
-  return connection.query(`INSERT INTO user_movie (user_id, movie_id) VALUES ((SELECT user_id FROM user WHERE username='${username}'), 
+  return connection.query(`INSERT INTO user_movie (user_id, movie_id) VALUES ((SELECT user_id FROM user WHERE username='${username}'),
   (SELECT movie_id FROM movie WHERE movieName='${movieName}'))`)
 }
 
@@ -59,7 +59,7 @@ exports.saveRestaurant = (restaurantName, restaurantPhoto, price) => {
 
 //save restaurant/user relationship
 exports.saveUserRestaurant = (username, restaurantName) => {
-  return connection.query(`INSERT INTO user_restaurant (user_id, restaurant_id) VALUES ((SELECT user_id FROM user WHERE username='${username}'), 
+  return connection.query(`INSERT INTO user_restaurant (user_id, restaurant_id) VALUES ((SELECT user_id FROM user WHERE username='${username}'),
   (SELECT restaurant_id FROM restaurant WHERE restaurantName='${restaurantName}'))`)
 }
 
@@ -76,7 +76,7 @@ exports.retrieveSavedRestaurants = (username) => {
   })
   .then((restaurantIds) => {
     return Promise.all(restaurantIds.map((restaurantId) => {
-      return connection.query('SELECT * FROM restaurant WHERE restaurant_id= ?', 
+      return connection.query('SELECT * FROM restaurant WHERE restaurant_id= ?',
         {replacements: [restaurantId.restaurant_id], type: 'SELECT'});
     }))
   })
@@ -93,7 +93,7 @@ exports.saveActivity = (activityName, activityPhoto) => {
 
 //save activity/user relationship
 exports.saveUserActivity = (username, activityName) => {
-  return connection.query(`INSERT INTO user_activity (user_id, activity_id) VALUES ((SELECT user_id FROM user WHERE username='${username}'), 
+  return connection.query(`INSERT INTO user_activity (user_id, activity_id) VALUES ((SELECT user_id FROM user WHERE username='${username}'),
   (SELECT activity_id FROM activity WHERE activityName='${activityName}'))`)
 }
 
@@ -111,7 +111,7 @@ exports.retrieveSavedActivities = (username) => {
   .then((activityIds) => {
     return Promise.all(activityIds.map((activityId) => {
       console.log(activityId)
-      return connection.query('SELECT * FROM activity WHERE activity_id=?', 
+      return connection.query('SELECT * FROM activity WHERE activity_id=?',
       {replacements: [activityId.activity_id], type: 'SELECT'});
     }))
   })
@@ -125,7 +125,7 @@ exports.deleteSavedMovie = (movieName) => {
   .then((movieId) => {
     return connection.query('DELETE FROM user_movie WHERE movie_id = ?', {replacements: [movieId[0].movie_id], type: 'DELETE'})
   })
-  .catch((err) => { 
+  .catch((err) => {
     console.log('Error in deleting movie', err);
   })
 }
