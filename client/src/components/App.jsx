@@ -8,8 +8,9 @@ import Welcome from './Welcome.jsx';
 import Home from './Home.jsx';
 import QuestionForm from './QuestionForm.jsx';
 import Favorites from './Favorites.jsx';
+import NavBar from './NavBar.jsx';
 import Results from './Results.jsx'
-import NavBar from './NavBar.jsx'
+
 
 class App extends React.Component {
   constructor(props) {
@@ -118,9 +119,6 @@ class App extends React.Component {
         console.log(err);
         console.log("There was an error registering user")
       })
-      .then(() => {
-        console.log("HIII CAUGHT")
-      })
   }
 
   handleLogout() {
@@ -194,21 +192,10 @@ class App extends React.Component {
           handleDeleteRestaurant={this.handleDeleteRestaurant}/>}
         />
         <Route path='/results' component={Results}/>
-<<<<<<< HEAD
-        <Route path='/favorites' component={() =>
-          <Favorites
-            {...this.props}
-            isLoggedIn={this.state.isLoggedIn}
-            movies={this.state.favoriteMovies}
-            activities ={this.state.favoriteActivities}
-            restaurants={this.state.favoriteRestaurants}
-            handleDeleteMovie={this.handleDeleteMovie}
-=======
         <Route path='/favorites' component={() => <Favorites
             {...this.props}
-            isLoggedIn={this.state.isLoggedIn} 
-            handleDeleteMovie={this.handleDeleteMovie} 
->>>>>>> 5697878b9aa24e7600c9fd30291e180fe3d43244
+            isLoggedIn={this.state.isLoggedIn}
+            handleDeleteMovie={this.handleDeleteMovie}
             handleDeleteRestaurant = {this.handleDeleteRestaurant}
             handleDeleteActivity = {this.handleDeleteActivity}
           />
@@ -216,10 +203,6 @@ class App extends React.Component {
         />
         </div>
       </Router>
-<<<<<<< HEAD
-      Application by Amy San Felipe, Heidi Poon, Ian Pradhan, and Kevin Wang 2018
-=======
->>>>>>> 5697878b9aa24e7600c9fd30291e180fe3d43244
       </div>
     )
   }

@@ -59,13 +59,8 @@ exports.saveRestaurant = (restaurantName, restaurantPhoto, price) => {
 
 //save restaurant/user relationship
 exports.saveUserRestaurant = (username, restaurantName) => {
-<<<<<<< HEAD
-  return connection.query(`INSERT INTO user_restaurant (user_id, restaurant_id) VALUES ((SELECT user_id FROM user WHERE username='${username}'),
-  (SELECT restaurant_id FROM restaurant WHERE restaurantName='${restaurantName}'))`)
-=======
   return connection.query(`INSERT INTO user_restaurant (user_id, restaurant_id) VALUES ((SELECT user_id FROM user WHERE username='${username}'),
   (SELECT restaurant_id FROM restaurant WHERE name='${restaurantName}'))`)
->>>>>>> 5697878b9aa24e7600c9fd30291e180fe3d43244
 }
 
 //gets all saved restaurants
@@ -98,13 +93,8 @@ exports.saveActivity = (activityName, activityPhoto) => {
 
 //save activity/user relationship
 exports.saveUserActivity = (username, activityName) => {
-<<<<<<< HEAD
   return connection.query(`INSERT INTO user_activity (user_id, activity_id) VALUES ((SELECT user_id FROM user WHERE username='${username}'),
   (SELECT activity_id FROM activity WHERE activityName='${activityName}'))`)
-=======
-  return connection.query(`INSERT INTO user_activity (user_id, activity_id) VALUES ((SELECT user_id FROM user WHERE username='${username}'),
-  (SELECT activity_id FROM activity WHERE name='${activityName}'))`)
->>>>>>> 5697878b9aa24e7600c9fd30291e180fe3d43244
 }
 
 //gets all saved activities
