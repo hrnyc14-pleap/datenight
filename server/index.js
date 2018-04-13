@@ -145,9 +145,7 @@ app.post('/date', (req, res) => {
 
   if (!cook) {
     if (activity === '') {
-      price = '1,2,3,4';
       let category = "restaurants";
-
       helpers.searchYelp(zipCode, radius, price, category, function(data1){
         helpers.searchMovies(genreId, function(data2){
           //return only restaurants that have delivery
