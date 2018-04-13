@@ -95,7 +95,7 @@ class QuestionForm extends React.Component {
     axios.post('/date', data)
       .then(res => {
         console.log('GOT RESPONSE', res.data)
-        // display results
+
         this.setState({
           movieResults: res.data.movies? JSON.parse(res.data.movies): null,
           activityResults: res.data.activities? JSON.parse(res.data.activities): null,

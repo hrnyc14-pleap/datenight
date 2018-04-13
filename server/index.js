@@ -168,7 +168,11 @@ app.post('/date', (req, res) => {
   } else {
     helpers.searchMovies(genreId, function(data){
       let output = {
-        movies: data
+        movies: data,
+        restaurants: JSON.stringify([{
+          name: 'Spicy clams spaghetti',
+          image_url: 'https://assets.marthastewart.com/styles/wmax-520-highdpi/d30/clams-spaghetti-0131-mld110647/clams-spaghetti-0131-mld110647_vert.jpg?itok=JrrPNLcs'
+        }])
       }
       res.status(200).send(output);
     })
