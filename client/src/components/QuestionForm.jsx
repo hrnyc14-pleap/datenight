@@ -151,8 +151,8 @@ class QuestionForm extends React.Component {
             )
 
         }
-        <div className="general-restartBtn">
-          <button onClick={this.handleRestart}>Restart</button>
+        <div>
+          <div className="general-restartBtn" onClick={this.handleRestart}>Click to Restart</div>
         </div>
       </div>
     )
