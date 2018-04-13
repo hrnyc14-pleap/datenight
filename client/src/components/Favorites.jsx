@@ -52,7 +52,6 @@ class Favorites extends React.Component {
                   </div>
               ))
             }
-          }
         <h1> Activities </h1>
           {
             this.state.favoriteActivities.map((item, i) => (
@@ -70,7 +69,6 @@ class Favorites extends React.Component {
                 <button onClick={() => { this.props.handleDeleteMovie(item.title, this.getFavorites)} }>Delete</button>
               </div>
             ))
-          }
           }
         </div>
       </div>
