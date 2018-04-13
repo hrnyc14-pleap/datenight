@@ -4,6 +4,7 @@ import Login from './login.jsx';
 import Welcome from './Welcome.jsx';
 import SignUp from './SignUp.jsx'
 import { Route, Link, Switch } from 'react-router-dom';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class Home extends React.Component {
   constructor(props) {
@@ -15,12 +16,22 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>This is the beginning of our app</h1>
-        <h2>Sign Up Here</h2>
-        <button><Link to='/login'>Login here</Link></button>
-        <button><Link to='/questions'>Go to questions</Link></button>
-        <SignUp history={this.props.history}/>
+      <div className="home">
+        <h1>Date Night</h1>
+        <div className="home-container">
+          <div className="home-container-signUp">
+            <h2>Sign Up Here</h2>
+            <SignUp history={this.props.history}/>
+            <br/>
+            <br/>
+            <br/>
+
+            <Link to='/questions'><RaisedButton label="Just Take Me to the Questions.." /></Link>
+          </div>
+          <div className="home-container-goQ">
+          </div>
+        </div>
+       
       </div>
     )
   }

@@ -208,7 +208,6 @@ class App extends React.Component {
         />
         </div>
       </Router>
-      Application by Amy San Felipe, Heidi Poon, Ian Pradhan, and Kevin Wang 2018 
       </div>
     )
   }
