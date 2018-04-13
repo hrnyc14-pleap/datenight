@@ -83,12 +83,10 @@ class QuestionForm extends React.Component {
     var data = {
       cook: responses['cookOrDelivery'] === 'Cook',
       activityLevel: (responses['activityLevel'] || '').toLowerCase(),
-      movieGenre: genreIds[responses['movieGenre']],
-      //lat: req.body.latitude,
-      //long: req.body.longitude,
+      movieGenre: genreIds[responses['movieGenre']]
     }
     if (responses.details) {
-      data.radius = responses.details.distance,
+      data.radius = Math.floor(responses.details.distance * 1609.34),
       data.minPrice = responses.details.minPrice.length,
       data.maxPrice = responses.details.maxPrice.length,
       data.zipCode = responses.details.zipCode

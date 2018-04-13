@@ -132,6 +132,7 @@ app.post('/date', (req, res) => {
   let minPrice = req.body.minPrice || 1;
   let maxPrice = req.body.maxPrice || 4;
 
+  console.log(radius)
   //convert dollar signs to string price for yelp api request
   function convertPrice(minPrice, maxPrice) {
     let price = [];
@@ -207,9 +208,6 @@ app.post('/saveMovie', restrict, function(req, res) {
 })
 
 app.post('/saveActivity', restrict, function(req, res) {
-  // req.body.username = 'hi'
-  // req.body.activityName = 'swim'
-  // req.body.activityPhoto = 'fake url'
   db.saveActivity(req.body.activityName, req.body.activityPhoto)
   .then(() => {
     db.saveUserActivity(req.session.user, req.body.activityName)
@@ -224,10 +222,6 @@ app.post('/saveActivity', restrict, function(req, res) {
 })
 
 app.post('/saveRestaurant', restrict, function(req, res) {
-  // req.body.username = 'hi'
-  // req.body.restaurantName = 'chipotle'
-  // req.body.price = 1
-  // req.body.restaurantPhoto = 'fake url'
   db.saveRestaurant(req.body.restaurantName, req.body.restaurantPhoto, req.body.price)
   .then(() => {
     db.saveUserRestaurant(req.session.user, req.body.restaurantName)
