@@ -12,9 +12,9 @@ const Results = ({movie, restaurant, activity,
   <div className="general-background">
 
         <h1>We've got an awesome night planned for you guys!</h1>
-        { movie === null ? ('') : <h2>The movie you guys will be watching is {movie.title} </h2>}
-        { movie && restaurant ? <h2>and you guys will be eating {restaurant.name} </h2> : restaurant === null ? ('') : <h2>You guys will be eating from {restaurant.name}</h2> }
-        { activity === null ? ('') : <h2> You guys will be enjoying your time at {activity.name}</h2>}
+        { movie === null ? ('') : <h2>The movie you will be watching is {movie.title}. </h2>}
+        { movie && restaurant ? <h2>and you will be eating {restaurant.name}. </h2> : restaurant === null ? ('') : <h2>You guys will be eating from {restaurant.name}</h2> }
+        { activity === null ? ('') : <h2> You will be enjoying your time at {activity.name}.</h2>}
 
         {
           movie === null?

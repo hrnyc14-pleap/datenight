@@ -21,8 +21,8 @@ var session = require('express-session')({
 app.use(session)
 
 var restrict = (req, res, next) => {
-  console.log('restricting request')
-  console.log('session: ', req.session)
+  console.log('restricting request');
+  console.log('session: ', req.session);
   if ((req.session !== undefined) && (req.session.user !== undefined)) {
       console.log('authenticated user ', req.session.user)
       next()
@@ -43,8 +43,8 @@ app.post('/signup', (req, res) => {
   console.log('signup request', username, password, email);
   // check that username and password are valid
   if (username === null || password === null || email === null) {
-    console.log('user fields invalid')
-    res.status(400).send('user fields invalid')
+    console.log('user fields invalid');
+    res.status(400).send('user fields invalid');
   }
   let salt;
   db.findUser(username)
@@ -53,7 +53,7 @@ app.post('/signup', (req, res) => {
       console.log(dbres)
       if (dbres.length > 0) {
         console.log('username already exists, cannot sign up', username);
-        throw('user already exists')
+        throw('user already exists');
       }
       return bcrypt.genSalt(10);
     })
@@ -83,7 +83,7 @@ app.post('/signup', (req, res) => {
 app.post('/login', (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
-  console.log('got login post', req.body)
+  console.log('got login post', req.body);
   // check that username and password are valid
   // look up salt
   let hashedPassword;
@@ -93,7 +93,7 @@ app.post('/login', (req, res) => {
         throw('user does not exist')
       }
       hashedPassword = dbRes[0].password;
-      return bcrypt.hash(password, dbRes[0].salt)
+      return bcrypt.hash(password, dbRes[0].salt);
     })
     .then((hashResult) => {
       if (hashedPassword !== hashResult) {
@@ -101,14 +101,14 @@ app.post('/login', (req, res) => {
       }
       req.session.regenerate(function(){
         req.session.user = username;
-        console.log('authenticated user', username)
+        console.log('authenticated user', username);
         res.status(200).send();
         // res.redirect('/Where');
       });
     })
     .catch(err => {
-      console.error('error logging in', err)
-      res.status(400).send('error logging in')
+      console.error('error logging in', err);
+      res.status(400).send('error logging in');
     })
 })
 
@@ -129,16 +129,17 @@ app.post('/date', (req, res) => {
   let genreId = req.body.movieGenre;
   let zipCode = req.body.zipCode || 94108;
   let radius = req.body.radius || 17000;
-  let minPrice = req.body.minPrice || 1
-  let maxPrice = req.body.maxPrice || 4
+  let minPrice = req.body.minPrice || 1;
+  let maxPrice = req.body.maxPrice || 4;
 
+  console.log(radius)
   //convert dollar signs to string price for yelp api request
   function convertPrice(minPrice, maxPrice) {
     let price = [];
      for (let i = minPrice; i <= maxPrice; i++) {
       price.push(i)
     }
-    return price.join(',')
+    return price.join(',');
   }  
 
   let price = convertPrice(minPrice, maxPrice)
@@ -152,7 +153,7 @@ app.post('/date', (req, res) => {
           let data = [];
           JSON.parse(data1).forEach((item) => {
             if (item.transactions.indexOf('delivery') > -1) {
-              data.push(item)
+              data.push(item);
             }
           })
           let output = {
@@ -224,9 +225,6 @@ app.post('/saveMovie', restrict, function(req, res) {
 })
 
 app.post('/saveActivity', restrict, function(req, res) {
-  // req.body.username = 'hi'
-  // req.body.activityName = 'swim'
-  // req.body.activityPhoto = 'fake url'
   db.saveActivity(req.body.activityName, req.body.activityPhoto)
   .then(() => {
     db.saveUserActivity(req.session.user, req.body.activityName)
@@ -241,10 +239,6 @@ app.post('/saveActivity', restrict, function(req, res) {
 })
 
 app.post('/saveRestaurant', restrict, function(req, res) {
-  // req.body.username = 'hi'
-  // req.body.restaurantName = 'chipotle'
-  // req.body.price = 1
-  // req.body.restaurantPhoto = 'fake url'
   db.saveRestaurant(req.body.restaurantName, req.body.restaurantPhoto, req.body.price)
   .then(() => {
     db.saveUserRestaurant(req.session.user, req.body.restaurantName)
@@ -282,11 +276,11 @@ app.get('/getFavorites', restrict, (req, res) => {
 app.delete('/deleteMovie', restrict, function(req, res){
   db.deleteSavedMovie(req.query.movie)
   .then(() => {
-    console.log('deleted successfully')
+    console.log('deleted successfully');
     res.status(200).send('Deleted successfully');
   })
   .catch((err)=> {
-    console.log('Unable to delete')
+    console.log('Unable to delete');
     res.status(404);
   })
 })
@@ -299,7 +293,7 @@ app.delete('/deleteRestaurant', restrict, function(req, res){
     res.status(200).send('Deleted successfully');
   })
   .catch((err)=> {
-    console.log('Unable to delete')
+    console.log('Unable to delete');
     res.status(404);
   })
 })
@@ -311,7 +305,7 @@ app.delete('/deleteActivity', restrict, function(req, res){
     res.status(200).send('Deleted successfully');
   })
   .catch((err)=> {
-    console.log('Unable to delete')
+    console.log('Unable to delete');
     res.status(404);
   })
 })
