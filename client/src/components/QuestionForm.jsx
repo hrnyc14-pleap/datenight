@@ -88,8 +88,8 @@ class QuestionForm extends React.Component {
     }
     if (responses.details) {
       data.radius = responses.details.distance,
-      data.minPrice = responses.details.minPrice,
-      data.maxPrice = responses.details.maxPrice
+      data.minPrice = responses.details.minPrice.length,
+      data.maxPrice = responses.details.maxPrice.length
     }
     axios.post('/date', data)
       .then(res => {
