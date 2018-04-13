@@ -189,7 +189,7 @@ class App extends React.Component {
             isLoggedIn={this.state.isLoggedIn}
           />}/>
         )}
-        <Route exact={true} path='/' component={(props)=><Redirect {...props} to='questions'/>}/>
+        <Route exact={true} path='/' component={(props)=><Redirect {...props} to='signUp'/>}/>
         <Route path='/signup' component={(props) => <SignUp {...props} isLoggedIn={this.state.isLoggedIn} handleRegister={this.handleRegister}/>}/>
         <Route path='/login' component={(props) => <Login {...props} handleLogin={this.handleLogin} isLoggedIn={this.state.isLoggedIn}/>}/>
         <Route path='/welcome' component={Welcome}/>
