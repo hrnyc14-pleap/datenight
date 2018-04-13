@@ -17,7 +17,7 @@ class SignUp extends React.Component {
       password: '',
       email: ''
     }
-    
+
     this.handleClick = this.handleClick.bind(this)
     this.register = this.register.bind(this)
   }
@@ -54,17 +54,17 @@ class SignUp extends React.Component {
             <RaisedButton label="Sign Up!" onClick={this.handleClick}/>
 
           </div>
-            
+
             <br/>
             <br/>
             <br/>
 
-            <Link to='/questions'><RaisedButton label="Just Take Me to the Questions.." /></Link>
+            <Link to='/questions'><RaisedButton label="Just Take Me to the Questions..." /></Link>
           </div>
           <div className="home-container-goQ">
           </div>
         </div>
-       
+
       </div>
     )
   }
