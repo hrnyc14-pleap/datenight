@@ -61,24 +61,6 @@ class Favorites extends React.Component {
                 </div>
               ))
             }
-          <h1> Movies </h1>
-            {
-              this.state.favoriteMovies.map((item, i) => (
-                <div key={i}>
-                  <RestaurantView data={item}/>
-                  <button onClick={() => { this.props.handleDeleteRestaurant(item.name)} }>Delete</button>
-                </div>  
-            ))
-          }
-        <h1> Activities </h1>
-          {
-            this.state.favoriteActivities.map((item, i) => (
-              <div key={i}>
-                <ActivityView data={item} />
-                <button onClick={() => { this.props.handleDeleteActivity(item.name)} }>Delete</button>
-              </div>
-            ))
-          }
         <h1> Movies </h1>
           {
             this.state.favoriteMovies.map((item, i) => (
@@ -88,6 +70,7 @@ class Favorites extends React.Component {
               </div>
             ))
           }
+        </div>
       </div>
     )}
 }
