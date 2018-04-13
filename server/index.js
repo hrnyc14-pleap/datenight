@@ -127,12 +127,12 @@ app.post('/date', (req, res) => {
   let cook = req.body.cook;
   let activity = req.body.activityLevel;
   let genreId = req.body.movieGenre;
-  let lat = req.body.latitude || 40.751985;
-  let long = req.body.longitude || -73.969780;
+  let zipCode = req.body.zipCode || 10017;
   let radius = req.body.radius || 17000;
   let minPrice = req.body.minPrice || 1
   let maxPrice = req.body.maxPrice || 4
 
+  //convert dollar signs to string price for yelp api request
   function convertPrice(minPrice, maxPrice) {
     let price = [];
      for (let i = minPrice; i <= maxPrice; i++) {
@@ -146,12 +146,19 @@ app.post('/date', (req, res) => {
   if (!cook) {
     if (activity === '') {
       price = '1,2,3,4';
-      let category = "food";
+      let category = "restaurants";
 
-      helpers.searchYelp(lat, long, radius, price, category, function(data1){
+      helpers.searchYelp(zipCode, radius, price, category, function(data1){
         helpers.searchMovies(genreId, function(data2){
+          //return only restaurants that have delivery
+          let data = [];
+          JSON.parse(data1).forEach((item) => {
+            if (item.transactions.indexOf('delivery') > -1) {
+              data.push(item)
+            }
+          })
           let output = {
-            restaurants: data1,
+            restaurants: JSON.stringify(data),
             movies: data2
           }
           res.status(200).send(output);
@@ -159,7 +166,7 @@ app.post('/date', (req, res) => {
       })
     } else if (activity === "mellow") {
       let category = "restaurants";
-      helpers.searchYelp(lat, long, radius, price, category, function(data){
+      helpers.searchYelp(zipCode, radius, price, category, function(data){
         let output = {
           restaurants: data
         }
@@ -167,7 +174,7 @@ app.post('/date', (req, res) => {
       })
     } else if (activity === "active") {
       let category = "arts";
-      helpers.searchYelp(lat, long, radius, price, category, function(data){
+      helpers.searchYelp(zipCode, radius, price, category, function(data){
         let output = {
           activities: data
         }
