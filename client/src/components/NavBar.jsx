@@ -8,7 +8,7 @@ const NavBar = ({path, handleLogout, isLoggedIn}) => (
     <div>
         <AppBar
           zDepth={0}
-          style={{"backgroundColor":"rgba(0,0,0,0.4)"}}
+          style={{"backgroundColor":"rgba(0,0,0,0.3)"}}
           showMenuIconButton={false}
           iconElementRight={
                 <div>
