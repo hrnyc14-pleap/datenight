@@ -121,7 +121,7 @@ class App extends React.Component {
         console.log("There was an error registering user")
       })
       .then(() => {
-        console.log("HIII CAUGHT")
+        console.log("HIII CAUGHT");
       })
   }
 
