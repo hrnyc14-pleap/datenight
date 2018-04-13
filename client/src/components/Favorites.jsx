@@ -49,7 +49,7 @@ class Favorites extends React.Component {
                   <div key={i}>
                     <RestaurantView data={item}/>
                     <button onClick={() => { this.props.handleDeleteRestaurant(item.name, this.getFavorites)} }>Delete</button>
-                  </div>  
+                  </div>
               ))
             }
           }

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Login from './login.jsx';
 import Welcome from './Welcome.jsx';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Redirect, Route, Link, Switch } from 'react-router-dom';
 
 import QuestionForm from './QuestionForm.jsx';
 import RaisedButton from 'material-ui/RaisedButton';

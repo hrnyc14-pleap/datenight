@@ -134,9 +134,9 @@ class QuestionForm extends React.Component {
           this.state.showingResults? 
             <Results
               {...this.props}
-              movie={this.state.movieResults? this.state.movieResults[0]: null}
-              activity={this.state.activityResults? this.state.activityResults[0]: null}
-              restaurant={this.state.restaurantResults? this.state.restaurantResults[0]: null}
+              movie={this.state.movieResults? this.state.movieResults[Math.floor(this.state.movieResults.length * Math.random())]: null}
+              activity={this.state.activityResults? this.state.activityResults[Math.floor(this.state.activityResults.length * Math.random())]: null}
+              restaurant={this.state.restaurantResults? this.state.restaurantResults[Math.floor(this.state.restaurantResults.length * Math.random())]: null}
             />:
             (
               this.state.questions[this.state.currentQuestion].type === 'details'?
