@@ -8,24 +8,24 @@ import Results from './Results.jsx';
 var Questions = {
   homeOrCity: {
     choices: {
-      'In my home': 'cookOrDelivery',
+      'In my home': 'movieGenre',
       'In my city': 'activityLevel'
     },
     type: 'twoChoice'
   },
   cookOrDelivery: {
     choices: {
-      'Cook': 'movieGenre',
-      'Get delivery': 'movieGenre'
+      'Cook': null,
+      'Get delivery': 'details'
     },
     type: 'twoChoice'
   },
   movieGenre: {
     choices: {
-      'Action': null,
-      'Comedy': null,
-      'Romance': null,
-      'Horror': null,
+      'Action': 'cookOrDelivery',
+      'Comedy': 'cookOrDelivery',
+      'Romance': 'cookOrDelivery',
+      'Horror': 'cookOrDelivery',
     },
     type: 'fourChoice'
   },
@@ -33,7 +33,7 @@ var Questions = {
     choices: {
       'Mellow': 'details',
       'Active': 'details',
-    }, 
+    },
     type: 'twoChoice'
   },
   details: {
@@ -41,6 +41,7 @@ var Questions = {
     next: null
   }
 }
+
 
 class QuestionForm extends React.Component {
   constructor(props) {
@@ -58,7 +59,7 @@ class QuestionForm extends React.Component {
     this.handleSubmitElement = this.handleSubmitElement.bind(this);
     this.handleRestart = this.handleRestart.bind(this);
   }
-  
+
   handleRestart() {
     this.setState({
       currentQuestion: 'homeOrCity',
@@ -82,19 +83,21 @@ class QuestionForm extends React.Component {
     var data = {
       cook: responses['cookOrDelivery'] === 'Cook',
       activityLevel: (responses['activityLevel'] || '').toLowerCase(),
-      movieGenre: genreIds[responses['movieGenre']]
+      movieGenre: genreIds[responses['movieGenre']],
       //lat: req.body.latitude,
       //long: req.body.longitude,
     }
     if (responses.details) {
       data.radius = responses.details.distance,
-      data.minPrice = responses.details.minPrice,
-      data.maxPrice = responses.details.maxPrice
+      data.minPrice = responses.details.minPrice.length,
+      data.maxPrice = responses.details.maxPrice.length,
+      data.zipCode = responses.details.zipCode
     }
+
     axios.post('/date', data)
       .then(res => {
         console.log('GOT RESPONSE', res.data)
-        // display results
+
         this.setState({
           movieResults: res.data.movies? JSON.parse(res.data.movies): null,
           activityResults: res.data.activities? JSON.parse(res.data.activities): null,
@@ -131,12 +134,12 @@ class QuestionForm extends React.Component {
     return (
       <div className="general-background">
         {
-          this.state.showingResults? 
+          this.state.showingResults?
             <Results
               {...this.props}
-              movie={this.state.movieResults? this.state.movieResults[0]: null}
-              activity={this.state.activityResults? this.state.activityResults[0]: null}
-              restaurant={this.state.restaurantResults? this.state.restaurantResults[0]: null}
+              movie={this.state.movieResults? this.state.movieResults[Math.floor(this.state.movieResults.length * Math.random())]: null}
+              activity={this.state.activityResults? this.state.activityResults[Math.floor(this.state.activityResults.length * Math.random())]: null}
+              restaurant={this.state.restaurantResults? this.state.restaurantResults[Math.floor(this.state.restaurantResults.length * Math.random())]: null}
             />:
             (
               this.state.questions[this.state.currentQuestion].type === 'details'?
@@ -148,10 +151,10 @@ class QuestionForm extends React.Component {
                   choices={Object.keys(this.state.questions[this.state.currentQuestion].choices)}/>
               )
             )
-          
+
         }
-        <div className="general-restartBtn">
-          <button onClick={this.handleRestart}>Restart</button>
+        <div>
+          <div className="general-restartBtn" onClick={this.handleRestart}>Click to Restart</div>
         </div>
       </div>
     )

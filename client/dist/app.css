@@ -153,17 +153,24 @@ body {
 
 
 .login-container{
-  margin-top: 15%;
-  margin-left: 200px;
+  padding-top: 30px;
+  margin-top: 12%;
   color: #fff;
+  width: 300px;
+  font-size: 2em;
 }
 
 
 .general-restartBtn{
-  /* margin-top: 200px; */
+  width: 100%;
   position: absolute;
-  margin-left: 150px;
-  z-index: 20;
+  float: center;
+  text-align: center;
+  font-size: 2em;
+  cursor: pointer;
+
 }
+
+
 
 

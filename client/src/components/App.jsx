@@ -10,6 +10,7 @@ import Favorites from './Favorites.jsx';
 import NavBar from './NavBar.jsx';
 import Results from './Results.jsx'
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -24,7 +25,7 @@ class App extends React.Component {
     this.handleDeleteMovie = this.handleDeleteMovie.bind(this);
     this.handleDeleteRestaurant = this.handleDeleteRestaurant.bind(this);
     this.handleDeleteActivity = this.handleDeleteActivity.bind(this);
-    this.handleRegister = this.handleRegister.bind(this); 
+    this.handleRegister = this.handleRegister.bind(this);
   }
 
   componentDidMount() {
@@ -120,9 +121,6 @@ class App extends React.Component {
         console.log(err);
         console.log("There was an error registering user")
       })
-      .then(() => {
-        console.log("HIII CAUGHT")
-      })
   }
 
   handleLogout() {
@@ -136,7 +134,7 @@ class App extends React.Component {
     axios.delete('/deleteMovie', {
       params: {
         movie: movieName
-      }   
+      }
     })
     .then((res) => {
       console.log('Movie has been deleted')
@@ -151,7 +149,7 @@ class App extends React.Component {
     axios.delete('/deleteRestaurant', {
       params: {
         restaurant: restaurantName
-      }   
+      }
     })
     .then((res) => {
       console.log('Restaurant has been deleted')
@@ -166,7 +164,7 @@ class App extends React.Component {
     axios.delete('/deleteActivity', {
       params: {
         activity: activityName
-      }   
+      }
     })
     .then((res) => {
       console.log('Activity has been deleted');
@@ -182,14 +180,15 @@ class App extends React.Component {
       <div>
       <Router>
         <div>
+
           <Route exact={true} path='/' component={()=><NavBar path='/' isLoggedIn={this.state.isLoggedIn}
             handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>}/>
-        {['/signup', '/login', '/welcome', '/questions', '/favorites'].map(path => 
+        {['/signup', '/login', '/welcome', '/questions', '/favorites'].map(path =>
           <Route path={path} component={()=><NavBar path={path} handleLogout={this.handleLogout}
             isLoggedIn={this.state.isLoggedIn}
           />}/>
         )}
-        <Route exact={true} path='/' component={(props)=><Redirect {...props} to='signUp'/>}/>
+        <Route exact={true} path='/' component={(props)=><Redirect {...props} to='/signup'/>}/>
         <Route path='/signup' component={(props) => <SignUp {...props} isLoggedIn={this.state.isLoggedIn} handleRegister={this.handleRegister}/>}/>
         <Route path='/login' component={(props) => <Login {...props} handleLogin={this.handleLogin} isLoggedIn={this.state.isLoggedIn}/>}/>
         <Route path='/welcome' component={Welcome}/>
@@ -204,8 +203,8 @@ class App extends React.Component {
         <Route path='/results' component={Results}/>
         <Route path='/favorites' component={() => <Favorites
             {...this.props}
-            isLoggedIn={this.state.isLoggedIn} 
-            handleDeleteMovie={this.handleDeleteMovie} 
+            isLoggedIn={this.state.isLoggedIn}
+            handleDeleteMovie={this.handleDeleteMovie}
             handleDeleteRestaurant = {this.handleDeleteRestaurant}
             handleDeleteActivity = {this.handleDeleteActivity}
           />

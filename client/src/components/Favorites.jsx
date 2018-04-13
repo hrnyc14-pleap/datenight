@@ -15,11 +15,11 @@ class Favorites extends React.Component {
       favoriteRestaurants: [],
       favoriteActivities: []
     }
-    this.getFavorites = this.getFavorites.bind(this);    
+    this.getFavorites = this.getFavorites.bind(this);
     this.getFavorites();
   }
 
-  
+
   getFavorites() {
     console.log('GETTING FAVORITES');
     axios.get('/getFavorites')
@@ -49,7 +49,7 @@ class Favorites extends React.Component {
                   <div key={i}>
                     <RestaurantView data={item}/>
                     <button onClick={() => { this.props.handleDeleteRestaurant(item.name, this.getFavorites)} }>Delete</button>
-                  </div>  
+                  </div>
               ))
             }
           }

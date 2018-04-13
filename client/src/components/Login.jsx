@@ -51,14 +51,18 @@ class Login extends React.Component {
       return <Redirect to='/questions'/>
     }
     return (
-      <div className="general-background">
-        <div className="login-container">
-          Enter your Username<input value={this.username} onChange={this.onUserChange }/>
-          <br></br>
-          Enter your Password<input value={this.password} onChange={this.onPasswordChange} onKeyPress={this.handleKeyPress}  /> 
-          <br></br>
-          <RaisedButton onClick={this.submit} label="Log In" />
-
+      <div className="home">
+        <div className="home-container">
+          <div className="home-container-signUp login-container">
+            <h2> Log In </h2>
+            <input value={this.username} onChange={this.onUserChange } placeholder={'Username'}/>
+            <br/>
+            <br/>
+            <input value={this.password} onChange={this.onPasswordChange} onKeyPress={this.handleKeyPress} placeholder={'Password'} /> 
+            <br/>
+            <br/>
+            <RaisedButton onClick={this.submit} label="Submit" />
+          </div>
         </div>
       </div>
     )
