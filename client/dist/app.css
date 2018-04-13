@@ -182,9 +182,13 @@ body {
   text-align: center;
   font-size: 2em;
   cursor: pointer;
-
 }
 
+.view{
+  margin-left: 20px;
+}
 
-
+.save{
+  margin-left: 20px;
+}
 

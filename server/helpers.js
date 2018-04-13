@@ -6,7 +6,7 @@ let searchYelp = (zipCode, radius, price, category, callback) => {
     headers: {Authorization: `Bearer ${config.API_TOKEN}`}, 
     params: {
       location: zipCode,
-      radius: radius || 17000,
+      radius: radius,
       limit: 50,
       open_now: true,
       price: price,

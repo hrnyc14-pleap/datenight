@@ -8,7 +8,7 @@ class DetailsForm extends React.Component {
       this.state = {
         questions: props.questions,
         responseData: {
-          distance: 10000,
+          distance: 10,
           minPrice: '$',
           maxPrice: '$$$$',
           zipCode: '10017'
@@ -36,8 +36,8 @@ class DetailsForm extends React.Component {
                 to <input type="text" value={this.state.responseData.maxPrice}
                     onChange={evt=>(this.handleSubmitElement('maxPrice', evt.target.value))}/>
                 <br/>
-              Max distance: 
-                <input type="range" min="0" max="17000"  value={this.state.responseData.distance} onChange={(evt) => {this.handleSubmitElement('distance', evt.target.value)}} />
+              Max distance (miles): 
+                <input type="range" min="0" max="20"  value={this.state.responseData.distance} onChange={(evt) => {this.handleSubmitElement('distance', evt.target.value)}} />
                 {this.state.responseData.distance} <br/>
               Zip code: <input type="text" value={this.state.responseData.zipCode} onChange={(evt)=>{this.handleSubmitElement('zipCode', evt.target.value)}}/>
               <br/><br/>

@@ -96,7 +96,7 @@ exports.saveActivity = (activityName, activityPhoto) => {
 //save activity/user relationship to user_activity relational table
 exports.saveUserActivity = (username, activityName) => {
   return connection.query(`INSERT INTO user_activity (user_id, activity_id) VALUES ((SELECT user_id FROM user WHERE username='${username}'),
-  (SELECT activity_id FROM activity WHERE activityName='${activityName}'))`)
+  (SELECT activity_id FROM activity WHERE name='${activityName}'))`)
 }
 
 //gets all saved activities for specific user
