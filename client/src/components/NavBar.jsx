@@ -7,7 +7,8 @@ import FlatButton from 'material-ui/FlatButton';
 const NavBar = ({path, handleLogout, isLoggedIn}) => (
     <div>
         <AppBar
-          title="Date Night Generator"
+          zDepth={0}
+          style={{"backgroundColor":"rgba(0,0,0,0.4)"}}
           showMenuIconButton={false}
           iconElementRight={
                 <div>

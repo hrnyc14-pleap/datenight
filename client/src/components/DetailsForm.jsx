@@ -23,20 +23,22 @@ class DetailsForm extends React.Component {
     }
   
     render() {return (
-      <div>
-        {
-          <div>
-            Price range:<input type="text" value={this.state.responseData.minPrice}
-                onChange={evt=>(this.handleSubmitElement('minPrice', evt.target.value))}/>
-              to <input type="text" value={this.state.responseData.maxPrice}
-                  onChange={evt=>(this.handleSubmitElement('maxPrice', evt.target.value))}/>
-              <br/>
-            Max distance: 
-              <input type="range" min="0" max="17000"  value={this.state.responseData.distance} onChange={(evt) => {this.handleSubmitElement('distance', evt.target.value)}} />
-              {this.state.responseData.distance} <br/>
-            <button onClick={this.handleSubmitForm}>Submit</button>
-          </div>
-        }
+      <div className="general-background">
+        <div className="general-container">
+          {
+            <div>
+              Price range:<input type="text" value={this.state.responseData.minPrice}
+                  onChange={evt=>(this.handleSubmitElement('minPrice', evt.target.value))}/>
+                to <input type="text" value={this.state.responseData.maxPrice}
+                    onChange={evt=>(this.handleSubmitElement('maxPrice', evt.target.value))}/>
+                <br/>
+              Max distance: 
+                <input type="range" min="0" max="17000"  value={this.state.responseData.distance} onChange={(evt) => {this.handleSubmitElement('distance', evt.target.value)}} />
+                {this.state.responseData.distance} <br/>
+              <button onClick={this.handleSubmitForm}>Submit</button>
+            </div>
+          }
+        </div>
       </div>
     )}
   }

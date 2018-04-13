@@ -130,7 +130,7 @@ class QuestionForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="general-background">
         {
           this.state.showingResults?
             <Results
@@ -151,7 +151,9 @@ class QuestionForm extends React.Component {
             )
 
         }
-        <button onClick={this.handleRestart}>Restart</button>
+        <div className="general-restartBtn">
+          <button onClick={this.handleRestart}>Restart</button>
+        </div>
       </div>
     )
   }

@@ -2,6 +2,9 @@ import React from 'react';
 import QuestionForm from './QuestionForm.jsx';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios'
+import RaisedButton from 'material-ui/RaisedButton';
+
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -48,12 +51,15 @@ class Login extends React.Component {
       return <Redirect to='/questions'/>
     }
     return (
-      <div>
-      <input value={this.username} onChange={this.onUserChange }/> Enter your Username
-      <br></br>
-      <input value={this.password} onChange={this.onPasswordChange} onKeyPress={this.handleKeyPress}  /> Enter your Password
-      <br></br>
-      <button onClick={this.submit}>Log in</button>
+      <div className="general-background">
+        <div className="login-container">
+          Enter your Username<input value={this.username} onChange={this.onUserChange }/>
+          <br></br>
+          Enter your Password<input value={this.password} onChange={this.onPasswordChange} onKeyPress={this.handleKeyPress}  /> 
+          <br></br>
+          <RaisedButton onClick={this.submit} label="Log In" />
+
+        </div>
       </div>
     )
   }

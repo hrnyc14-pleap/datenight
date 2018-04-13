@@ -19,14 +19,14 @@ exports.findUser = (username) => {
 
 //save move to movie table
 exports.saveMovie = (movieName, moviePhoto) => {
-  return connection.query('INSERT IGNORE INTO movie (movieName, moviePhoto) VALUES (?, ?)',
+  return connection.query('INSERT IGNORE INTO movie (title, poster_path) VALUES (?, ?)',
   {replacements: [movieName, moviePhoto], type: 'INSERT'})
 }
 
 //save user/movie relationship
 exports.saveUserMovie = (username, movieName) => {
   return connection.query(`INSERT INTO user_movie (user_id, movie_id) VALUES ((SELECT user_id FROM user WHERE username='${username}'),
-  (SELECT movie_id FROM movie WHERE movieName='${movieName}'))`)
+  (SELECT movie_id FROM movie WHERE title='${movieName}'))`)
 }
 
 //gets all saved movies
@@ -53,14 +53,19 @@ exports.retrieveSavedMovies = (username) => {
 
 //save restaurant to restaurant table
 exports.saveRestaurant = (restaurantName, restaurantPhoto, price) => {
-  return connection.query('INSERT IGNORE INTO restaurant (restaurantName, restaurantPhoto, price) VALUES (?, ? ,?)',
+  return connection.query('INSERT IGNORE INTO restaurant (name, image_url, price) VALUES (?, ? ,?)',
     {replacements: [restaurantName, restaurantPhoto, price], type: 'INSERT'});
 }
 
 //save restaurant/user relationship
 exports.saveUserRestaurant = (username, restaurantName) => {
+<<<<<<< HEAD
   return connection.query(`INSERT INTO user_restaurant (user_id, restaurant_id) VALUES ((SELECT user_id FROM user WHERE username='${username}'),
   (SELECT restaurant_id FROM restaurant WHERE restaurantName='${restaurantName}'))`)
+=======
+  return connection.query(`INSERT INTO user_restaurant (user_id, restaurant_id) VALUES ((SELECT user_id FROM user WHERE username='${username}'),
+  (SELECT restaurant_id FROM restaurant WHERE name='${restaurantName}'))`)
+>>>>>>> 5697878b9aa24e7600c9fd30291e180fe3d43244
 }
 
 //gets all saved restaurants
@@ -87,14 +92,19 @@ exports.retrieveSavedRestaurants = (username) => {
 
 //save activity to activity table
 exports.saveActivity = (activityName, activityPhoto) => {
-  return connection.query('INSERT IGNORE INTO activity (activityName, activityPhoto) VALUES (?, ?)',
+  return connection.query('INSERT IGNORE INTO activity (name, image_url) VALUES (?, ?)',
     {replacements: [activityName, activityPhoto], type: 'INSERT'})
 }
 
 //save activity/user relationship
 exports.saveUserActivity = (username, activityName) => {
+<<<<<<< HEAD
   return connection.query(`INSERT INTO user_activity (user_id, activity_id) VALUES ((SELECT user_id FROM user WHERE username='${username}'),
   (SELECT activity_id FROM activity WHERE activityName='${activityName}'))`)
+=======
+  return connection.query(`INSERT INTO user_activity (user_id, activity_id) VALUES ((SELECT user_id FROM user WHERE username='${username}'),
+  (SELECT activity_id FROM activity WHERE name='${activityName}'))`)
+>>>>>>> 5697878b9aa24e7600c9fd30291e180fe3d43244
 }
 
 //gets all saved activities
@@ -121,7 +131,7 @@ exports.retrieveSavedActivities = (username) => {
 }
 
 exports.deleteSavedMovie = (movieName) => {
-  return connection.query('SELECT movie_id FROM movie WHERE movieName = ?', {replacements: [movieName], type: 'SELECT'})
+  return connection.query('SELECT movie_id FROM movie WHERE title = ?', {replacements: [movieName], type: 'SELECT'})
   .then((movieId) => {
     return connection.query('DELETE FROM user_movie WHERE movie_id = ?', {replacements: [movieId[0].movie_id], type: 'DELETE'})
   })
@@ -131,7 +141,7 @@ exports.deleteSavedMovie = (movieName) => {
 }
 
 exports.deleteSavedRestaurant = (restaurantName) => {
-  return connection.query('SELECT restaurant_id FROM restaurant WHERE restaurantName = ?', {replacements: [restaurantName], type: 'SELECT'})
+  return connection.query('SELECT restaurant_id FROM restaurant WHERE name = ?', {replacements: [restaurantName], type: 'SELECT'})
   .then((restaurantId) => {
     return connection.query('DELETE FROM user_restaurant WHERE restaurant_id = ?', {replacements: [restaurantId[0].restaurant_id], type: 'DELETE'})
   })
@@ -141,7 +151,7 @@ exports.deleteSavedRestaurant = (restaurantName) => {
 }
 
 exports.deleteSavedActivity = (activityName) => {
-  return connection.query('SELECT activity_id FROM activity WHERE activityName = ?', {replacements: [activityName], type: 'SELECT'})
+  return connection.query('SELECT activity_id FROM activity WHERE name = ?', {replacements: [activityName], type: 'SELECT'})
   .then((activityId) => {
     console.log(activityId);
     return connection.query('DELETE FROM user_activity WHERE activity_id = ?', {replacements: [activityId[0].activity_id], type: 'DELETE'})
