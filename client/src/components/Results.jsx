@@ -9,7 +9,7 @@ import RestaurantView from './RestaurantView.jsx';
 const Results = ({movie, restaurant, activity,
     handleSaveMovie, handleSaveActivity, handleSaveRestaurant,
     handleDeleteMovie, handleDeleteActivity, handleDeleteRestaurant}) => (<div>
-  <div>
+  <div className="general-background">
         <h1>Your Results:</h1>
         <p> Your date night will be this .... placeholder </p>
 
