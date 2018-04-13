@@ -1,4 +1,6 @@
 import React from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
+
 
 class DetailsForm extends React.Component {
     constructor(props) {
@@ -24,10 +26,11 @@ class DetailsForm extends React.Component {
     }
   
     render() {return (
-      <div className="general-background">
-        <div className="general-container">
+      <div className="details-background">
+      <br/><br/><br/><br/><br/><br/><br/><br/>
+
           {
-            <div>
+            <div className="details-container">
               Price range:<input type="text" value={this.state.responseData.minPrice}
                   onChange={evt=>(this.handleSubmitElement('minPrice', evt.target.value))}/>
                 to <input type="text" value={this.state.responseData.maxPrice}
@@ -37,10 +40,11 @@ class DetailsForm extends React.Component {
                 <input type="range" min="0" max="17000"  value={this.state.responseData.distance} onChange={(evt) => {this.handleSubmitElement('distance', evt.target.value)}} />
                 {this.state.responseData.distance} <br/>
               Zip code: <input type="text" value={this.state.responseData.zipCode} onChange={(evt)=>{this.handleSubmitElement('zipCode', evt.target.value)}}/>
-              <button onClick={this.handleSubmitForm}>Submit</button>
+              <br/><br/>
+              <RaisedButton onClick={this.handleSubmitForm} label="Submit" />
+
             </div>
           }
-        </div>
       </div>
     )}
   }

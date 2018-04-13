@@ -132,7 +132,7 @@ class QuestionForm extends React.Component {
 
   render() {
     return (
-      <div className="general-background">
+      <div>
         {
           this.state.showingResults?
             <Results

@@ -8,7 +8,7 @@ const FourChoiceQuestion = ({choices, handleSubmit}) => {
             choices.map((choice, i) => {
               return(
                 <div key={i} className={`general-container__genreEach ${choice}`}>
-                  <div onClick={handleSubmit.bind(null, choice)}>{choice}</div>
+                  <div className="genreName" onClick={handleSubmit.bind(null, choice)}>{choice}</div>
                 </div>
               )
           })}  
