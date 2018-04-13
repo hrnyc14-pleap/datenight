@@ -8,24 +8,24 @@ import Results from './Results.jsx';
 var Questions = {
   homeOrCity: {
     choices: {
-      'In my home': 'cookOrDelivery',
+      'In my home': 'movieGenre',
       'In my city': 'activityLevel'
     },
     type: 'twoChoice'
   },
   cookOrDelivery: {
     choices: {
-      'Cook': 'movieGenre',
-      'Get delivery': 'movieGenre'
+      'Cook': null,
+      'Get delivery': 'details'
     },
     type: 'twoChoice'
   },
   movieGenre: {
     choices: {
-      'Action': null,
-      'Comedy': null,
-      'Romance': null,
-      'Horror': null,
+      'Action': 'cookOrDelivery',
+      'Comedy': 'cookOrDelivery',
+      'Romance': 'cookOrDelivery',
+      'Horror': 'cookOrDelivery',
     },
     type: 'fourChoice'
   },
@@ -41,6 +41,7 @@ var Questions = {
     next: null
   }
 }
+
 
 class QuestionForm extends React.Component {
   constructor(props) {
