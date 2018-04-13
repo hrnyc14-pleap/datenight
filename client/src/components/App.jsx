@@ -25,7 +25,10 @@ class App extends React.Component {
     this.handleDeleteMovie = this.handleDeleteMovie.bind(this);
     this.handleDeleteRestaurant = this.handleDeleteRestaurant.bind(this);
     this.handleDeleteActivity = this.handleDeleteActivity.bind(this);
-    this.handleRegister = this.handleRegister.bind(this);
+    this.handleRegister = this.handleRegister.bind(this); 
+  }
+
+  componentDidMount() {
     console.log('checking if user is logged in')
     axios.get('/isloggedin')
     .then(res => {
@@ -130,7 +133,7 @@ class App extends React.Component {
     })
   }
 
-  handleDeleteMovie(movieName){
+  handleDeleteMovie(movieName, cb){
     axios.delete('/deleteMovie', {
       params: {
         movie: movieName
@@ -138,13 +141,14 @@ class App extends React.Component {
     })
     .then((res) => {
       console.log('Movie has been deleted')
+      cb();
     })
     .catch((err) => {
       console.log('Failed to delete movie', err)
     })
   }
 
-  handleDeleteRestaurant(restaurantName){
+  handleDeleteRestaurant(restaurantName, cb){
     axios.delete('/deleteRestaurant', {
       params: {
         restaurant: restaurantName
@@ -152,20 +156,22 @@ class App extends React.Component {
     })
     .then((res) => {
       console.log('Restaurant has been deleted')
+      cb();
     })
     .catch((err) => {
       console.log('Failed to delete restaurant', err)
     })
   }
 
-  handleDeleteActivity(activityName){
+  handleDeleteActivity(activityName, cb){
     axios.delete('/deleteActivity', {
       params: {
         activity: activityName
       }   
     })
     .then((res) => {
-      console.log('Activity has been deleted')
+      console.log('Activity has been deleted');
+      cb();
     })
     .catch((err) => {
       console.log('Failed to delete activiy', err)

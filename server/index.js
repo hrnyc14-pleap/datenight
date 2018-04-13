@@ -251,6 +251,7 @@ app.get('/getFavorites', restrict, (req, res) => {
 app.delete('/deleteMovie', restrict, function(req, res){
   db.deleteSavedMovie(req.query.movie)
   .then(() => {
+    console.log('deleted successfully')
     res.status(200).send('Deleted successfully');
   })
   .catch((err)=> {
@@ -260,8 +261,10 @@ app.delete('/deleteMovie', restrict, function(req, res){
 })
 
 app.delete('/deleteRestaurant', restrict, function(req, res){
+  console.log('deleting restaurant')
   db.deleteSavedRestaurant(req.query.restaurant)
   .then(() => {
+    console.log('deleted restaurant');
     res.status(200).send('Deleted successfully');
   })
   .catch((err)=> {
@@ -273,6 +276,7 @@ app.delete('/deleteRestaurant', restrict, function(req, res){
 app.delete('/deleteActivity', restrict, function(req, res){
   db.deleteSavedActivity(req.query.activity)
   .then(() => {
+    console.log('deleted activity');
     res.status(200).send('Deleted successfully');
   })
   .catch((err)=> {
