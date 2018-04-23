@@ -178,40 +178,47 @@ class App extends React.Component {
   render() {
     return (
       <div>
-      <Router>
-        <div>
+        <Router>
+          <div>
 
-          <Route exact={true} path='/' component={()=><NavBar path='/' isLoggedIn={this.state.isLoggedIn}
-            handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>}/>
-        {['/signup', '/login', '/welcome', '/questions', '/favorites'].map(path =>
-          <Route path={path} component={()=><NavBar path={path} handleLogout={this.handleLogout}
-            isLoggedIn={this.state.isLoggedIn}
-          />}/>
-        )}
-        <Route exact={true} path='/' component={(props)=><Redirect {...props} to='/signup'/>}/>
-        <Route path='/signup' component={(props) => <SignUp {...props} isLoggedIn={this.state.isLoggedIn} handleRegister={this.handleRegister}/>}/>
-        <Route path='/login' component={(props) => <Login {...props} handleLogin={this.handleLogin} isLoggedIn={this.state.isLoggedIn}/>}/>
-        <Route path='/welcome' component={Welcome}/>
-        <Route path='/questions' component={(props) => <QuestionForm
-          handleSaveMovie={this.handleSaveMovie}
-          handleSaveActivity={this.handleSaveActivity}
-          handleSaveRestaurant={this.handleSaveRestaurant}
-          handleDeleteActivity={this.handleDeleteActivity}
-          handleDeleteMovie={this.handleDeleteMovie}
-          handleDeleteRestaurant={this.handleDeleteRestaurant}/>}
-        />
-        <Route path='/results' component={Results}/>
-        <Route path='/favorites' component={() => <Favorites
-            {...this.props}
-            isLoggedIn={this.state.isLoggedIn}
-            handleDeleteMovie={this.handleDeleteMovie}
-            handleDeleteRestaurant = {this.handleDeleteRestaurant}
-            handleDeleteActivity = {this.handleDeleteActivity}
-          />
-          }
-        />
-        </div>
-      </Router>
+            <Route exact={true} path='/' component={()=>
+              <NavBar path='/' isLoggedIn={this.state.isLoggedIn} handleLogout={()=>console.log('IMPLEMENT LOGOUT')}/>
+            }/>
+
+            {['/signup', '/login', '/welcome', '/questions', '/favorites'].map(path =>
+              <Route path={path} component={()=>
+                <NavBar path={path} handleLogout={this.handleLogout} isLoggedIn={this.state.isLoggedIn}/>
+              }/>
+            )}
+
+            <Route exact={true} path='/' component={(props)=> <Redirect {...props} to='/signup'/> }/>
+            <Route path='/signup' component={(props) => <SignUp {...props} isLoggedIn={this.state.isLoggedIn} handleRegister={this.handleRegister}/> }/>
+            <Route path='/login' component={(props) => <Login {...props} handleLogin={this.handleLogin} isLoggedIn={this.state.isLoggedIn}/> }/>
+            <Route path='/welcome' component={Welcome}/>
+            <Route path='/questions' component={(props) => 
+              <QuestionForm
+                handleSaveMovie={this.handleSaveMovie}
+                handleSaveActivity={this.handleSaveActivity}
+                handleSaveRestaurant={this.handleSaveRestaurant}
+                handleDeleteActivity={this.handleDeleteActivity}
+                handleDeleteMovie={this.handleDeleteMovie}
+                handleDeleteRestaurant={this.handleDeleteRestaurant}
+              />
+            }/>
+
+            <Route path='/results' component={Results}/>
+            <Route path='/favorites' component={() => 
+              <Favorites
+                {...this.props}
+                isLoggedIn={this.state.isLoggedIn}
+                handleDeleteMovie={this.handleDeleteMovie}
+                handleDeleteRestaurant = {this.handleDeleteRestaurant}
+                handleDeleteActivity = {this.handleDeleteActivity}
+              />
+            }/>
+
+          </div>
+        </Router>
       </div>
     )
   }
