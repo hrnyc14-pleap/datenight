@@ -47,6 +47,7 @@ class Login extends React.Component {
   }
 
   render() {
+    //renders a component based off the isLoggedIn T/F
     if (this.props.isLoggedIn) {
       return <Redirect to='/questions'/>
     }
@@ -57,7 +58,7 @@ class Login extends React.Component {
             <h2> Log In </h2>
             <input value={this.username} onChange={this.onUserChange } placeholder={'Username'}/>
             <br/>
-            <input value={this.password} onChange={this.onPasswordChange} onKeyPress={this.handleKeyPress} placeholder={'Password'} /> 
+            <input value={this.password} onChange={this.onPasswordChange} onKeyPress={this.handleKeyPress} placeholder={'Password'} />
             <br/>
             <br/>
             <RaisedButton onClick={this.submit} label="Submit" />
@@ -67,7 +68,5 @@ class Login extends React.Component {
     )
   }
 }
-// <Link to='/Where'>Log In</Link>
-
 
 export default Login;

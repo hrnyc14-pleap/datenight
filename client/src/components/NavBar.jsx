@@ -4,6 +4,10 @@ import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 
 
+//iconElementRight will dynamically change based off the endpoint it's currently on
+//it checks the path it's currently on and verifies the state of logged in
+  //it essentially is a chain of if/else statements within react-router
+  //renders buttons on the nav bar based off the results of these statements 
 const NavBar = ({path, handleLogout, isLoggedIn}) => (
     <div>
         <AppBar

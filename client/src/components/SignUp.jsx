@@ -34,6 +34,7 @@ class SignUp extends React.Component {
   }
 
   render() {
+    //renders a component based off the isLoggedIn T/F
     if (this.props.isLoggedIn) {
       return <Redirect to='/questions'/>
     }
