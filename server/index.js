@@ -20,6 +20,7 @@ var session = require('express-session')({
 })
 app.use(session)
 
+//restricts access to certain endpoints for users who are not signed up
 var restrict = (req, res, next) => {
   console.log('restricting request');
   console.log('session: ', req.session);
@@ -32,6 +33,7 @@ var restrict = (req, res, next) => {
   }
 }
 
+//on componentDidMount runs a get request to this endpoint to check if a user has a session
 app.get('/isloggedin', (req, res) => {
   res.send(!!req.session && !!req.session.user);
 })
@@ -42,6 +44,7 @@ app.post('/signup', (req, res) => {
   let email = req.body.email;
   console.log('signup request', username, password, email);
   // check that username and password are valid
+  //fields need to be populated
   if (username === null || password === null || email === null) {
     console.log('user fields invalid');
     res.status(400).send('user fields invalid');
@@ -62,6 +65,7 @@ app.post('/signup', (req, res) => {
       return bcrypt.hash(password, salt);
     })
     .then(hash => {
+      //after chaining promises for creating a salt and password creates a new user
       return db.createUser(username, hash, salt, email);
     })
     .then(dbres => {
@@ -96,6 +100,7 @@ app.post('/login', (req, res) => {
       return bcrypt.hash(password, dbRes[0].salt);
     })
     .then((hashResult) => {
+      //checks the entered password and compares to stored password in the database
       if (hashedPassword !== hashResult) {
         throw('wrong password')
       }
@@ -112,6 +117,7 @@ app.post('/login', (req, res) => {
     })
 })
 
+//by destroying the sessions, it will automatically redirect to page where user's not signed in have access to
 app.post('/logout', (req, res) => {
   if (req.session === undefined || req.session.user === undefined) {
     console.log('ERROR: got logout request missing session');
@@ -122,6 +128,7 @@ app.post('/logout', (req, res) => {
   req.session.destroy();
   res.send('Successfully logged out');
 })
+
 
 app.post('/date', (req, res) => {
   let cook = req.body.cook;
@@ -140,7 +147,7 @@ app.post('/date', (req, res) => {
       price.push(i)
     }
     return price.join(',');
-  }  
+  }
 
   let price = convertPrice(minPrice, maxPrice)
 
@@ -182,6 +189,8 @@ app.post('/date', (req, res) => {
     }
   } else {
     helpers.searchMovies(genreId, function(data){
+      //hardcoded 3 examples of recipes for the user based off decision tree
+      //mirrors the restaurant route
       let output = {
         movies: data,
         restaurants: JSON.stringify([
@@ -207,7 +216,8 @@ app.post('/date', (req, res) => {
   }
 })
 
-//save movies into db
+//this portion utilizes the restrict middleware function implemented earlier
+//save movies into database
 app.post('/saveMovie', restrict, function(req, res) {
   console.log('req.session.user ', req.session.user)
   console.log('saving movie', req.body.movieName, req.body.moviePhoto)
@@ -224,6 +234,7 @@ app.post('/saveMovie', restrict, function(req, res) {
   })
 })
 
+//saves activity into database
 app.post('/saveActivity', restrict, function(req, res) {
   db.saveActivity(req.body.activityName, req.body.activityPhoto)
   .then(() => {
@@ -238,6 +249,7 @@ app.post('/saveActivity', restrict, function(req, res) {
   })
 })
 
+//saves restaurant into database
 app.post('/saveRestaurant', restrict, function(req, res) {
   db.saveRestaurant(req.body.restaurantName, req.body.restaurantPhoto, req.body.price)
   .then(() => {
@@ -252,6 +264,7 @@ app.post('/saveRestaurant', restrict, function(req, res) {
   })
 })
 
+//hits all the tables within our database to retrieve saved items
 app.get('/getFavorites', restrict, (req, res) => {
   db.retrieveSavedActivities(req.session.user)
   .then((data1) => {
@@ -273,6 +286,7 @@ app.get('/getFavorites', restrict, (req, res) => {
   })
 })
 
+//removes a movie from database
 app.delete('/deleteMovie', restrict, function(req, res){
   db.deleteSavedMovie(req.query.movie)
   .then(() => {
@@ -285,6 +299,7 @@ app.delete('/deleteMovie', restrict, function(req, res){
   })
 })
 
+//removes a restaurant from database
 app.delete('/deleteRestaurant', restrict, function(req, res){
   console.log('deleting restaurant')
   db.deleteSavedRestaurant(req.query.restaurant)
@@ -298,6 +313,7 @@ app.delete('/deleteRestaurant', restrict, function(req, res){
   })
 })
 
+//removes activity from database
 app.delete('/deleteActivity', restrict, function(req, res){
   db.deleteSavedActivity(req.query.activity)
   .then(() => {
@@ -312,6 +328,7 @@ app.delete('/deleteActivity', restrict, function(req, res){
 
 let port = 8080;
 
+//redirects from any invalid endpoints back to homepage
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname + '/../client/dist/index.html'));
 })
