@@ -2,12 +2,16 @@ import React from 'react';
 
 const FourChoiceQuestion = ({choices, handleSubmit}) => {
     return (
-      <div className="general-background">
-        <div className="general-container">
+      <div className="general-container">
+        <div className="general-container__choices">
           {
-            choices.map(choice => (
-            <button onClick={handleSubmit.bind(null, choice)}>{choice}</button>
-          ))}  
+            choices.map((choice, i) => {
+              return(
+                <div key={i} className={`general-container__genreEach ${choice}`}>
+                  <div className="genreName" onClick={handleSubmit.bind(null, choice)}>{choice}</div>
+                </div>
+              )
+          })}  
         </div>
       </div>
     )

@@ -48,35 +48,147 @@ body {
   font-weight: 200;
 }
 
-.general-background{
-  /* position: fixed;
+
+
+.details-background{
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 600px;
   z-index: -1;
-  background-image: url("https://images.pexels.com/photos/843227/pexels-photo-843227.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  background-image: url("https://images.pexels.com/photos/390403/pexels-photo-390403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
   background-size: 100%;
-  filter: grayscale(100%);
-  -webkit-filter: grayscale(100%);
-} */
-
-.general-container{
-  margin-top: 15%;
-  margin-left: 200px;
-  color: #fff;
+  background-repeat: no-repeat;
 }
 
-.login-container{
-  margin-top: 15%;
-  margin-left: 200px;
+.details-container{
   color: #fff;
+  padding-top: 50px;
+  padding-right: 80px;
+  padding-left: 80px;
+  padding-bottom: 50px;
+  text-shadow: 2px 1px rgba(0,0,0,0.3);
+  background-color: rgba(0,0,0,0.3);
+  margin-right: 380px;
+}
+
+/* .general-container{ */
+  /* margin-top: 25%; */
+  /* margin-left: 200px; */
+  /* color: #fff; */
+/* } */
+
+.general-container__choices{
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.general-container__choiceEach{
+  height: 65vh;
+  min-width: 80vh;
+  /* flex: 1; */
+  align-items: center;
+  justify-content: center;
+  padding: 10vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.general-container__genreEach{
+  height: 65vh;
+  min-width: 30vh;
+  /* flex: 1; */
+  align-items: center;
+  justify-content: center;
+  padding: 8vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-size: 3.5em;
+  text-shadow: 2px 2px rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+
+.genreName{
+  padding-left: 30px;
+}
+
+.Action{
+  background-image: url('https://images.pexels.com/photos/532563/pexels-photo-532563.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
+}
+
+.Comedy{
+  background-image: url('https://images.pexels.com/photos/310452/pexels-photo-310452.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
+}
+
+.Romance{
+  background-image: url('https://images.pexels.com/photos/891683/pexels-photo-891683.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
+}
+
+.Horror{
+  background-image: url('https://images.pexels.com/photos/691467/art-smoke-light-lights-691467.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
+}
+
+.Inmyhome{
+  background-image: url('https://images.pexels.com/photos/834657/pexels-photo-834657.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+}
+
+.Inmycity{
+  background-image: url('https://images.pexels.com/photos/1003972/pexels-photo-1003972.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+}
+
+.Cook{
+  background-image: url('https://images.pexels.com/photos/6256/water-kitchen-black-design.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+}
+
+.Getdelivery{
+  background-image: url('https://images.pexels.com/photos/5938/food-salad-healthy-lunch.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+}
+
+.Mellow{
+  background-image: url('https://images.pexels.com/photos/219002/pexels-photo-219002.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
+}
+
+.Active{
+  background-image: url('https://images.pexels.com/photos/572487/pexels-photo-572487.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
+}
+
+.general-container__word{
+  margin-top: 200px;
+  margin-left: 30%;
+  color: #fff;
+  font-size: 3.5em;
+  text-shadow: 2px 2px rgba(0,0,0,0.3);
+  cursor: pointer;
+
+}
+
+
+.login-container{
+  margin-top: 12%;
+  color: #fff;
+  width: 300px;
+  font-size: 2em;
 }
 
 
 .general-restartBtn{
-  margin-top: 300px;
-  margin-left: 200px;
+  width: 100%;
+  position: absolute;
+  float: center;
+  text-align: center;
+  font-size: 2em;
+  cursor: pointer;
 }
 
+.view{
+  margin-left: 20px;
+}
+
+.save{
+  margin-left: 20px;
+}
 

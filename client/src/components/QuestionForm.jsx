@@ -83,12 +83,10 @@ class QuestionForm extends React.Component {
     var data = {
       cook: responses['cookOrDelivery'] === 'Cook',
       activityLevel: (responses['activityLevel'] || '').toLowerCase(),
-      movieGenre: genreIds[responses['movieGenre']],
-      //lat: req.body.latitude,
-      //long: req.body.longitude,
+      movieGenre: genreIds[responses['movieGenre']]
     }
     if (responses.details) {
-      data.radius = responses.details.distance,
+      data.radius = Math.floor(responses.details.distance * 1609.34),
       data.minPrice = responses.details.minPrice.length,
       data.maxPrice = responses.details.maxPrice.length,
       data.zipCode = responses.details.zipCode
@@ -132,7 +130,7 @@ class QuestionForm extends React.Component {
 
   render() {
     return (
-      <div className="general-background">
+      <div>
         {
           this.state.showingResults?
             <Results
@@ -153,8 +151,8 @@ class QuestionForm extends React.Component {
             )
 
         }
-        <div className="general-restartBtn">
-          <button onClick={this.handleRestart}>Restart</button>
+        <div>
+          <div className="general-restartBtn" onClick={this.handleRestart}>Click to Restart</div>
         </div>
       </div>
     )

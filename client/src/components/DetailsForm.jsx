@@ -1,4 +1,6 @@
 import React from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
+
 
 class DetailsForm extends React.Component {
     constructor(props) {
@@ -6,7 +8,7 @@ class DetailsForm extends React.Component {
       this.state = {
         questions: props.questions,
         responseData: {
-          distance: 10000,
+          distance: 10,
           minPrice: '$',
           maxPrice: '$$$$',
           zipCode: '10017'
@@ -24,23 +26,25 @@ class DetailsForm extends React.Component {
     }
   
     render() {return (
-      <div className="general-background">
-        <div className="general-container">
+      <div className="details-background">
+      <br/><br/><br/><br/><br/><br/><br/><br/>
+
           {
-            <div>
+            <div className="details-container">
               Price range:<input type="text" value={this.state.responseData.minPrice}
                   onChange={evt=>(this.handleSubmitElement('minPrice', evt.target.value))}/>
                 to <input type="text" value={this.state.responseData.maxPrice}
                     onChange={evt=>(this.handleSubmitElement('maxPrice', evt.target.value))}/>
                 <br/>
-              Max distance: 
-                <input type="range" min="0" max="17000"  value={this.state.responseData.distance} onChange={(evt) => {this.handleSubmitElement('distance', evt.target.value)}} />
+              Max distance (miles): 
+                <input type="range" min="0" max="20"  value={this.state.responseData.distance} onChange={(evt) => {this.handleSubmitElement('distance', evt.target.value)}} />
                 {this.state.responseData.distance} <br/>
               Zip code: <input type="text" value={this.state.responseData.zipCode} onChange={(evt)=>{this.handleSubmitElement('zipCode', evt.target.value)}}/>
-              <button onClick={this.handleSubmitForm}>Submit</button>
+              <br/><br/>
+              <RaisedButton onClick={this.handleSubmitForm} label="Submit" />
+
             </div>
           }
-        </div>
       </div>
     )}
   }
