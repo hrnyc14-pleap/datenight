@@ -58,7 +58,7 @@ class Login extends React.Component {
             <input value={this.username} onChange={this.onUserChange } placeholder={'Username'}/>
             <br/>
             <br/>
-            <input value={this.password} onChange={this.onPasswordChange} onKeyPress={this.handleKeyPress} placeholder={'Password'} /> 
+            <input value={this.password} onChange={this.onPasswordChange} onKeyPress={this.handleKeyPress} placeholder={'Password'} />
             <br/>
             <br/>
             <RaisedButton onClick={this.submit} label="Submit" />
