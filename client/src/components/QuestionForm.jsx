@@ -5,6 +5,15 @@ import DetailsForm from './DetailsForm.jsx';
 import axios from 'axios';
 import Results from './Results.jsx';
 
+
+// Data structure that holds the question form.
+// Each choice leads to the next question.
+// FOr example, Questions['homeOrCity']['In my home'] = movieGenre means if the user selects
+// "In my home" they will be taken to the question movieGenre. A null indicates a question
+// is the last in its sequence and should lead to the results page. The type property of a question
+// determines which react component the question will be rendered as.
+
+// Please note that the properties of the questions object must match the params required by its type. 
 var Questions = {
   homeOrCity: {
     choices: {
@@ -49,7 +58,7 @@ class QuestionForm extends React.Component {
     this.state = {
       showingResults: false,
       questions: Questions,
-      currentQuestion: 'homeOrCity',
+      currentQuestion: 'homeOrCity', // the entry point to the questions form
       responseData: {},
       restaurantResults: null,
       movieResults: null,
@@ -60,6 +69,7 @@ class QuestionForm extends React.Component {
     this.handleRestart = this.handleRestart.bind(this);
   }
 
+  // Restarts the question form, resetting its state to the initial values
   handleRestart() {
     this.setState({
       currentQuestion: 'homeOrCity',
@@ -72,6 +82,9 @@ class QuestionForm extends React.Component {
   }
 
   handleSubmitForm() {
+    // All this code is needed to transform the data from the format it was collected in
+    // into the format that the server is expecting. If you change anything here, make
+    // sure to change the server /date endpoint interface to be compatible
     console.log('SUBMITTING FORM', this.state.responseData);
     var responses = this.state.responseData;
     var genreIds = {
@@ -110,9 +123,11 @@ class QuestionForm extends React.Component {
 
   }
 
-  // saves the response to the current element and shows the next question or submits the form
+  // saves the response to the current element and shows the next question or submits the form if the next question is null
   handleSubmitElement(response) {
+    // save the question in the response data
     this.state.responseData[this.state.currentQuestion] = response;
+    // figure out what the next question is
     let nextQuestion;
     let currentQuestionData = this.state.questions[this.state.currentQuestion];
     if (currentQuestionData.type === 'details') {
@@ -121,16 +136,18 @@ class QuestionForm extends React.Component {
       nextQuestion = currentQuestionData.choices[response];
       console.log('next question', nextQuestion);
     }
+    // submit if the next question is null
     if (nextQuestion === null) {
       this.handleSubmitForm(this.responseData);
       return;
     }
+    // otherwise show the next question
     this.setState({currentQuestion: nextQuestion});
   }
 
   render() {
     return (
-      <div className="general-background">
+      <div>
         {
           this.state.showingResults?
             <Results

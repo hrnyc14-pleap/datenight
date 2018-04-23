@@ -44,11 +44,11 @@ class SignUp extends React.Component {
           <div className="home-container-signUp">
             <h2>Sign Up Here</h2>
             <div>
-            Username<input ref={username => this.username = username}></input>
+            Username  <input ref={username => this.username = username}></input>
             <br/>
-            Password<input ref={password => this.password = password}></input>
+            Password  <input ref={password => this.password = password}></input>
             <br/>
-            Email <input ref={email => this.email = email}></input>
+            Email  <input ref={email => this.email = email}></input>
             <br/>
             <br/>
             <RaisedButton label="Sign Up!" onClick={this.handleClick}/>
