@@ -19,7 +19,7 @@ class Favorites extends React.Component {
     this.getFavorites();
   }
 
-
+  //shows the favorite movies, activities, and restaurants that the user saved
   getFavorites() {
     console.log('GETTING FAVORITES');
     axios.get('/getFavorites')
