@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const ActivityView = ({data}) => (
     <div>
         <h3> {data.name} </h3>
