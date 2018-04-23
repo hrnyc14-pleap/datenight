@@ -47,6 +47,7 @@ class Login extends React.Component {
   }
 
   render() {
+    //renders a component based off the isLoggedIn T/F
     if (this.props.isLoggedIn) {
       return <Redirect to='/questions'/>
     }
@@ -67,7 +68,5 @@ class Login extends React.Component {
     )
   }
 }
-// <Link to='/Where'>Log In</Link>
-
 
 export default Login;
